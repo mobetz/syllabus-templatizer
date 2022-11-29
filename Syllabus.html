@@ -7,12 +7,12 @@
 
     <section id="course-details">
         <dl>
-            <dt>Meeting Time</dt> <dd id="meeting-time"></dd>
-            <dt id="lab-label">Lab Time</dt>  <dd id="lab-time"></dd>
+            <dt>Meeting Time</dt> <dd id="meeting-time"><slot name="meeting-time"></slot></dd>
+            <dt id="lab-label">Lab Time</dt>  <dd id="lab-time"><slot name="lab-time"></slot></dd>
             <dt>Professor</dt> <dd id="professor"></dd>
             <dt>Email</dt>  <dd id="email"></dd>
             <dt>Office Hours Room Link</dt>  <dd id="office-room"></dd>
-            <dt>Office Hours</dt><dd id="office-hours"></dd>
+            <dt>Office Hours</dt><dd id="office-hours"><slot name="office-time"></slot></dd>
         </dl>
 
     </section>
