@@ -11,24 +11,27 @@ class Assignment extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['example'];
+        return ['title', 'duein'];
     }
 
-    get example() {
-        return this.getAttribute('example');
+    get title() {
+        return this.getAttribute('title');
     }
 
-    set example(value) {
-        this.setAttribute('example', value)
+    set title(value) {
+        this.setAttribute('title', value)
+    }
+
+    get dueIn() {
+        return this.getAttribute('duein');
+    }
+
+    set dueIn(value) {
+        this.setAttribute('duein', value)
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
 
-        switch (name) {
-            case 'example':
-                this.shadowRoot.querySelector('#example').innerText = newValue;
-                break;
-        }
 
     }
 

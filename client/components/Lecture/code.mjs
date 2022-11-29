@@ -11,24 +11,26 @@ class Lecture extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['example'];
+        return ['topic', 'unit'];
     }
 
-    get example() {
-        return this.getAttribute('example');
+    get topic() {
+        return this.getAttribute('topic');
     }
 
-    set example(value) {
-        this.setAttribute('example', value)
+    set topic(value) {
+        this.setAttribute('topic', value)
+    }
+
+    get unit() {
+        return this.getAttribute('unit');
+    }
+
+    set unit(value) {
+        this.setAttribute('unit', value)
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
-
-        switch (name) {
-            case 'example':
-                this.shadowRoot.querySelector('#example').innerText = newValue;
-                break;
-        }
 
     }
 
