@@ -1,0 +1,11 @@
+
+
+p,li {
+    font-size: 11pt;
+}
+
+h3 {
+    color: var(--title-accent);
+    font-size: 13pt;
+    margin-bottom: .75em;
+}

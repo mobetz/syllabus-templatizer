@@ -1,0 +1,38 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+:root {
+    font-family: 'Open Sans', sans-serif;
+    --accent-hue: 220;
+    --title-accent: hsl(var(--accent-hue), 100%, 40%);
+}
+
+template-syllabus {
+    margin: auto;
+    max-width: 800px;
+    /*
+    margin-left: max(calc(50% - 400px), 200px);
+    margin-right: auto;
+     */
+}
+
+template-syllabus section {
+    margin-top: 2em;
+}
+
+template-syllabus p {
+    font-size: 11pt;
+}
+template-syllabus h3 {
+    color: var(--title-accent);
+    font-size: 13pt;
+    margin-bottom: .75em;
+}

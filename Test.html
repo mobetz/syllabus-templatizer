@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script await type="module" src="client/components/Syllabus/code.mjs"></script>
-    <script await type="module" src="client/components/Timeslot/code.mjs"></script>
+    <script  type="module" src="client/components/Syllabus/code.mjs"></script>
+    <script  type="module" src="client/components/Timeslot/code.mjs"></script>
+    <script  type="module" src="client/components/ContactPolicy/code.mjs"></script>
+    <script  type="module" src="client/components/OfficeHoursPolicy/code.mjs"></script>
+    <script  type="module" src="client/components/LearningIdea/code.mjs"></script>
+    <script  type="module" src="client/components/LearningOutcomes/code.mjs"></script>
 
-    <style>
-        template-syllabus {
-            margin: auto;
-            width: 800px;
-        }
-    </style>
+    <link rel="stylesheet" href="main-styles.css">
 </head>
 <body>
 
@@ -26,6 +25,47 @@
     <syllabus-timeslot slot="office-time" days="MW" startHour="10" endHour="10" endMin="50"></syllabus-timeslot>
     <br slot="office-time">
     <syllabus-timeslot slot="office-time" days="TR" startHour="10" endHour="10" endMin="50"></syllabus-timeslot>
+
+
+    <section id="description">
+        <h3>Course Description</h3>
+        <p>This foundational course for computer science majors introduces the fundamental concepts of programming from
+            an object-centric perspective using Java. Includes a brief introduction to computing (historical development,
+            computing systems, algorithms, and the nature of programming languages) and the object-oriented paradigm
+            for software development. Topics include: objects, classes, methods, simple data types, control structures,
+            and the use of indexed-list data structures such as arrays or strings. Includes discussion of the ethics and
+            responsibility of computer professionals with respect to information rights.
+            Lecture: 3 hours per week. Lab: 2 hours per week. </p>
+        <p style="font-weight: bold">Prerequisites: MassBay placement into a 100-level Math (not MAC) and CS 110 Introduction to Computer Science, or instructor's permission.</p>
+    </section>
+
+    <section id="texts">
+        <h3>Required Texts</h3>
+        <p>In lieu of a traditional textbook, this course will make use of Open Educational Resources (OERs). During the
+            first week of class, we will make accounts and register for the learning platforms we will be using.</p>
+    </section>
+
+    <section id="contact">
+        <syllabus-contact example="CS120: Unable to Open Lab 4"></syllabus-contact>
+    </section>
+
+    <section id="officehours">
+        <syllabus-officehours></syllabus-officehours>
+    </section>
+
+    <section id="outcomes">
+        <syllabus-outcomes>
+            <syllabus-idea theme="Computational Fluency">
+                <li>Understand how variables store data.</li>
+                <li>Identify different representations of the same data and their impact on computation.</li>
+                <li></li>
+            </syllabus-idea>
+            <syllabus-idea theme="Java Literacy">
+                <li>Identify the primitive data types available in Java (integer, boolean, double, char, long.)</li>
+            </syllabus-idea>
+            <syllabus-idea theme="Project Skills"></syllabus-idea>
+        </syllabus-outcomes>
+    </section>
 
 
 
