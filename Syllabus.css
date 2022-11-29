@@ -1,0 +1,19 @@
+* {
+    font-family: sans-serif;
+}
+h2 {
+    color: hsl(220, 100%, 40%);
+    font-size: 16pt;
+}
+
+#course-details dl {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-row-gap: 10px;
+}
+#course-details dt {
+    text-align: right;
+    font-weight:bold;
+}
+#course-details dd {
+}
