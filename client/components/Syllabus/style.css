@@ -1,6 +1,11 @@
 * {
     font-family: sans-serif;
 }
+
+:host {
+    display: block;
+}
+
 h2 {
     color: hsl(220, 100%, 40%);
     font-size: 16pt;

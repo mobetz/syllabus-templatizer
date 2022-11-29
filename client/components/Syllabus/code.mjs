@@ -1,14 +1,12 @@
+import {initializeContentLocation, buildComponent} from "../setup-component.js";
 
-let HTML = await fetch("./Syllabus.html");
-let Response = await HTML.text();
-let template_container = document.createElement("template");
-template_container.innerHTML = Response;
+let content = await initializeContentLocation(import.meta.url);
 
 class Syllabus extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({mode: 'open'});
-        this.shadowRoot.appendChild(template_container.content.cloneNode(true));
+        buildComponent(content, this.shadowRoot);
     }
 
     static get observedAttributes() {

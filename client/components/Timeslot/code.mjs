@@ -1,14 +1,13 @@
 
-let HTML = await fetch("./Timeslot.html");
-let Response = await HTML.text();
-let template_container = document.createElement("template");
-template_container.innerHTML = Response;
+import {initializeContentLocation, buildComponent} from "../setup-component.js";
+
+let content = await initializeContentLocation(import.meta.url);
 
 class Timeslot extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({mode: 'open'});
-        this.shadowRoot.appendChild(template_container.content.cloneNode(true));
+        buildComponent(content, this.shadowRoot);
     }
 
     static get observedAttributes() {
