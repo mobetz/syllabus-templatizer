@@ -13,6 +13,7 @@
     font-family: 'Open Sans', sans-serif;
     --accent-hue: 220;
     --title-accent: hsl(var(--accent-hue), 100%, 40%);
+    --subtle-accent: hsl(var(--accent-hue), 60%, 80%);
 }
 
 template-syllabus {

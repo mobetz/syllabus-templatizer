@@ -1,0 +1,22 @@
+
+
+* {
+    font-size: 11pt;
+}
+
+h3 {
+    color: var(--title-accent);
+    font-size: 13pt;
+    margin-bottom: .75em;
+}
+
+#example {
+    font-weight: bold;
+}
+
+blockquote {
+    padding: 15px;
+    border-left: 3px solid var(--subtle-accent);
+    font-size: 10pt;
+
+}

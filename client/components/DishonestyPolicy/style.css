@@ -1,0 +1,36 @@
+
+
+* {
+    font-size: 11pt;
+}
+
+h3 {
+    color: var(--title-accent);
+    font-size: 13pt;
+    margin-bottom: .75em;
+}
+
+#example {
+    font-weight: bold;
+}
+
+blockquote {
+    border-left: 3px solid var(--subtle-accent);
+    padding: 12px;
+    font-size: 10pt;
+}
+
+dl div {
+    margin: 5px;
+}
+dd {
+    display: inline;
+    font-weight: bold;
+    font-size: 10pt;
+    margin-left:0;
+}
+
+dt {
+    display: inline;
+    font-size: 10pt;
+}
