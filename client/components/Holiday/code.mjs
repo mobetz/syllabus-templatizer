@@ -11,24 +11,68 @@ class Holiday extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['example'];
+        return ['date', 'start', 'end', 'event'];
     }
 
-    get example() {
-        return this.getAttribute('example');
+    get date() {
+        return this.getAttribute('date');
     }
 
-    set example(value) {
-        this.setAttribute('example', value)
+    getDateAsDateTime() {
+        let ret = new Date(Date.parse(this.date));
+        ret.setDate(ret.getDate() + 1);
+        ret.setHours(0);
+        ret.setMinutes(0);
+        return ret;//TODO: less ugly solution
+    }
+
+    set date(value) {
+        this.setAttribute('date', value)
+    }
+
+    get start() {
+        return this.getAttribute('start');
+    }
+
+    getStartAsDateTime() {
+        let ret = new Date(Date.parse(this.start));
+        ret.setDate(ret.getDate() + 1);
+        ret.setHours(0);
+        ret.setMinutes(0);
+        return ret;//TODO: less ugly solution
+    }
+
+    set start(value) {
+        this.setAttribute('start', value)
+    }
+
+    get end() {
+        return this.getAttribute('end');
+    }
+
+    getEndAsDateTime() {
+        let ret = new Date(Date.parse(this.end));
+        ret.setDate(ret.getDate() + 1);
+        ret.setHours(0);
+        ret.setMinutes(0);
+        return ret;//TODO: less ugly solution
+    }
+
+
+    set end(value) {
+        this.setAttribute('end', value)
+    }
+
+    get event() {
+        return this.getAttribute('event');
+    }
+
+    set event(value) {
+        this.setAttribute('event', value)
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
 
-        switch (name) {
-            case 'example':
-                this.shadowRoot.querySelector('#example').innerText = newValue;
-                break;
-        }
 
     }
 

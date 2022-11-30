@@ -11,24 +11,34 @@ class ScheduleEvent extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['example'];
+        return ['date', 'event'];
     }
 
-    get example() {
-        return this.getAttribute('example');
+    get date() {
+        return this.getAttribute('date');
     }
 
-    set example(value) {
-        this.setAttribute('example', value)
+    set date(value) {
+        this.setAttribute('date', value)
+    }
+    get event() {
+        return this.getAttribute('event');
+    }
+
+    set event(value) {
+        this.setAttribute('event', value)
+    }
+
+    getDateAsDateTime() {
+        let ret = new Date(Date.parse(this.date));
+        ret.setDate(ret.getDate() + 1);
+        ret.setHours(0);
+        ret.setMinutes(0);
+        return ret;//TODO: less ugly solution
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
 
-        switch (name) {
-            case 'example':
-                this.shadowRoot.querySelector('#example').innerText = newValue;
-                break;
-        }
 
     }
 

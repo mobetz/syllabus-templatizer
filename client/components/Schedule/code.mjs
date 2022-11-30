@@ -29,7 +29,7 @@ class Schedule extends HTMLElement {
     }
 
     set startDate(value) {
-        this.setAttribute("startdate");
+        this.setAttribute("startdate", value);
     }
 
     get endDate() {
@@ -37,15 +37,23 @@ class Schedule extends HTMLElement {
     }
 
     set endDate(value) {
-        this.setAttribute("enddate");
+        this.setAttribute("enddate", value);
     }
 
     get meetDays() {
         return this.getAttribute("meetdays");
     }
 
+    getMeetingDaysByReference() {
+        return this.meetDays.split("").map((d) => this.dayReference.indexOf(d))
+    }
+
+    getLabDaysByReference() {
+        return this.labDays.split("").map((d) => this.dayReference.indexOf(d));
+    }
+
     set meetDays(value) {
-        this.setAttribute("meetdays");
+        this.setAttribute("meetdays", value);
     }
 
 
@@ -54,7 +62,15 @@ class Schedule extends HTMLElement {
     }
 
     set labDays(value) {
-        this.setAttribute("labdays");
+        this.setAttribute("labdays", value);
+    }
+
+    getHolidays() {
+        return Array.from(this.shadowRoot.host.querySelectorAll("syllabus-holiday"));
+    }
+
+    getEvents() {
+        return Array.from(this.shadowRoot.host.querySelectorAll("syllabus-event"));
     }
 
 
@@ -62,52 +78,65 @@ class Schedule extends HTMLElement {
 
     computeSchedule() {
 
-        let meetings = this.getMeetingDays();
 
-        let topics = this.shadowRoot.host.querySelectorAll("syllabus-lecture").entries();
-        let labs = this.shadowRoot.host.querySelectorAll("syllabus-assignment").entries();
-
-        let holidays = this.shadowRoot.host.querySelectorAll("syllabus-holiday");
-        let events = this.shadowRoot.host.querySelectorAll("syllabus-event");
-
-        for ( let next_meeting of meetings ) {
-            if (next_meeting.lectureHeld ) {
-                let next_topic = topics.next();
-                next_meeting.topic = !next_topic.done ? next_topic.value[1].topic : "UNSCHEDULED";
-            }
-
-            if ( next_meeting.labHeld ) {
-                let next_assignment = labs.next();
-                next_meeting.assignment = !next_assignment.done ? next_assignment.value[1].title : "UNSCHEDULED";
-            }
-
-            //TODO: events
-        }
-
-        return meetings;
 
     }
 
 
     getMeetingDays() {
+        let topics = Array.from(this.shadowRoot.host.querySelectorAll("syllabus-lecture"))
+            .map((t) => t.topic); //TODO: put unit in here if present
+        let labs = Array.from(this.shadowRoot.host.querySelectorAll("syllabus-assignment"))
+            .map((l) => l.title);
 
-        let startDate = new Date(Date.parse(this.startDate)); //TODO: better solution for off by one day (timezones)
+        //TODO: better solution for off by one day (timezones) Also fix Holiday and Event
+        let startDate = new Date(Date.parse(this.startDate));
         startDate.setDate(startDate.getDate() + 1);
+        startDate.setHours(0);
+        startDate.setMinutes(0);
         let endDate = new Date(Date.parse(this.endDate));
         endDate.setDate(endDate.getDate() + 1);
+        endDate.setHours(0);
+        endDate.setMinutes(0);
 
-        let meetDays = this.meetDays.split("").map((d) => this.dayReference.indexOf(d));
-        let labDays = this.labDays.split("").map((d) => this.dayReference.indexOf(d));
+        let holidays = this.getHolidays()
+        let events = this.getEvents()
+
+        let meetingDays = this.getMeetingDaysByReference()
+        let labDays = this.getLabDaysByReference()
 
         let currentDate = new Date(startDate);
         let meetings = [];
         while ( currentDate <= endDate) {
-            let isHoliday = false; //TODO: holidays
-            let lectureHeld = (meetDays.indexOf(currentDate.getDay()) !== -1 && !isHoliday);
-            let labHeld = (labDays.indexOf(currentDate.getDay()) !== -1 && !isHoliday);
+            let possibleHoliday = holidays
+                .filter(
+                    (h)=>
+                        h.getDateAsDateTime().toDateString() === currentDate.toDateString()
+                         || (h.getStartAsDateTime() <= currentDate && h.getEndAsDateTime() >= currentDate )
+                );
+            let possibleEvent = events.filter( (e)=> e.getDateAsDateTime().toDateString() === currentDate.toDateString());
+            let isHoliday = possibleHoliday.length > 0;
+            let isEvent = possibleEvent.length > 0;
 
-            if (lectureHeld || labHeld) {
-                meetings.push(new AgendaDate(lectureHeld, labHeld, new Date(currentDate)));
+            let meetsToday = meetingDays.indexOf(currentDate.getDay()) !== -1;
+            let labToday = labDays.indexOf(currentDate.getDay()) !== -1
+            let lectureHeld = ( meetsToday && !isHoliday);
+            let labHeld = ( labToday && !isHoliday);
+
+            if (meetsToday || labToday || isEvent) {
+                let meeting = new AgendaDate(lectureHeld, labHeld, new Date(currentDate));
+                meetings.push(meeting);
+                possibleHoliday.forEach((h)=>meeting.events.push(h.event));
+                possibleEvent.forEach((e)=>meeting.events.push(e.event));
+                if ( isHoliday ) {
+                    meeting.topic = "NO LECTURE"
+                }
+                if ( lectureHeld ) {
+                    meeting.topic = topics.shift() || "UNSCHEDULED";
+                }
+                if ( labHeld ) {
+                    meeting.assignment = labs.shift() || "UNSCHEDULED";
+                }
             }
 
             currentDate.setDate(currentDate.getDate() + 1);
