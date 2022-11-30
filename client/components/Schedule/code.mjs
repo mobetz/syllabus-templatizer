@@ -12,7 +12,6 @@ class Schedule extends HTMLElement {
     }
 
     connectedCallback() {
-        this.computeSchedule();
     }
 
 
@@ -21,6 +20,13 @@ class Schedule extends HTMLElement {
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
+        switch (name) {
+            case "startdate":
+            case "enddate":
+
+                this.generateScheduleGrid();
+                break;
+        }
 
     }
 
@@ -76,7 +82,35 @@ class Schedule extends HTMLElement {
 
     dayReference = ["U", "M", "T", "W", "R", "F", "S"]
 
-    computeSchedule() {
+    static #strongify(text) {
+        return `<strong>${text}</strong>`
+    }
+
+    generateScheduleGrid() {
+
+        let meetings = this.getMeetingDays();
+
+        let grid = this.shadowRoot.querySelector("#schedule-grid");
+        grid.innerHTML = ""
+
+        meetings.forEach((meeting) => {
+
+            let tr = document.createElement("tr");
+            let date_col = document.createElement("td");
+            let topic_col = document.createElement("td");
+            let calendar_col = document.createElement("td");
+            tr.append(date_col, topic_col, calendar_col);
+
+            let dateFormat = new Intl.DateTimeFormat('en', {month: 'short', day: 'numeric'});
+
+            date_col.innerText = dateFormat.format(meeting.date);
+            topic_col.innerHTML = [meeting.topic, Schedule.#strongify(meeting.assignment)].join("<br>");
+            calendar_col.innerHTML = Schedule.#strongify(meeting.events.join("\n"));
+
+            grid.appendChild(tr);
+        })
+
+
 
 
 
@@ -110,7 +144,7 @@ class Schedule extends HTMLElement {
         while ( currentDate <= endDate) {
             let possibleHoliday = holidays
                 .filter(
-                    (h)=>
+                    (h)=> //TODO: there seems to be a race condition with getDateAsDateTime() being undefined
                         h.getDateAsDateTime().toDateString() === currentDate.toDateString()
                          || (h.getStartAsDateTime() <= currentDate && h.getEndAsDateTime() >= currentDate )
                 );
@@ -136,6 +170,9 @@ class Schedule extends HTMLElement {
                 }
                 if ( labHeld ) {
                     meeting.assignment = labs.shift() || "UNSCHEDULED";
+                }
+                if ( isEvent && !meetsToday && !labToday) {
+                    meeting.topic = "";
                 }
             }
 

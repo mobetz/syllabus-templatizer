@@ -1,8 +1,7 @@
-
-
-p {
+* {
     font-size: 11pt;
 }
+
 
 h3 {
     color: var(--title-accent);
@@ -12,4 +11,23 @@ h3 {
 
 #example {
     font-weight: bold;
+}
+
+table {
+    padding: 4px;
+    min-width: 95%;
+    border-spacing: 0;
+}
+
+td {
+    border: 1px solid black;
+    padding: 20px;
+}
+
+thead {
+    font-weight: bold;
+}
+
+tr {
+
 }
