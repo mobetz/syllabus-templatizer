@@ -1,6 +1,10 @@
 
 import {initializeContentLocation, buildComponent} from "../setup-component.js";
 import {AgendaDate} from './AgendaDate.mjs';
+import './Assignment/code.mjs';
+import './Event/code.mjs';
+import './Holiday/code.mjs';
+import './Lecture/code.mjs';
 
 let content = await initializeContentLocation(import.meta.url);
 
@@ -144,7 +148,7 @@ class Schedule extends HTMLElement {
         while ( currentDate <= endDate) {
             let possibleHoliday = holidays
                 .filter(
-                    (h)=> //TODO: there seems to be a race condition with getDateAsDateTime() being undefined
+                    (h)=> //TODO: check if this race condition still exists after moving schedule detail imports here
                         h.getDateAsDateTime().toDateString() === currentDate.toDateString()
                          || (h.getStartAsDateTime() <= currentDate && h.getEndAsDateTime() >= currentDate )
                 );

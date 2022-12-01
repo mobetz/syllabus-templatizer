@@ -1,5 +1,6 @@
 
 import {initializeContentLocation, buildComponent} from "../setup-component.js";
+import './LearningIdea/code.mjs';
 
 let content = await initializeContentLocation(import.meta.url);
 

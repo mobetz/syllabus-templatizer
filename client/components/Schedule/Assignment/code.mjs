@@ -1,5 +1,5 @@
 
-import {initializeContentLocation, buildComponent} from "../setup-component.js";
+import {initializeContentLocation, buildComponent} from "../../setup-component.js";
 
 let content = await initializeContentLocation(import.meta.url);
 

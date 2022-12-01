@@ -31,3 +31,13 @@ thead {
 tr {
 
 }
+
+.important-bright {
+    font-weight: bold;
+    color: hsl(calc(var(--accent-hue) - 180), 80%, 40%);
+}
+
+.important-dull {
+    font-weight: bold;
+    color: hsl(calc(var(--accent-hue) - 180), 30%, 70%);
+}
