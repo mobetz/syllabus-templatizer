@@ -11,7 +11,7 @@ class Assignment extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['title', 'duein'];
+        return ['title', 'duein', 'highlight'];
     }
 
     get title() {
@@ -28,6 +28,14 @@ class Assignment extends HTMLElement {
 
     set dueIn(value) {
         this.setAttribute('duein', value)
+    }
+
+    get highlight() {
+        return this.getAttribute('highlight') || "0.5";
+    }
+
+    set highlight(value) {
+        this.setAttribute('highlight', value)
     }
 
     attributeChangedCallback(name, oldValue, newValue) {

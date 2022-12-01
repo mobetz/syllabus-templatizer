@@ -10,6 +10,9 @@ export class AgendaDate {
         this.unit = "";
         this.assignment = "";
         this.events = [];
+        this.calendarLevel = "0"
+        this.topicLevel = "0"
+        this.assignmentLevel = "0"
     }
 
 

@@ -11,7 +11,7 @@ class Lecture extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['topic', 'unit'];
+        return ['topic', 'unit', 'highlight'];
     }
 
     get topic() {
@@ -28,6 +28,14 @@ class Lecture extends HTMLElement {
 
     set unit(value) {
         this.setAttribute('unit', value)
+    }
+
+    get highlight() {
+        return this.getAttribute('highlight') || "0";
+    }
+
+    set highlight(value) {
+        this.setAttribute('highlight', value)
     }
 
     attributeChangedCallback(name, oldValue, newValue) {

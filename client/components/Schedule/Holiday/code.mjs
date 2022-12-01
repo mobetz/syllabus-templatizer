@@ -2,7 +2,7 @@
 import {initializeContentLocation, buildComponent} from "../../setup-component.js";
 
 let content = await initializeContentLocation(import.meta.url);
-
+//TODO: merge holiday and event, they're already coupled by the syllabus layout
 class Holiday extends HTMLElement {
     constructor() {
         super();
@@ -11,7 +11,7 @@ class Holiday extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['date', 'start', 'end', 'event'];
+        return ['date', 'start', 'end', 'event', 'highlight'];
     }
 
     get date() {
@@ -69,6 +69,14 @@ class Holiday extends HTMLElement {
 
     set event(value) {
         this.setAttribute('event', value)
+    }
+
+    get highlight() {
+        return this.getAttribute('highlight') || "1.5";
+    }
+
+    set highlight(value) {
+        this.setAttribute('highlight', value)
     }
 
     attributeChangedCallback(name, oldValue, newValue) {

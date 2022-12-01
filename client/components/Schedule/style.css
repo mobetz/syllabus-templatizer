@@ -32,12 +32,20 @@ tr {
 
 }
 
-.important-bright {
+.important {
+    font-weight: bold;
+}
+
+.bright {
     font-weight: bold;
     color: hsl(calc(var(--accent-hue) - 180), 80%, 40%);
 }
 
-.important-dull {
+.off-bright {
+    color: hsl(calc(var(--accent-hue) - 180 - 30), 80%, 40%);
+}
+
+.dull {
     font-weight: bold;
-    color: hsl(calc(var(--accent-hue) - 180), 30%, 70%);
+    color: hsl(calc(var(--accent-hue) - 180), 30%, 60%);
 }

@@ -11,7 +11,7 @@ class ScheduleEvent extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['date', 'start', 'end', 'event'];
+        return ['date', 'start', 'end', 'event', 'highlight'];
     }
 
     get date() {
@@ -43,6 +43,14 @@ class ScheduleEvent extends HTMLElement {
 
     set end(value) {
         this.setAttribute('end', value)
+    }
+
+    get highlight() {
+        return this.getAttribute('highlight') || "0.5";
+    }
+
+    set highlight(value) {
+        this.setAttribute('highlight', value)
     }
 
     getDateAsDateTime() {

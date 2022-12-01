@@ -2,7 +2,7 @@
 import {initializeContentLocation, buildComponent} from "../setup-component.js";
 
 let content = await initializeContentLocation(import.meta.url);
-
+//TODO: replace starthour and startmin with start and some clever parsing
 class Timeslot extends HTMLElement {
     constructor() {
         super();

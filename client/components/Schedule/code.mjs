@@ -7,6 +7,16 @@ import './Holiday/code.mjs';
 import './Lecture/code.mjs';
 
 let content = await initializeContentLocation(import.meta.url);
+const NO_LECTURE_TOPIC = Object.assign(document.createElement("schedule-lecture"), {
+    topic: "NO LECTURE",
+    highlight: "-1.5"
+});
+
+const PLACEHOLDER_DAY = Object.assign(document.createElement("schedule-lecture"), {
+    topic: "UNSCHEDULED",
+    title: "UNSCHEDULED",
+    highlight: "2.5"
+});
 
 class Schedule extends HTMLElement {
     constructor() {
@@ -86,8 +96,22 @@ class Schedule extends HTMLElement {
 
     dayReference = ["U", "M", "T", "W", "R", "F", "S"]
 
-    static #strongify(text) {
-        return `<strong>${text}</strong>`
+    highlightToClassList(level) {
+
+        let ret = [];
+        let level_remainder = level % 1;
+        (  level_remainder !== 0) ? ret.push("important") : null;
+        level = level - level_remainder;
+        if ( level <= -1 ) {
+            ret.push("dull");
+        } else if ( level === 1) {
+            ret.push("bright");
+        } else if ( level >= 2) {
+            ret.push("off-bright");
+        }
+
+        return ret;
+
     }
 
     generateScheduleGrid() {
@@ -108,13 +132,32 @@ class Schedule extends HTMLElement {
             let dateFormat = new Intl.DateTimeFormat('en', {month: 'short', day: 'numeric'});
 
             date_col.innerText = dateFormat.format(meeting.date);
-            topic_col.innerHTML = [meeting.topic, Schedule.#strongify(meeting.assignment)].join("<br>");
-            calendar_col.innerHTML = Schedule.#strongify(meeting.events.join("\n"));
+
+
+            let [lecture,lab] = [document.createElement("div"),document.createElement("div")];
+            lecture.innerText = meeting.topic.topic;
+            lecture.classList.add(...this.highlightToClassList(meeting.topic.highlight));
+            topic_col.append(lecture);
+
+            if ( meeting.assignment ) {
+                lab.innerText = meeting.assignment.title;
+                lab.classList.add(...this.highlightToClassList(meeting.assignment.highlight));
+                topic_col.append(lab);
+            }
+
+
+            meeting.events.map(
+                (e) => {
+                    let div = document.createElement("div");
+                    div.innerText = e.event;
+                    div.classList.add(...this.highlightToClassList(e.highlight))
+                    return div;
+                }
+            ).forEach((e) => calendar_col.append(e));
+
 
             grid.appendChild(tr);
         })
-
-
 
 
 
@@ -122,10 +165,8 @@ class Schedule extends HTMLElement {
 
 
     getMeetingDays() {
-        let topics = Array.from(this.shadowRoot.host.querySelectorAll("syllabus-lecture"))
-            .map((t) => t.topic); //TODO: put unit in here if present
-        let labs = Array.from(this.shadowRoot.host.querySelectorAll("syllabus-assignment"))
-            .map((l) => l.title);
+        let topics = Array.from(this.shadowRoot.host.querySelectorAll("syllabus-lecture"));
+        let labs = Array.from(this.shadowRoot.host.querySelectorAll("syllabus-assignment"));
 
         //TODO: better solution for off by one day (timezones) Also fix Holiday and Event
         let startDate = new Date(Date.parse(this.startDate));
@@ -165,16 +206,16 @@ class Schedule extends HTMLElement {
             if (meetsToday || labToday || (isEvent && possibleEvent[0].date !== null) ) {
                 let meeting = new AgendaDate(lectureHeld, labHeld, new Date(currentDate));
                 meetings.push(meeting);
-                possibleHoliday.forEach((h)=>meeting.events.push(h.event));
-                possibleEvent.forEach((e)=>meeting.events.push(e.event));
+                possibleHoliday.forEach((h)=>meeting.events.push(h));
+                possibleEvent.forEach((e)=>meeting.events.push(e));
                 if ( isHoliday ) {
-                    meeting.topic = "NO LECTURE"
+                    meeting.topic = NO_LECTURE_TOPIC
                 }
                 if ( lectureHeld ) {
-                    meeting.topic = topics.shift() || "UNSCHEDULED";
+                    meeting.topic = topics.shift() || PLACEHOLDER_DAY;
                 }
                 if ( labHeld ) {
-                    meeting.assignment = labs.shift() || "UNSCHEDULED";
+                    meeting.assignment = labs.shift() || PLACEHOLDER_DAY;
                 }
                 if ( isEvent && !meetsToday && !labToday) {
                     meeting.topic = "";
