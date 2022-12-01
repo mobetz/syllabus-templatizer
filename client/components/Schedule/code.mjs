@@ -148,7 +148,8 @@ class Schedule extends HTMLElement {
                         h.getDateAsDateTime().toDateString() === currentDate.toDateString()
                          || (h.getStartAsDateTime() <= currentDate && h.getEndAsDateTime() >= currentDate )
                 );
-            let possibleEvent = events.filter( (e)=> e.getDateAsDateTime().toDateString() === currentDate.toDateString());
+            let possibleEvent = events.filter( (e)=> e.getDateAsDateTime().toDateString() === currentDate.toDateString()
+                || (e.getStartAsDateTime() <= currentDate && e.getEndAsDateTime() >= currentDate));
             let isHoliday = possibleHoliday.length > 0;
             let isEvent = possibleEvent.length > 0;
 
@@ -157,7 +158,7 @@ class Schedule extends HTMLElement {
             let lectureHeld = ( meetsToday && !isHoliday);
             let labHeld = ( labToday && !isHoliday);
 
-            if (meetsToday || labToday || isEvent) {
+            if (meetsToday || labToday || (isEvent && possibleEvent[0].date !== null) ) {
                 let meeting = new AgendaDate(lectureHeld, labHeld, new Date(currentDate));
                 meetings.push(meeting);
                 possibleHoliday.forEach((h)=>meeting.events.push(h.event));

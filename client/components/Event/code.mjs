@@ -11,7 +11,7 @@ class ScheduleEvent extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['date', 'event'];
+        return ['date', 'start', 'end', 'event'];
     }
 
     get date() {
@@ -29,8 +29,38 @@ class ScheduleEvent extends HTMLElement {
         this.setAttribute('event', value)
     }
 
+    get start() {
+        return this.getAttribute('start');
+    }
+
+    set start(value) {
+        this.setAttribute('start', value)
+    }
+
+    get end() {
+        return this.getAttribute('end');
+    }
+
+    set end(value) {
+        this.setAttribute('end', value)
+    }
+
     getDateAsDateTime() {
         let ret = new Date(Date.parse(this.date));
+        ret.setDate(ret.getDate() + 1);
+        ret.setHours(0);
+        ret.setMinutes(0);
+        return ret;//TODO: less ugly solution
+    }
+    getStartAsDateTime() {
+        let ret = new Date(Date.parse(this.start));
+        ret.setDate(ret.getDate() + 1);
+        ret.setHours(0);
+        ret.setMinutes(0);
+        return ret;//TODO: less ugly solution
+    }
+    getEndAsDateTime() {
+        let ret = new Date(Date.parse(this.end));
         ret.setDate(ret.getDate() + 1);
         ret.setHours(0);
         ret.setMinutes(0);
