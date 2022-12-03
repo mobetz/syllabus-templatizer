@@ -5,14 +5,14 @@
 
     controls: true,
 
-    width: '100%',
-    height: '100%',
+    width: '1920',
+    height: '1080',
     progress: true,
     slideNumber: true,// Display the page number of the current slide
     history: false,// Push each slide change to the browser history
     keyboard: true,// Enable keyboard shortcuts for navigation
     overview: true,// Enable the slide overview mode
-    center: true,// Vertical centering of slides
+    center: false,// Vertical centering of slides
     touch: true,// Enables touch navigation on devices with touch input
     fragments: true,// Turns fragments on and off globally
     help: true,// Flags if we should show a help overlay when ? is pressed
