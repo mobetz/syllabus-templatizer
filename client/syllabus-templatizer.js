@@ -1,5 +1,5 @@
 
-import 'https://cdnjs.cloudflare.com/ajax/libs/luxon/3.1.1/luxon.min.js' //DateTime functions
+import './third-party.js'
 
 import './components/LearningOutcomes/code.mjs'
 
