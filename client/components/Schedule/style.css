@@ -2,6 +2,14 @@
     font-size: 11pt;
 }
 
+a {
+    text-decoration: none;
+    color: unset;
+}
+
+a:hover, a:active {
+    text-decoration: underline;
+}
 
 h3 {
     color: var(--title-accent);

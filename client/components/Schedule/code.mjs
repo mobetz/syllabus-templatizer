@@ -96,23 +96,7 @@ class Schedule extends HTMLElement {
 
     dayReference = ["U", "M", "T", "W", "R", "F", "S"]
 
-    highlightToClassList(level) {
 
-        let ret = [];
-        let level_remainder = level % 1;
-        (  level_remainder !== 0) ? ret.push("important") : null;
-        level = level - level_remainder;
-        if ( level <= -1 ) {
-            ret.push("dull");
-        } else if ( level === 1) {
-            ret.push("bright");
-        } else if ( level >= 2) {
-            ret.push("off-bright");
-        }
-
-        return ret;
-
-    }
 
     generateScheduleGrid() {
 
@@ -121,45 +105,9 @@ class Schedule extends HTMLElement {
         let grid = this.shadowRoot.querySelector("#schedule-grid");
         grid.innerHTML = ""
 
-        meetings.forEach((meeting) => {
-
-            let tr = document.createElement("tr");
-            let date_col = document.createElement("td");
-            let topic_col = document.createElement("td");
-            let calendar_col = document.createElement("td");
-            tr.append(date_col, topic_col, calendar_col);
-
-            let dateFormat = new Intl.DateTimeFormat('en', {month: 'short', day: 'numeric'});
-
-            date_col.innerText = dateFormat.format(meeting.date);
-
-
-            let [lecture,lab] = [document.createElement("div"),document.createElement("div")];
-            lecture.innerText = meeting.topic.topic;
-            lecture.classList.add(...this.highlightToClassList(meeting.topic.highlight));
-            topic_col.append(lecture);
-
-            if ( meeting.assignment ) {
-                lab.innerText = meeting.assignment.title;
-                lab.classList.add(...this.highlightToClassList(meeting.assignment.highlight));
-                topic_col.append(lab);
-            }
-
-
-            meeting.events.map(
-                (e) => {
-                    let div = document.createElement("div");
-                    div.innerText = e.event;
-                    div.classList.add(...this.highlightToClassList(e.highlight))
-                    return div;
-                }
-            ).forEach((e) => calendar_col.append(e));
-
-
-            grid.appendChild(tr);
-        })
-
-
+        meetings
+            .map((meeting) =>  meeting.generateRowFromMeeting())
+            .forEach((tr) => grid.appendChild(tr));
 
     }
 
@@ -189,7 +137,7 @@ class Schedule extends HTMLElement {
         while ( currentDate <= endDate) {
             let possibleHoliday = holidays
                 .filter(
-                    (h)=> //TODO: check if this race condition still exists after moving schedule detail imports here
+                    (h)=>
                         h.getDateAsDateTime().toDateString() === currentDate.toDateString()
                          || (h.getStartAsDateTime() <= currentDate && h.getEndAsDateTime() >= currentDate )
                 );

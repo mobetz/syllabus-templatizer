@@ -1,4 +1,12 @@
 
+
+:root {
+    font-family: 'Open Sans', sans-serif;
+    --accent-hue: 220;
+    --title-accent: hsl(var(--accent-hue), 100%, 40%);
+    --subtle-accent: hsl(var(--accent-hue), 60%, 80%);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -7,14 +15,9 @@
     font-size: 100%;
     vertical-align: baseline;
     background: transparent;
+    text-decoration: none;
 }
 
-:root {
-    font-family: 'Open Sans', sans-serif;
-    --accent-hue: 220;
-    --title-accent: hsl(var(--accent-hue), 100%, 40%);
-    --subtle-accent: hsl(var(--accent-hue), 60%, 80%);
-}
 
 template-syllabus {
     margin: auto;

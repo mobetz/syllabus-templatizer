@@ -47,15 +47,22 @@
     <syllabus-officehours></syllabus-officehours>
 
     <syllabus-outcomes>
-        <syllabus-idea theme="Computational Fluency">
+        <syllabus-idea theme="Computational Thinking">
             <li>Understand how variables store data.</li>
             <li>Identify different representations of the same data and their impact on computation.</li>
+            <li>Describe the role of expressions and statements in code.</li>
+            <li>Understand how functions receive parameters and generate returned values.</li>
             <li></li>
         </syllabus-idea>
-        <syllabus-idea theme="Java Literacy">
-            <li>Identify the primitive data types available in Java (integer, boolean, double, char, long.)</li>
+        <syllabus-idea theme="Object Orientation">
+            <li></li>
         </syllabus-idea>
-        <syllabus-idea theme="Project Skills"></syllabus-idea>
+        <syllabus-idea theme="Java Fluency">
+            <li>Identify primitive data types available in Java (integer, boolean, double, char, long.)</li>
+            <li>Understand the syntax for constructing objects and calling methods.</li>
+        </syllabus-idea>
+        <syllabus-idea theme="Programming Practices">
+        </syllabus-idea>
     </syllabus-outcomes>
 
     <syllabus-schedule startdate="2023-01-17" enddate="2023-05-05" meetdays="MWF" labdays="F">
@@ -72,59 +79,61 @@
         <!--------------------------------------------------------------->
 
         <syllabus-lecture topic="Syllabus Review" />
-        <syllabus-lecture topic="Metacognition: How to Study Computer Science" />
+        <syllabus-lecture topic="Metacognition: How to Study Computer Science" href="./presentations/Metacognition.html" />
 
-        <syllabus-lecture topic="Static Typing: Primitive Types, Declaration, and Assignment" />
-        <syllabus-lecture topic="Grouping Statements into Functions" />
-        <syllabus-lecture topic="Program Entrypoints in Java" />
+        <syllabus-lecture topic="Static Typing: Primitive Types, Declaration, and Assignment" unit="Introducing Java"/>
+        <syllabus-lecture topic="Grouping Statements into Functions" unit="Introducing Java"/>
+        <syllabus-lecture topic="Program Entrypoints in Java" unit="Introducing Java"/>
 
-        <syllabus-lecture topic="Translating Ideas into Statements of Code" />
-        <syllabus-lecture topic="What is a Class? State and Methods" />
-        <syllabus-lecture topic="Using Objects: Constructors and Instantiation" />
+        <syllabus-lecture topic="What is a Class? State and Methods" unit="Object Orientation"/>
+        <syllabus-lecture topic="Using Objects: Constructors and Instantiation"  unit="Object Orientation"/>
+        <syllabus-lecture topic="Encapsulation: Thinking About the Public Interface of our Classes"  unit="Object Orientation"/>
 
-        <syllabus-lecture topic="Thinking About the Public Interface of our Classes" />
-        <syllabus-lecture topic="Introducing Common Java Objects Pt I (Strings and Scanner)" />
-        <syllabus-lecture topic="Introducing Common Java Objects Pt II" />
+        <syllabus-lecture topic="Introducing Common Java Objects Pt I (Strings and Scanner)"  unit="Object Orientation"/>
+        <syllabus-lecture topic="Introducing Common Java Objects Pt II"  unit="Object Orientation"/>
+        <syllabus-lecture topic="Advanced Class Keywords: Final and Static"  unit="Object Orientation"/>
 
-        <syllabus-lecture topic="Advanced Class Keywords: Final and Static" />
-        <syllabus-lecture topic="Objects Built From Static Methods" />
-        <syllabus-lecture topic="UNSCHEDULED" />
+        <syllabus-lecture topic="Objects Built From Static Methods"  unit="Object Orientation"/>
+        <syllabus-lecture topic="Modular Design: Organizing Data into Classes"  unit="Object Orientation"/>
+        <syllabus-lecture topic="Translating Ideas into Statements of Code" unit="Control Flow"/>
 
-        <syllabus-lecture topic="Boolean Logic: Introduction to Control Flow" />
-        <syllabus-lecture topic="Loops and Branches" />
+        <syllabus-lecture topic="Boolean Logic: Describing Conditions"  unit="Control Flow"/>
+        <syllabus-lecture topic="Loops and Branches"  unit="Control Flow"/>
 
-        <syllabus-lecture topic="Introduction to Dimensional Types: Arrays." />
-        <syllabus-lecture topic="Lists: Arrays that are Objects" />
-        <syllabus-lecture topic="Common Looping Patterns With Groups of Data" />
+        <syllabus-lecture topic="Introduction to Dimensional Types: Arrays."  unit="Control Flow"/>
+        <syllabus-lecture topic="Lists: Arrays that are Objects" unit="Control Flow" />
+        <syllabus-lecture topic="Common Looping Patterns With Groups of Data" unit="Control Flow" />
         <!------------------------MIDTERM WEEK-------------------------------->
         <syllabus-lecture topic="Midterm Review" highlight="2"/>
         <syllabus-lecture topic="Midterm Exam" highlight="2.5"/>
         <syllabus-lecture topic="Midterm Results Discussion" highlight="2"/>
         <!------------------------MIDTERM WEEK-------------------------------->
 
-        <syllabus-lecture topic="Modular Design: Organizing Data into Classes" />
-        <syllabus-lecture topic="When to Use Groups of Data vs. Classes" />
-        <syllabus-lecture topic="Documentation: Leaving Comments and Using JavaDoc" />
-        <syllabus-lecture topic="Using Code Written By Others" />
-        <syllabus-lecture topic="Passing Information in Programs with Multiple Classes" />
-        <syllabus-lecture topic="Finding Answers from Arrays with Loops" />
-        <syllabus-lecture topic="Readablity vs. Efficiency in Programs" />
-        <syllabus-lecture topic="Recursion: 'Looping' with Functions" />
-        <syllabus-lecture topic="The Divide and Conquer Approach to Problem-Solving" />
-        <syllabus-lecture topic="Using Groups of Data" />
+        <syllabus-lecture topic="When to Use Groups of Data vs. Classes" unit="Best Practices"/>
+        <syllabus-lecture topic="Documentation: Leaving Comments and Using JavaDoc" unit="Best Practices" />
+        <syllabus-lecture topic="Using Code Written By Others" unit="Best Practices" />
+
+        <syllabus-lecture topic="Passing Information in Programs with Multiple Classes" unit="Best Practices" />
+        <syllabus-lecture topic="Finding Answers from Arrays with Loops" unit="Algorithmic Thinking"/>
+        <syllabus-lecture topic="Readablity vs. Efficiency in Programs" unit="Algorithmic Thinking"/>
+
+        <syllabus-lecture topic="Recursion: 'Looping' with Functions" unit="Algorithmic Thinking"/>
+        <syllabus-lecture topic="The Divide and Conquer Approach to Problem-Solving" unit="Algorithmic Thinking"/>
+        <syllabus-lecture topic="Using Groups of Data in Programs" unit="Algorithmic Thinking"/>
+
+        <syllabus-lecture topic="UNSCHEDULED" />
+        <syllabus-lecture topic="UNSCHEDULED" />
+        <syllabus-lecture topic="UNSCHEDULED" />
 
         <syllabus-lecture topic="UNSCHEDULED" />
         <syllabus-lecture topic="UNSCHEDULED" />
 
-        <syllabus-lecture topic="UNSCHEDULED" />
-        <syllabus-lecture topic="UNSCHEDULED" />
+        <syllabus-lecture topic="Setup and Creating Windows" unit="GUI Programming" />
+        <syllabus-lecture topic="Controls as Objects" unit="GUI Programming" />
+        <syllabus-lecture topic="Declarative Layout Files" unit="GUI Programming" />
 
-        <syllabus-lecture topic="UNSCHEDULED" />
-        <syllabus-lecture topic="GUI Programming - Controls as Objects" />
-        <syllabus-lecture topic="GUI Programming - Declarative Layout Files" />
-
-        <syllabus-lecture topic="GUI Programming - Switching Between Layouts" />
-        <syllabus-lecture topic="GUI Programming - Layout Classes vs. Model Classes" />
+        <syllabus-lecture topic="Switching Between Layouts" unit="GUI Programming" />
+        <syllabus-lecture topic="Layout Classes vs. Model Classes" unit="GUI Programming" />
         <syllabus-lecture topic="Working on Software in Groups" />
 
         <!--------------------------------------------------------------->

@@ -35,9 +35,9 @@
     transition: 'none', // none/fade/slide/convex/concave/zoom
     transitionSpeed: 'default', // default/fast/slow
     backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
-    viewDistance: 3, // Number of slides away from the current that are visible
+    viewDistance: 4, // Number of slides away from the current that are visible
     parallaxBackgroundImage: '', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
-    parallaxBackgroundSize: '', // CSS syntax, e.g. "2100px 900px"
+    parallaxBackgroundSize: '10000px 10000px', // CSS syntax, e.g. "2100px 900px"
     display: 'block',
 
 
