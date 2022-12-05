@@ -5,6 +5,7 @@
     <title>Mental Models of Coding</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.4.0/reveal.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.4.0/plugin/highlight/monokai.min.css">
   <link rel="stylesheet" href="../slide-theme.css">
 
 
@@ -23,23 +24,545 @@
 
   <section>
     <h2 class="slide-title">Objectives for Today</h2>
-      <div class="spaced">
-    <p>By the end of today, you will...</p>
-    <ul>
-      <li>Identify the <span class="term">memory trace</span> and <span class="term">control flow graph</span> models
-      of program execution.</li>
-      <li>Describe how common code statements like declaration, assignment, and conditional logic are represented in these
-      models.</li>
-      <li>Understand how these models aid us in reasoning about programs.</li>
-    </ul>
+    <div class="spaced">
+      <p>By the end of today, you will...</p>
+      <ul>
+        <li>Identify the <span class="term">memory trace</span> and <span class="term">control flow graph</span> models
+          of program execution.</li>
+        <li>Describe how common code statements like declaration, assignment, and conditional logic are represented in these
+          models.</li>
+        <li>Understand how these models aid us in reasoning about programs.</li>
+      </ul>
+    </div>
+  </section>
+
+
+  <section>
+    <h2 class="slide-title">The Linguistic Model</h2>
+    <div class="spaced">
+      <p>For most of this semester, we have thought about programs with a <span class="term">linguistic model</span>.</p>
+
+      <p>In the linguistic model, each 'instruction' we write in our code is represented by a single sentence or phrase
+        that expresses its intent.</p>
     </div>
   </section>
 
 
 
+  <section>
+    <h2 class="slide-title">The Linguistic Model</h2>
+
+    <p>In the linguistic model, the execution of a program might look like this:</p>
+
+<div class="r-stack">
+  <pre class="fragment" data-fragment-index="0"><code class="language-java" data-trim data-line-numbers>
+        //Create a space for a variable called some_word.
+        //Save "apple" into some_word
+        //Create a space for a variable called appleIsFirst.
+        //Call the comesBefore function, and save its result into appleIsFirst.
+        // If apple is first:
+        //        - Print "Yay!"
+        // Otherwise:
+        //        - Print "Boo!"
+      </code ></pre>
+  <pre class="fragment" data-fragment-index="1"><code class="language-java" data-line-numbers="1" data-trim>
+        //Create a space for a variable called some_word.
+        //Save "apple" into some_word
+        //Create a space for a variable called appleIsFirst.
+        //Call the comesBefore function, and save its result into appleIsFirst.
+        // If apple is first:
+        //        - Print "Yay!"
+        // Otherwise:
+        //        - Print "Boo!"
+      </code></pre>
+  <pre class="fragment" data-fragment-index="2"><code class="language-java" data-line-numbers="2" data-trim>
+        //Create a space for a variable called some_word.
+        //Save "apple" into some_word
+        //Create a space for a variable called appleIsFirst.
+        //Call the comesBefore function, and save its result into appleIsFirst.
+        // If apple is first:
+        //        - Print "Yay!"
+        // Otherwise:
+        //        - Print "Boo!"
+      </code></pre>
+  <pre class="fragment" data-fragment-index="3"><code class="language-java" data-line-numbers="3" data-trim>
+        //Create a space for a variable called some_word.
+        //Save "apple" into some_word
+        //Create a space for a variable called appleIsFirst.
+        //Call the comesBefore function, and save its result into appleIsFirst.
+        // If apple is first:
+        //        - Print "Yay!"
+        // Otherwise:
+        //        - Print "Boo!"
+      </code></pre>
+  <pre class="fragment" data-fragment-index="4"><code class="language-java" data-line-numbers="4" data-trim>
+        //Create a space for a variable called some_word.
+        //Save "apple" into some_word
+        //Create a space for a variable called appleIsFirst.
+        //Call the comesBefore function, and save its result into appleIsFirst.
+        // If apple is first:
+        //        - Print "Yay!"
+        // Otherwise:
+        //        - Print "Boo!"
+      </code></pre>
+  <pre class="fragment" data-fragment-index="5"><code class="language-java" data-line-numbers="5-6" data-trim>
+        //Create a space for a variable called some_word.
+        //Save "apple" into some_word
+        //Create a space for a variable called appleIsFirst.
+        //Call the comesBefore function, and save its result into appleIsFirst.
+        // If apple is first:
+        //        - Print "Yay!"
+        // Otherwise:
+        //        - Print "Boo!"
+      </code></pre>
+  <pre class="fragment" data-fragment-index="6"><code class="language-java" data-line-numbers="7-8" data-trim>
+        //Create a space for a variable called some_word.
+        //Save "apple" into some_word
+        //Create a space for a variable called appleIsFirst.
+        //Call the comesBefore function, and save its result into appleIsFirst.
+        // If apple is first:
+        //        - Print "Yay!"
+        // Otherwise:
+        //        - Print "Boo!"
+      </code></pre>
+</div>
+<br/>
+<div class="r-stack">
+      <pre class="fragment" data-fragment-index="1"><code class="language-java" data-trim data-line-numbers>
+        String some_word;
+      </code></pre>
+  <pre class="fragment" data-fragment-index="2"><code class="language-java" data-trim data-line-numbers="2">
+        String some_word;
+        some_word = "apple";
+      </code></pre>
+  <pre class="fragment" data-fragment-index="3"><code class="language-java" data-trim data-line-numbers="3">
+        String some_word;
+        some_word = "apple";
+        boolean appleIsFirst;
+      </code></pre>
+  <pre class="fragment" data-fragment-index="4"><code class="language-java" data-trim data-line-numbers="4">
+        String some_word;
+        some_word = "apple";
+        boolean appleIsFirst;
+        appleIsFirst = comesBefore(some_word, "banana");
+      </code></pre>
+  <pre class="fragment" data-fragment-index="5"><code class="language-java" data-trim data-line-numbers="5-7">
+        String some_word;
+        some_word = "apple";
+        boolean appleIsFirst;
+        appleIsFirst = comesBefore(some_word, "banana");
+        if ( appleIsFirst ) {
+           System.out.println("Yay!");
+        }
+      </code></pre>
+  <pre class="fragment" data-fragment-index="6"><code class="language-java" data-trim data-line-numbers="7-9">
+        String some_word;
+        some_word = "apple";
+        boolean appleIsFirst;
+        appleIsFirst = comesBefore(some_word, "banana");
+        if ( appleIsFirst ) {
+           System.out.println("Yay!");
+        } else {
+           System.out.prinlnt("Boo!");
+        }
+      </code></pre>
+</div>
+  </section>
+
+
+  <section>
+    <h2 class="slide-title">The Linguistic Model</h2>
+      <p>In the linguistic model, instructions are followed from top to bottom, much like we do in plain language.</p>
+
+      <p>This model is easy to write and space-concise, but sometimes we need to 'skip around' in our instructions
+      to match the actual execution of a program.</p>
+
+      <p>However, this is not the only way we can think about our program...</p>
+  </section>
+
+<section>
+  <h2 class="slide-title">The Control Flow Model</h2>
+
+  <div class="spaced">
+    <p>In the <span class="term">control flow model</span>, we instead represent each instruction as a bubble in a flowchart
+      that points to the next instruction. This image is called a <span class="term">Control Flow Graph</span>.</p>
+
+    <p>This model can help us better visualize the order instructions are followed when we use control flow like
+    loops and if statements.</p>
+  </div>
+
+</section>
+
+
+
+
+    <section>
+        <h2 class="slide-title">The Control Flow Model</h2>
+
+        <div style="display: grid; grid-template-columns: 800px 1fr;">
+            <img src="images/control-flow-assign.png" style="align-self: center">
+            <div class="spaced">
+
+                <h3>Declaration and Assignment</h3>
+                <p>Some instructions, like declaration and assignment, flow sequentially.</p>
+                <p> Much like in the lingusitic model, these are represented as a chain of arrows flowing from top
+                to bottom.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <section>
+        <h2 class="slide-title">The Control Flow Model</h2>
+
+        <div style="display: grid; grid-template-columns: 800px 1fr;">
+            <img src="images/control-flow-if.png" style="align-self: center">
+            <div class="">
+
+                <h3>If Statements</h3>
+                <p>If statements add one additional feature to our flowchart -- the ability to <span class="term">"go to"
+                    </span> another line in the diagram.</p>
+                <p> Normally we follow the sequential flow through the program, but when the condition is not met, we
+                skip to the bottom of the if statement, creating two "branches" in our flowchart.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section>
+        <h2 class="slide-title">The Control Flow Model</h2>
+
+        <div style="display: grid; grid-template-columns: 800px 1fr;">
+            <img src="images/control-flow-loop.png" style="align-self: center">
+            <div class="spaced">
+
+                <h3>Loops</h3>
+                <p>Loops work mostly like if statements, but with one difference -- the last statement before the
+                    place we jump to also jumps back to the start.</p>
+                <p>Notice: there is no arrow from the bottom to the end, it always flows back to the top!</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section>
+        <h2 class="slide-title">The Control Flow Model</h2>
+
+        <div style="display: grid; grid-template-columns: 800px 1fr;">
+            <img src="images/control-flow-function.png" style="align-self: center">
+            <div>
+
+                <h3>Functions</h3>
+                <p>When we reach a function, we travel as if by <span class="term">
+                    go to</span>, all the way to the part of the graph representing that function! </p>
+                <p>When the function is complete, we travel back to the original location.</p>
+                <p>Parameters and return values are <span class="term">copied</span> into variables in each direction.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section>
+        <h2 class="slide-title">The Control Flow Model</h2>
+
+        <p>The control flow model is much better at showing us exactly the order that instructions happen in.</p>
+
+        <p>However, the trade-off is that it is much more complex. This can make it hard to read for detailed programs,
+        and more difficult to represent.</p>
+
+        <p>"Drag and Drop" programming languages like Scratch or Unity Events use elements of the control flow model
+            to visually represent what they're doing!</p>
+
+    </section>
+
+
+    <section>
+        <h2 class="slide-title">The Memory Trace Model</h2>
+
+        <p>In many ways control flow was an improvement on text, but it had one big weakness -- we saw very little
+        information about data. We also didn't see objects at all!</p>
+
+        <p>When the thing we care about most is the values saved in memory, we can use the <span class="term">memory
+        trace model</span>.</p>
+
+        <p>In the memory trace model, we draw boxes to represent each variable and hold their stored values.</p>
+
+    </section>
+
+    <section>
+        <h2 class="slide-title">The Memory Trace Model</h2>
+
+        <div style="display: grid; grid-template-columns: 800px 1fr;">
+            <div style="align-self: center">
+                <div class="r-stack">
+                    <img src="images/trace-declare.png" style="align-self: center"  class="fragment" data-fragment-index="1" >
+                    <img src="images/trace-declare-2.png" style="align-self: center" class="fragment" data-fragment-index="2">
+                </div>
+
+                <div class="r-stack">
+                <pre  data-fragment-index="0"><code  data-line-numbers data-trim>
+                    String some_word;
+                    bool appleIsFirst;
+                </code></pre>
+                <pre  class="fragment" data-fragment-index="1"><code  data-line-numbers="1" data-trim>
+                    String some_word;
+                    bool appleIsFirst;
+                </code></pre>
+                <pre class="fragment" data-fragment-index="2"><code data-line-numbers="2" data-trim>
+                    String some_word;
+                    bool appleIsFirst;
+                </code></pre>
+                </div>
+            </div>
+
+
+            <div>
+
+                <h3>Declarations</h3>
+                <p>In the memory trace model, declaring a variable creates a new named 'box' for that variable.</p>
+                <p>Initially, this box has nothing in it.</p>
+                <p>Parameters and return values are <span class="term">copied</span> into variables in each direction.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section>
+        <h2 class="slide-title">The Memory Trace Model</h2>
+
+        <div style="display: grid; grid-template-columns: 800px 1fr;">
+            <div style="align-self: center">
+                <div class="r-stack">
+                    <img src="images/trace-declare.png" style="align-self: center"  class="fragment" data-fragment-index="0">
+                    <img src="images/trace-assign.png" style="align-self: center"  class="fragment" data-fragment-index="1" >
+                    <img src="images/trace-assign-2.png" style="align-self: center" class="fragment" data-fragment-index="2">
+                </div>
+
+                <div class="r-stack">
+                <pre  data-fragment-index="0"><code  data-line-numbers data-trim>
+                    some_word = "apple";
+                    some_word = "orange";
+                </code></pre>
+                    <pre  class="fragment" data-fragment-index="1"><code  data-line-numbers="1" data-trim>
+                    some_word = "apple";
+                    some_word = "orange";
+                </code></pre>
+                    <pre class="fragment" data-fragment-index="2"><code data-line-numbers="2" data-trim>
+                    some_word = "apple";
+                    some_word = "orange";
+                </code></pre>
+                </div>
+            </div>
+
+
+            <div class="spaced">
+
+                <h3>Assignment</h3>
+                <p>When we assign to a variable, the memory model inserts the value assigned into the box.</p>
+                <p class="fragment" data-fragment-index="2">When we <span class="term">reassign</span> a value, we
+                cross out the old value and insert the new value.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <section>
+        <h2 class="slide-title">The Memory Trace Model</h2>
+
+        <div style="display: grid; grid-template-columns: 800px 1fr;">
+            <div style="align-self: center">
+                <div class="r-stack">
+                    <img src="images/trace-function-0.png" style="align-self: center"  class="fragment fade-in-then-out" data-fragment-index="0">
+                    <img src="images/trace-function-1.png" style="align-self: center"  class="fragment fade-in-then-out" data-fragment-index="1" >
+                    <img src="images/trace-function-2.png" style="align-self: center" class="fragment fade-in-then-out" data-fragment-index="2">
+                    <img src="images/trace-function-3.png" style="align-self: center" class="fragment fade-in-then-out" data-fragment-index="3">
+                    <img src="images/trace-function-4.png" style="align-self: center" class="fragment" data-fragment-index="4">
+                </div>
+
+                <div class="r-stack">
+                <pre  data-fragment-index="0"><code  data-line-numbers data-trim>
+                    String some_word = "apple";
+                    boolean answer = compare(some_word);
+                </code></pre>
+                    <pre  class="fragment" data-fragment-index="1"><code  data-line-numbers="1" data-trim>
+                    String some_word = "apple";
+                    boolean answer = compare(some_word);
+                </code></pre>
+                    <pre class="fragment fade-in-then-out" data-fragment-index="2"><code data-line-numbers="1" data-trim>
+                    public boolean compare(String param1) {
+                        boolean ret = true;
+                        return ret;
+                    }
+                </code></pre>
+                    <pre class="fragment fade-in-then-out" data-fragment-index="3"><code data-line-numbers="2" data-trim>
+                    public boolean compare(String param1) {
+                        boolean ret = true;
+                        return ret;
+                    }
+                </code></pre>
+                    <pre class="fragment" data-fragment-index="4"><code data-line-numbers="2" data-trim>
+                    String some_word = "apple";
+                    boolean answer = compare(some_word);
+                </code></pre>
+                </div>
+            </div>
+
+
+            <div>
+
+                <h3>Functions</h3>
+                <p>When a program has functions, each creates its own "environment" for data.</p>
+                <p class="fragment" data-fragment-index="2">When we enter a new function, we create a new environment,
+                    and copy over all function parameters.</p>
+                <p class="fragment" data-fragment-index="4">When the function <span class="term">returns</span>, we
+                destroy the old environment.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section>
+        <h2 class="slide-title">The Memory Trace Model</h2>
+
+        <div style="display: grid; grid-template-columns: 800px 1fr;">
+            <div style="align-self: center">
+                <div class="r-stack">
+                    <img src="images/trace-arrays-0.png" style="align-self: center"  class="fragment fade-in-then-out" data-fragment-index="0">
+                    <img src="images/trace-arrays-1.png" style="align-self: center"  class="fragment" data-fragment-index="1" >
+
+                </div>
+
+                <div class="r-stack">
+                <pre data-fragment-index="0"><code  data-line-numbers data-trim>
+                    int[] nums = new nums[5];
+                    nums[2] = 4;
+                </code></pre>
+                <pre class="fragment" data-fragment-index="0"><code  data-line-numbers="1" data-trim>
+                    int[] nums = new nums[5];
+                    nums[2] = 4;
+                </code></pre>
+                    <pre class="fragment"  data-fragment-index="1"><code  data-line-numbers="2" data-trim>
+                    int[] nums = new nums[5];
+                    nums[2] = 4;
+                </code></pre>
+                </div>
+            </div>
+
+
+            <div>
+                <h3>Arrays</h3>
+                <p>Arrays are like a series of boxes all glued together.</p>
+                <p class="fragment" data-fragment-index="0">The number of boxes matches the maximum size of the array.</p>
+                <p class="fragment" data-fragment-index="1">When we save into an array, we go to that numbered 'slot'.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section>
+        <h2 class="slide-title">The Memory Trace Model</h2>
+
+        <div style="display: grid; grid-template-columns: 800px 1fr;">
+            <div style="align-self: center">
+                <div class="r-stack">
+                    <img src="images/trace-object-0.png" style="align-self: center"  class="fragment" data-fragment-index="0">
+                    <img src="images/trace-object-1.png" style="align-self: center"  class="fragment" data-fragment-index="1" >
+                    <img src="images/trace-object-2.png" style="align-self: center"  class="fragment fade-in-then-out" data-fragment-index="2" >
+                    <img src="images/trace-object-3.png" style="align-self: center"  class="fragment" data-fragment-index="3" >
+
+                </div>
+
+                <div class="r-stack">
+                <pre><code  data-line-numbers data-trim>
+                    Person some_person;
+                    some_person = new Person("Joe");
+                </code></pre>
+                    <pre class="fragment" data-fragment-index="0"><code  data-line-numbers="1" data-trim>
+                    Person some_person;
+                    some_person = new Person("Joe");
+                </code></pre>
+                    <pre class="fragment fade-in-then-out"  data-fragment-index="1"><code  data-line-numbers="1" data-trim>
+                    public Person(String name_in) {
+                        this.name = name_in;
+                    }
+                </code></pre>
+                    <pre class="fragment fade-in-then-out"  data-fragment-index="2"><code  data-line-numbers="2" data-trim>
+                    public Person(String name_in) {
+                        this.name = name_in;
+                    }
+                </code></pre>
+                    <pre class="fragment"  data-fragment-index="3"><code  data-line-numbers="2" data-trim>
+                    Person some_person;
+                    some_person = new Person("Joe");
+                </code></pre>
+                </div>
+            </div>
+
+
+            <div>
+                <h3>Objects and Methods</h3>
+                <p>Much like functions, objects create entire new 'environments' when they're created.</p>
+                <p class="fragment" data-fragment-index="0">When we call the constructor, we immediately create space
+                for every attribute of the class (and every parameter of the constructor.)</p>
+                <p class="fragment" data-fragment-index="2">When a method returns, the method variables go away, but
+                the class attributes remain!</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section>
+        <h2 class="slide-title">The Memory Trace Model</h2>
+
+        <p>The memory model does a great job of showing us what data we have access to -- we can only 'see' variables
+            that are in our current box!</p>
+
+
+        <p class="fragment">However, like the control flow model, it has a weakness...</p>
+
+        <p class="fragment">The <span class="term">only</span> thing that changes our diagram in the memory model is
+        an <span class="term">equals assignment</span>. Loops and branches aren't represented at all!</p>
+
+    </section>
+
+
+    <section>
+        <h2 class="slide-title">Three Models, One Program</h2>
+
+        <div class="spaced">
+        <p>So which model do we use when we're thinking about our program?</p>
+
+
+        <p class="fragment">We need to use <span class="term">all three at once</span> to get the full picture of what is
+        happening in our program!</p>
+
+        <p>Tools exist to generate these visualizations, but it can be helpful to practice drawing them ourselves
+            when we want a better understanding of our code.
+        </p>
+        </div>
+
+    </section>
 </main>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.4.0/plugin/highlight/highlight.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.4.0/reveal.js"></script>
 
 <script type="module" src="../slides-settings.js"></script>

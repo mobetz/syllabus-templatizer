@@ -1,7 +1,7 @@
 
 
  Reveal.initialize({
-    plugins: [],
+    plugins: [RevealHighlight],
 
     controls: true,
 
