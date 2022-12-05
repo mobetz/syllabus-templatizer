@@ -387,15 +387,23 @@
                 </div>
 
                 <div class="r-stack">
-                <pre  data-fragment-index="0"><code  data-line-numbers data-trim>
+                <pre ><code data-line-numbers data-trim>
+                    String some_word;
                     some_word = "apple";
                     some_word = "orange";
                 </code></pre>
-                    <pre  class="fragment" data-fragment-index="1"><code  data-line-numbers="1" data-trim>
+                    <pre class="fragment" data-fragment-index="0"><code  data-line-numbers="1" data-trim>
+                    String some_word;
                     some_word = "apple";
                     some_word = "orange";
                 </code></pre>
-                    <pre class="fragment" data-fragment-index="2"><code data-line-numbers="2" data-trim>
+                    <pre  class="fragment" data-fragment-index="1"><code  data-line-numbers="2" data-trim>
+                    String some_word;
+                    some_word = "apple";
+                    some_word = "orange";
+                </code></pre>
+                    <pre class="fragment" data-fragment-index="2"><code data-line-numbers="3" data-trim>
+                    String some_word;
                     some_word = "apple";
                     some_word = "orange";
                 </code></pre>
@@ -425,9 +433,11 @@
                 <div class="r-stack">
                     <img src="images/trace-function-0.png" style="align-self: center"  class="fragment fade-in-then-out" data-fragment-index="0">
                     <img src="images/trace-function-1.png" style="align-self: center"  class="fragment fade-in-then-out" data-fragment-index="1" >
-                    <img src="images/trace-function-2.png" style="align-self: center" class="fragment fade-in-then-out" data-fragment-index="2">
-                    <img src="images/trace-function-3.png" style="align-self: center" class="fragment fade-in-then-out" data-fragment-index="3">
-                    <img src="images/trace-function-4.png" style="align-self: center" class="fragment" data-fragment-index="4">
+                    <img src="images/trace-function-1.png" style="align-self: center"  class="fragment fade-in-then-out" data-fragment-index="2" >
+                    <img src="images/trace-function-2.png" style="align-self: center" class="fragment fade-in-then-out" data-fragment-index="3">
+                    <img src="images/trace-function-3.png" style="align-self: center" class="fragment fade-in-then-out" data-fragment-index="4">
+                    <img src="images/trace-function-3.png" style="align-self: center" class="fragment fade-in-then-out" data-fragment-index="5">
+                    <img src="images/trace-function-4.png" style="align-self: center" class="fragment" data-fragment-index="6">
                 </div>
 
                 <div class="r-stack">
@@ -439,19 +449,29 @@
                     String some_word = "apple";
                     boolean answer = compare(some_word);
                 </code></pre>
-                    <pre class="fragment fade-in-then-out" data-fragment-index="2"><code data-line-numbers="1" data-trim>
+                    <pre  class="fragment" data-fragment-index="2"><code  data-line-numbers="2" data-trim>
+                    String some_word = "apple";
+                    boolean answer = compare(some_word);
+                </code></pre>
+                    <pre class="fragment fade-in-then-out" data-fragment-index="3"><code data-line-numbers="1" data-trim>
                     public boolean compare(String param1) {
                         boolean ret = true;
                         return ret;
                     }
                 </code></pre>
-                    <pre class="fragment fade-in-then-out" data-fragment-index="3"><code data-line-numbers="2" data-trim>
+                    <pre class="fragment fade-in-then-out" data-fragment-index="4"><code data-line-numbers="2" data-trim>
                     public boolean compare(String param1) {
                         boolean ret = true;
                         return ret;
                     }
                 </code></pre>
-                    <pre class="fragment" data-fragment-index="4"><code data-line-numbers="2" data-trim>
+                    <pre class="fragment fade-in-then-out" data-fragment-index="5"><code data-line-numbers="3" data-trim>
+                    public boolean compare(String param1) {
+                        boolean ret = true;
+                        return ret;
+                    }
+                </code></pre>
+                    <pre class="fragment" data-fragment-index="6"><code data-line-numbers="2" data-trim>
                     String some_word = "apple";
                     boolean answer = compare(some_word);
                 </code></pre>
@@ -463,9 +483,9 @@
 
                 <h3>Functions</h3>
                 <p>When a program has functions, each creates its own "environment" for data.</p>
-                <p class="fragment" data-fragment-index="2">When we enter a new function, we create a new environment,
-                    and copy over all function parameters.</p>
-                <p class="fragment" data-fragment-index="4">When the function <span class="term">returns</span>, we
+                <p class="fragment" data-fragment-index="3">When we enter a new function we copy over all parameters.
+                While in the function, we can only see variables "inside its box".</p>
+                <p class="fragment" data-fragment-index="5">When the function <span class="term">returns</span>, we
                 destroy the old environment.</p>
             </div>
 
@@ -486,15 +506,15 @@
 
                 <div class="r-stack">
                 <pre data-fragment-index="0"><code  data-line-numbers data-trim>
-                    int[] nums = new nums[5];
+                    int[] nums = new int[5];
                     nums[2] = 4;
                 </code></pre>
                 <pre class="fragment" data-fragment-index="0"><code  data-line-numbers="1" data-trim>
-                    int[] nums = new nums[5];
+                    int[] nums = new int[5];
                     nums[2] = 4;
                 </code></pre>
                     <pre class="fragment"  data-fragment-index="1"><code  data-line-numbers="2" data-trim>
-                    int[] nums = new nums[5];
+                    int[] nums = new int[5];
                     nums[2] = 4;
                 </code></pre>
                 </div>
