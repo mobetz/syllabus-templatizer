@@ -200,7 +200,13 @@
         <h2 class="slide-title">The Control Flow Model</h2>
 
         <div style="display: grid; grid-template-columns: 800px 1fr;">
+            <div>
             <img src="images/control-flow-assign.png" style="align-self: center">
+                <pre><code data-trim data-line-numbers>
+                    String some_word;
+                    some_word = "apple";
+                </code></pre>
+            </div>
             <div class="spaced">
 
                 <h3>Declaration and Assignment</h3>
@@ -219,7 +225,16 @@
         <h2 class="slide-title">The Control Flow Model</h2>
 
         <div style="display: grid; grid-template-columns: 800px 1fr;">
+            <div>
             <img src="images/control-flow-if.png" style="align-self: center">
+
+                <pre><code data-trim data-line-numbers>
+                    if ( appleIsFirst ) {
+                       System.out.println("Yay!");
+                    }
+                </code></pre>
+            </div>
+
             <div class="">
 
                 <h3>If Statements</h3>
@@ -238,7 +253,16 @@
         <h2 class="slide-title">The Control Flow Model</h2>
 
         <div style="display: grid; grid-template-columns: 800px 1fr;">
+            <div>
             <img src="images/control-flow-loop.png" style="align-self: center">
+
+                <pre><code data-trim data-line-numbers>
+                    while ( appleIsFirst ) {
+                       System.out.println("Yay!");
+                    }
+                </code></pre>
+            </div>
+
             <div class="spaced">
 
                 <h3>Loops</h3>
@@ -255,7 +279,21 @@
         <h2 class="slide-title">The Control Flow Model</h2>
 
         <div style="display: grid; grid-template-columns: 800px 1fr;">
+            <div>
             <img src="images/control-flow-function.png" style="align-self: center">
+
+                <pre><code data-trim data-line-numbers>
+                    boolean appleIsFirst;
+                    appleIsFirst = comesBefore(some_word, "banana");
+                </code></pre>
+                <pre><code data-trim data-line-numbers>
+                    public String comesBefore(String p1, String p2) {
+                       boolean answer = String.compare(p1, p2) > 0;
+                       return answer;
+                    }
+                </code></pre>
+            </div>
+
             <div>
 
                 <h3>Functions</h3>
@@ -329,7 +367,7 @@
                 <h3>Declarations</h3>
                 <p>In the memory trace model, declaring a variable creates a new named 'box' for that variable.</p>
                 <p>Initially, this box has nothing in it.</p>
-                <p>Parameters and return values are <span class="term">copied</span> into variables in each direction.</p>
+                <p class="fragment" data-fragment-index="2">In a language with types, we could even represent different types as different shapes!</p>
             </div>
 
         </div>
@@ -540,6 +578,7 @@
         <p class="fragment">The <span class="term">only</span> thing that changes our diagram in the memory model is
         an <span class="term">equals assignment</span>. Loops and branches aren't represented at all!</p>
 
+        <p class="fragment">This is the view we see when we use a <span class="term">debugger</span>.</p>
     </section>
 
 
@@ -547,14 +586,14 @@
         <h2 class="slide-title">Three Models, One Program</h2>
 
         <div class="spaced">
-        <p>So which model do we use when we're thinking about our program?</p>
+        <p>So which model should we use when we're thinking about our program?</p>
 
 
         <p class="fragment">We need to use <span class="term">all three at once</span> to get the full picture of what is
         happening in our program!</p>
 
-        <p>Tools exist to generate these visualizations, but it can be helpful to practice drawing them ourselves
-            when we want a better understanding of our code.
+        <p class="fragment">Tools exist to generate control flow graphs or memory traces, but it can be helpful to
+            practice drawing them ourselves when we want a better understanding of our code.
         </p>
         </div>
 
