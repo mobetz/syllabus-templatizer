@@ -48,11 +48,11 @@
 
     <syllabus-outcomes>
         <syllabus-idea theme="Computational Thinking">
-            <li>Understand how variables store data.</li>
+            <li>Understand how variables reserve named and typed space for data.</li>
             <li>Identify different representations of the same data and their impact on computation.</li>
-            <li>Describe the role of expressions and statements in code.</li>
+            <li>Describe the role of expressions and statements in organizing code.</li>
             <li>Understand how functions receive parameters and generate returned values.</li>
-            <li></li>
+            <li>Recognize how conditionality can be expressed with boolean logic.</li>
         </syllabus-idea>
         <syllabus-idea theme="Object Orientation">
             <li></li>
@@ -60,6 +60,7 @@
         <syllabus-idea theme="Java Fluency">
             <li>Identify primitive data types available in Java (integer, boolean, double, char, long.)</li>
             <li>Understand the syntax for constructing objects and calling methods.</li>
+            <li>Use Java methods for performing basic String manipulation.</li>
         </syllabus-idea>
         <syllabus-idea theme="Programming Practices">
         </syllabus-idea>
@@ -81,52 +82,57 @@
         <syllabus-lecture topic="Syllabus Review" />
         <syllabus-lecture topic="Metacognition: How to Study Computer Science" href="./presentations/metacognition/slides.html" />
 
-        <syllabus-lecture topic="Static Typing: Primitive Types, Declaration, and Assignment" unit="Introducing Java"/>
-        <syllabus-lecture topic="Grouping Statements into Functions" unit="Introducing Java"/>
-        <syllabus-lecture topic="Program Entrypoints in Java" unit="Introducing Java"/>
+        <syllabus-lecture topic="Primitive Types, Declaration, and Assignment" unit="Introducing Java"/>
+        <syllabus-lecture topic="Grouping Statements into Functions + Variable Scope" unit="Introducing Java"/>
+        <syllabus-lecture topic="Compilation and Program Entrypoints" unit="Introducing Java"/>
 
         <syllabus-lecture topic="What is a Class? State and Methods" unit="Object Orientation"/>
         <syllabus-lecture topic="Using Objects: Constructors and Instantiation"  unit="Object Orientation"/>
-        <syllabus-lecture topic="Encapsulation: Thinking About Public Interfaces of Classes"  unit="Object Orientation"/>
+        <syllabus-lecture topic="Public/Private: Encapsulation and the Interface of a Class"  unit="Object Orientation"/>
 
+        <syllabus-lecture topic="Modular Design: Organizing Data into Classes"  unit="Object Orientation"/>
         <syllabus-lecture topic="Introducing Common Java Objects Pt I (Strings and Scanner)"  unit="Object Orientation"/>
         <syllabus-lecture topic="Introducing Common Java Objects Pt II"  unit="Object Orientation"/>
+
         <syllabus-lecture topic="Advanced Class Keywords: Final and Static"  unit="Object Orientation"/>
-
         <syllabus-lecture topic="Objects Built From Static Methods"  unit="Object Orientation"/>
-        <syllabus-lecture topic="Modular Design: Organizing Data into Classes"  unit="Object Orientation"/>
-        <syllabus-lecture topic="Mental Models of Coding: Translating Ideas into Statements"  href="./presentations/mental-model/slides.html"  unit="Control Flow"/>
 
+        <syllabus-lecture topic="Composition: Objects that Hold Other Objects" unit="Object Orientation" />
+        <syllabus-lecture topic="Chaining Dot Methods" unit="Object Orientation" />
         <syllabus-lecture topic="Boolean Logic: Describing Conditions"  unit="Control Flow"/>
-        <syllabus-lecture topic="Loops and Branches"  unit="Control Flow"/>
 
-        <syllabus-lecture topic="Introduction to Dimensional Types: Arrays."  unit="Control Flow"/>
-        <syllabus-lecture topic="Lists: Arrays that are Objects" unit="Control Flow" />
-        <syllabus-lecture topic="Common Looping Patterns With Groups of Data" unit="Control Flow" />
+        <syllabus-lecture topic="Loops and Branches"  unit="Control Flow"/>
+        <syllabus-lecture topic="Recursion: 'Looping' with Functions" unit="Control Flow"/>
+        <syllabus-lecture topic="Mental Models of Coding"  href="./presentations/mental-model/slides.html"  unit="Control Flow"/>
+        <!--<syllabus-lecture topic="Translating Ideas into Control Flow" unit="Control Flow"></syllabus-lecture>-->
+
+
+
+
         <!------------------------MIDTERM WEEK-------------------------------->
         <syllabus-lecture topic="Midterm Review" highlight="2"/>
         <syllabus-lecture topic="Midterm Exam" highlight="2.5"/>
         <syllabus-lecture topic="Midterm Results Discussion" highlight="2"/>
         <!------------------------MIDTERM WEEK-------------------------------->
 
+        <syllabus-lecture topic="Introduction to Dimensional Types: Arrays."  unit="Control Flow"/>
+        <syllabus-lecture topic="Lists: Arrays that are Objects" unit="Control Flow" />
+        <syllabus-lecture topic="Common Looping Patterns With Groups of Data" unit="Control Flow" />
+
         <syllabus-lecture topic="When to Use Groups of Data vs. Classes" unit="Best Practices"/>
-        <syllabus-lecture topic="Documentation: Leaving Comments and Using JavaDoc" unit="Best Practices" />
         <syllabus-lecture topic="Using Code Written By Others" unit="Best Practices" />
+        <syllabus-lecture topic="Documentation: Leaving Comments and Using JavaDoc" unit="Best Practices" />
 
-        <syllabus-lecture topic="Passing Information in Programs with Multiple Classes" unit="Best Practices" />
-        <syllabus-lecture topic="Finding Answers from Arrays with Loops" unit="Algorithmic Thinking"/>
-        <syllabus-lecture topic="Readablity vs. Efficiency in Programs" unit="Algorithmic Thinking"/>
-
-        <syllabus-lecture topic="Recursion: 'Looping' with Functions" unit="Algorithmic Thinking"/>
+        <syllabus-lecture topic="Readablity vs. Efficiency in Programs" unit="Algorithmic Thinking" comment="Binary Search"/>
+        <syllabus-lecture topic="Using Loops to Manipulate Data" unit="Algorithmic Thinking" />
         <syllabus-lecture topic="The Divide and Conquer Approach to Problem-Solving" unit="Algorithmic Thinking"/>
+
         <syllabus-lecture topic="Using Groups of Data in Programs" unit="Algorithmic Thinking"/>
-
-        <syllabus-lecture topic="UNSCHEDULED" />
-        <syllabus-lecture topic="UNSCHEDULED" />
+        <syllabus-lecture topic="Pipelining Changes to a Group of Data" unit="Algorithmic Thinking"/>
         <syllabus-lecture topic="UNSCHEDULED" />
 
-        <syllabus-lecture topic="UNSCHEDULED" />
-        <syllabus-lecture topic="UNSCHEDULED" />
+        <syllabus-lecture topic="Saving Code in Multiple Folders: Package and Imports" />
+        <syllabus-lecture topic="Modules and Compiling into an Executable" />
 
         <syllabus-lecture topic="Setup and Creating Windows" unit="GUI Programming" />
         <syllabus-lecture topic="Controls as Objects" unit="GUI Programming" />
@@ -137,13 +143,13 @@
         <syllabus-lecture topic="Working on Software in Groups" />
 
         <!--------------------------------------------------------------->
-        <syllabus-assignment title="Lab 0: Software Downloading and Pre-test" dueIn="5" />
-        <syllabus-assignment title="Lab 1: Hello Java (+Writing and Running Code Tutorial)" dueIn="5" />
-        <syllabus-assignment title="Lab 2: " dueIn="5" />
-        <syllabus-assignment title="Lab 3: " dueIn="5" />
-        <syllabus-assignment title="Lab 4: " dueIn="5" />
-        <syllabus-assignment title="Lab 5: " dueIn="5" />
-        <syllabus-assignment title="Lab 6: " dueIn="5" />
+        <syllabus-assignment title="Lab 0: Software Downloading (+Saving Code Tutorial)" dueIn="5" />
+        <syllabus-assignment title="Lab 1: Measurement Converter (+Running and Tracing Tutorial)" dueIn="5" />
+        <syllabus-assignment title="Lab 2 (+Debugging Tutorial)" dueIn="5" />
+        <syllabus-assignment title="Lab 3 " dueIn="5" />
+        <syllabus-assignment title="Lab 4 " dueIn="5" />
+        <syllabus-assignment title="Lab 5 " dueIn="5" />
+        <syllabus-assignment title="Lab 6 " dueIn="5" />
         <syllabus-assignment title="Midterm Review: Past Lab Retrospective" dueIn="5" />
         <syllabus-assignment title="Lab 7" dueIn="5" />
         <syllabus-assignment title="Lab 8" dueIn="5" />
