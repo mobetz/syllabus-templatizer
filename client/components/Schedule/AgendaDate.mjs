@@ -53,7 +53,7 @@ export class AgendaDate {
             link.href = this.topic.href;
             link.innerText = this.topic.topic;
             lecture.append(link);
-        } else {
+        } else if ( this.topic.topic !== undefined ) {
             lecture.innerText = this.topic.topic;
         }
         lecture.classList.add(...this.highlightToClassList(this.topic.highlight));

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CS 120</title>
+    <script  type="module" src="client/syllabus-templatizer.js"></script>
+
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+    <link rel="stylesheet" href="style/main-styles.css">
+
+</head>
+<body>
+
+
+<template-syllabus course="CS-241: Website Development"
+            professor="Prof. Matthew Obetz"
+            email="mobetz@massbay.edu"
+            office-link="https://massbay.webex.com/meet/mobetz">
+
+    <syllabus-timeslot slot="meeting-time" days="TR" startHour="10" endHour="12" endMin="15"></syllabus-timeslot>
+
+    <syllabus-timeslot slot="office-time" days="MW" startHour="10" endHour="10" endMin="50"></syllabus-timeslot>
+    <br slot="office-time">
+    <syllabus-timeslot slot="office-time" days="TR" startHour="12" endHour="12" endMin="50"></syllabus-timeslot>
+
+
+    <section id="description">
+        <h3>Course Description</h3>
+        <p>This course introduces the fundamentals of web programming. Students will build database driven Web sites that retrieve, integrate and present database content. Students will use professional tools used to enhance and accelerate the development of web sites. Client-side and server-side scripting will be presented using current web technologies.</p>
+        <p style="font-weight: bold">Pre-requisite: CS 120 Programming I or CS 118 Scripting.</p>
+    </section>
+
+    <section id="texts">
+        <h3>Required Texts</h3>
+        <p>In lieu of a traditional textbook, this course will make use of Open Educational Resources (OERs). During the
+            first week of class, we will make accounts and register for the learning platforms we will be using.</p>
+    </section>
+
+    <syllabus-contact example="CS 241: Unable to Open Lab 4"></syllabus-contact>
+    <syllabus-officehours></syllabus-officehours>
+
+    <syllabus-outcomes> This course provides students with an introduction to programming in a web context. By the end of the course, students are expected to have achieved the following outcomes:
+
+    Be comfortable with common tools used for web development, and understand how servers are configured to run web code.
+    Have a working knowledge of Javascript, including common modules, libraries, and frameworks used in the web development ecosystem.
+    Know how to write code that accesses data resources on a server, including files and databases.
+    Understand the logistic and security implications of the client-server model, and identify what code should run in the server or on a client.
+
+
+        <syllabus-idea theme="Server-Side Programming">
+            <li>Design endpoint-based architectures for executing server-side code.</li> 
+            <li>Understand how data is transported between clients and servers.</li>
+            <li>Write server code that interfaces with databases to design data-driven APIs.</li>
+        </syllabus-idea>
+
+
+        <syllabus-idea theme="Client-Side Programming">
+            <li>Achieve fluency in Javascript that works with variables, functions, and conditional logic.</li>
+            <li>Identify common web APIs used for accessing functionality of a browser.</li>
+            <li>Understand the concept of browser sandboxing and how it informs client side program design.</li>
+        </syllabus-idea>
+
+        <syllabus-idea theme="Web Technologies">
+            <li>Be comfortable with common tools used for web development.</li>
+            <li>Identify evolving web standards for compiling and delivering code that runs in the browser.</li>
+            <li>Understand modern web technologies such as canvas, websockets, and web components.</li> 
+        </syllabus-idea>
+
+    </syllabus-outcomes>
+
+    <syllabus-schedule startdate="2023-01-17" enddate="2023-05-05" meetdays="T" labdays="R">
+        <syllabus-holiday date="2023-02-02" event="Professional Day" />
+        <syllabus-holiday date="2023-02-20" event="President's Day" />
+        <syllabus-holiday start="2023-03-13" end="2023-03-17" event="Spring Break" />
+        <syllabus-holiday date="2023-04-17" event="Patriot's Day" />
+
+        <syllabus-event date="2023-01-23" event="Add/Drop Deadline" />
+        <syllabus-event start="2023-03-06" end="2023-03-12" event="Midterm Exams" highlight="2"/>
+        <syllabus-event date="2023-04-03" event="Fall Registration Begins" />
+        <syllabus-event date="2023-04-07" event="Withdrawal Deadline" />
+
+        <!--------------------------------------------------------------->
+
+        <syllabus-lecture topic="Syllabus Review" />
+        <syllabus-lecture topic="Static vs. Dynamic Content.  HTML and CSS."  />
+        <syllabus-lecture topic="Introduction to Javascript. Typing, Control Flow, and Things to Know."/>
+
+        <syllabus-lecture topic="Javascript as a Standalone Language.  Callbacks.  Working with System Resources."/>
+        <syllabus-lecture topic="Server-side JS: Modules and Repositories.  ExpressJS: Static Content and Endpoints. Testing with a REST Client.
+"/>
+        <syllabus-lecture topic="RESTful Application Design.   Status Codes.    Modeling Data for the Web. "/>
+        <syllabus-lecture topic="Javascript in the Browser. The Document Object Model. Interacting with Endpoints. Dynamic Webpage Content."/>
+
+
+
+        <!------------------------MIDTERM WEEK-------------------------------->
+        <syllabus-lecture topic="Midterm Exam" highlight="2.5"/>
+        <!------------------------MIDTERM WEEK-------------------------------->
+
+
+        <syllabus-lecture topic="Relational Data Models.    Relational Databases.    ORM Diagrams."/>
+        <syllabus-lecture topic="Database Connections in NodeJS.     Select Statements."/>
+        <syllabus-lecture topic="Modifying Databases: Inserts, Updates and Deletes. "/>
+        <syllabus-lecture topic="Programmatic Databases (ORM Software)."/>
+        <syllabus-lecture topic="WebComponents and Client Side Frameworks. "/>
+        <syllabus-lecture topic="Beyond Express"/>
+        <syllabus-lecture topic="Evolving Web Standards"/>
+
+
+
+        <!--------------------------------------------------------------->
+        <syllabus-assignment title="Lab 0: Tool Setup" dueIn="5" />
+        <syllabus-assignment title="Lab 1: Your First Webpage" dueIn="5" />
+        <syllabus-assignment title="Lab 2: A Javascript Review" dueIn="5" />
+        <syllabus-assignment title="Lab 3: Your First Webserver" dueIn="5" />
+        <syllabus-assignment title="Lab 4: Creating a Simple REST App" dueIn="5" />
+        <syllabus-assignment title="Lab 5: Your First Web Frontend " dueIn="5" />
+        <syllabus-assignment topic="Midterm Results Discussion" highlight="2"/>
+        <syllabus-assignment title="Project Pt 1: Proposals." dueIn="5" />
+        <syllabus-assignment title="Project Pt 2: Design Plan and Data Modeling." dueIn="5" />
+        <syllabus-assignment title="Project Pt 3: API Modeling." dueIn="5" />
+        <syllabus-assignment title="Project Pt 4: Web Design." dueIn="5" />
+        <syllabus-assignment title="Project Pt 5: Bringing it all Together." dueIn="5" />
+        <syllabus-assignment title="Project Pt 6: Preparing for Demos" dueIn="5" />
+        <syllabus-assignment title="Final Demos" dueIn="5" />
+    </syllabus-schedule>
+
+    <syllabus-format meetingdays="MWF" labdays="M"></syllabus-format>
+    <syllabus-attendance></syllabus-attendance>
+    <syllabus-submission></syllabus-submission>
+    <syllabus-dishonesty></syllabus-dishonesty>
+
+
+</template-syllabus>
+</body>
+</html>
