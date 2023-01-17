@@ -1,0 +1,25 @@
+
+
+h3 {
+    color: var(--title-accent);
+    font-size: 13pt;
+    margin-bottom: .75em;
+}
+
+p {
+    font-size: 11pt;
+}
+
+#headers {
+    font-weight: bold;
+}
+
+#headers span {
+    width: 200px;
+    display: inline-block;
+}
+
+
+#grade-table {
+    margin: 20px;
+}
