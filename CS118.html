@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CS 118: Scripting</title>
+    <script  type="module" src="client/syllabus-templatizer.js"></script>
+
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+    <link rel="stylesheet" href="style/main-styles.css">
+
+</head>
+<body>
+
+
+<template-syllabus course="CS-118: Scripting"
+            professor="Prof. Matthew Obetz"
+            email="mobetz@massbay.edu"
+            office-link="https://massbay.webex.com/meet/mobetz">
+
+    <syllabus-timeslot slot="meeting-time" days="R" startHour="13" endHour="15" endMin="45"></syllabus-timeslot>
+
+    <syllabus-timeslot slot="office-time" days="MTWR" startHour="9" endHour="9" endMin="50"></syllabus-timeslot>
+
+
+    <section id="description">
+        <h3>Course Description</h3>
+        <p> This course introduces fundamental programming concepts. Students learn to design and implement platform-independent
+            scripts. Students will learn scripting for system-administration, database communication, and to provide user
+            interactivity through the use of multimedia resources. By the end of the course students will have a concrete
+            understanding of programming in several important scripting contexts. </p>
+
+    </section>
+
+    <section id="texts">
+        <h3>Required Texts</h3>
+        <p>In lieu of a traditional textbook, this course will make use of Open Educational Resources (OERs). During the
+            first week of class, we will discuss the learning platforms we will be using.</p>
+    </section>
+
+    <syllabus-contact example="CS 118: Unable to Open Lab 4"></syllabus-contact>
+    <syllabus-officehours></syllabus-officehours>
+
+    <syllabus-outcomes> This course aims to serve as an introduction to programming with a focus on general computing
+        and the automation of common tasks. By the end of this course, students should understand:
+
+        <syllabus-idea theme="Programming Competency">
+            <li>Identify statements as the basic building block of scripting.</li>
+            <li>Understand how data is stored and retrieved in a script using variables.</li>
+            <li>Use expressions to modify values in a script.</li>
+            <li>Recognize how if statements allow scripts to conditionally execute instructions.</li>
+            <li>Describe how loops can be used to repeat instructions as long as a condition is met.</li>
+            <li>Explain how functions can be used to create named reusable groups of instructions.</li>
+            <li>Use functions and built-in shell script commands to solve common scripting problems.</li>
+            <li>Understand how to accept input from a user and display output to a user in a script.</li>
+            <li>Write, read, and modify files programmatically in a script.</li>
+        </syllabus-idea>
+
+
+        <syllabus-idea theme="Computational Thinking">
+            <li>Analyze the difference between textual and numeric representations of data.</li>
+            <li>Contrast loops and branches to understand when the use of each is appropriate.</li>
+            <li>Identify common patterns for writing scripts to validate inputs and sequentially process information.</li>
+            <li>Understand how to break larger problems down into a pipeline of tasks performed on data.</li>
+            <li>Consider common strategies for identifying the source of errors to debug malfunctioning scripts.</li>
+            <li>Describe strategies for creating informative and maintainable documentation for their scripts.</li>
+        </syllabus-idea>
+
+        <syllabus-idea theme="Scripting Literacy">
+            <li>Explain how a command prompt represents current location in a filesystem.</li>
+            <li>Use shell commands to list contents of a directory and move between different directories using relative and absolute paths.</li>
+            <li>Use shell commands to create, modify, and delete directories and files.</li>
+            <li>Execute scripts and installed programs directly from a command prompt.</li>
+            <li>Understand the difference between script variables and system environment variables when writing and using scripts.</li>
+            <li>Identify how inputs are passed into a shell script.</li>
+        </syllabus-idea>
+
+    </syllabus-outcomes>
+
+    <syllabus-schedule startdate="2023-01-17" enddate="2023-05-05" meetdays="R" labdays="">
+        <syllabus-holiday date="2023-02-02" event="Professional Day" />
+        <syllabus-holiday date="2023-02-20" event="President's Day" />
+        <syllabus-holiday start="2023-03-13" end="2023-03-17" event="Spring Break" />
+        <syllabus-holiday date="2023-04-17" event="Patriot's Day" />
+
+        <syllabus-event date="2023-01-23" event="Add/Drop Deadline" />
+        <syllabus-event start="2023-03-06" end="2023-03-12" event="Midterm Exams" highlight="2"/>
+        <syllabus-event date="2023-04-03" event="Fall Registration Begins" />
+        <syllabus-event date="2023-04-07" event="Withdrawal Deadline" />
+
+        <!--------------------------------------------------------------->
+
+        <syllabus-lecture topic="Syllabus Review" />
+        <syllabus-lecture topic=" Introducing Variables and Data Types. Running Scripts with Arguments "  />
+        <syllabus-lecture topic="Creating and Using Functions. Top-Down Design.  Scripting 'Pipelines'."/>
+
+        <syllabus-lecture topic="Boolean Data and If Statements."/>
+        <syllabus-lecture topic="Repeating Instructions: Loops."/>
+        <syllabus-lecture topic="Collections of Data: Lists."/>
+
+
+
+        <!------------------------MIDTERM WEEK-------------------------------->
+        <syllabus-lecture topic="Midterm Exam" highlight="2.5"/>
+        <!------------------------MIDTERM WEEK-------------------------------->
+
+
+        <syllabus-lecture topic="Look-up Associations: Dictionaries."/>
+        <syllabus-lecture topic="System Administration: Processing Files and Navigating Directories."/>
+        <syllabus-lecture topic="Extending Others' Code: How to Find, Load, and Run Third-Party Scripts."/>
+        <syllabus-lecture topic="Complex Problem Solving: Sorting, Searching, and Complexity."/>
+        <syllabus-lecture topic="Grouping Data and Functions Together: Creating Classes."/>
+        <syllabus-lecture topic="JavaScript in the Browser."/>
+        <syllabus-lecture topic="Review and Summary"/>
+        <syllabus-lecture topic="Final Exam" highlight="2.5"/>
+
+
+
+        <!-------------------------------
+        <syllabus-assignment title="Lab 0: Tool Setup" dueIn="5" />
+        -------------------------------->
+    </syllabus-schedule>
+
+    <syllabus-format meetingdays="R" ></syllabus-format>
+    <syllabus-attendance></syllabus-attendance>
+    <syllabus-submission></syllabus-submission>
+    <syllabus-dishonesty></syllabus-dishonesty>
+    <syllabus-grades>
+        <syllabus-category theme="Midterm Exam" value="20"></syllabus-category>
+        <syllabus-category theme="Final Exam" value="20"></syllabus-category>
+        <syllabus-category theme="Labs and Assignments" value="60"></syllabus-category>
+    </syllabus-grades>
+
+</template-syllabus>
+</body>
+</html>
