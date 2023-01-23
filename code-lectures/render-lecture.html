@@ -9,32 +9,13 @@
     <link rel="stylesheet" href="../style/main-styles.css">
     <link rel="stylesheet" href="../style/code-render.css">
 
-    <script type="module">
-        import  '../client/components/CodeViewer/code.mjs';
-
-        function createCodeViewer() {
-            const params = new Proxy(new URLSearchParams(window.location.search), {get: (param, prop) => param.get(prop)});
-
-            let viewer = document.createElement("code-viewer");
-            viewer.stem = params.course + "/" + params.folder;
-            viewer.pages = params.pages;
-
-            document.querySelector("h3").innerText += ": " + params.course ;
-            document.querySelector("main").appendChild(viewer);
-        }
-
-        if ( document.readyState !== 'loading')
-            createCodeViewer()
-        else
-            document.addEventListener("DOMContentLoaded", createCodeViewer);
-
-
-    </script>
+    <script type="module" src="../client/lecture-render.js"></script>
 </head>
 <body>
 
 <main>
 <h3>Viewing Lecture</h3>
+    <button id="download_zip">Download As Zip</button>
 </main>
 </body>
 </html>

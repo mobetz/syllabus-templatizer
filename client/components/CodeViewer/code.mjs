@@ -8,6 +8,7 @@ class CodeViewer extends HTMLElement {
         super();
         this.attachShadow({mode: 'open'});
         buildComponent(content, this.shadowRoot);
+        this.code = {};
     }
 
     static get observedAttributes() {
@@ -28,6 +29,10 @@ class CodeViewer extends HTMLElement {
 
     set stem(value) {
         this.setAttribute('stem', value)
+    }
+
+    get raw_code() {
+        return this.code;
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -74,6 +79,7 @@ class CodeViewer extends HTMLElement {
             content.classList.add("content");
 
             let codeTag = document.createElement("code");
+            this.code[page] = code;
             codeTag.appendChild(document.createTextNode(code));
             tab.appendChild(content);
             content.appendChild(codeTag);
