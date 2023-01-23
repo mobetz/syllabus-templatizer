@@ -41,17 +41,19 @@ class CodeViewer extends HTMLElement {
                 let pages = newValue.split(";");
                 for ( let page of pages ) {
 
+                    //TODO: promises.all() before appending to shadowRoot to ensure consistency in page order
 
                     this.generateLabelFromPageLocation(this.stem + "/" + page)
                         .then((tab_element) => {
                             this.shadowRoot.querySelector(".container").appendChild(tab_element);
-                            this.shadowRoot.querySelector(".tab:nth-child(1) input").checked = true;
                     });
 
 
 
 
                 }
+
+                this.shadowRoot.querySelector(".tab:nth-child(1) input").checked = true;
 
                 break;
         }
@@ -80,7 +82,7 @@ class CodeViewer extends HTMLElement {
             content.classList.add("content");
 
             let codeTag = document.createElement("code");
-            codeTag.innerHTML = code;
+            codeTag.appendChild(document.createTextNode(code));
             tab.appendChild(content);
             content.appendChild(codeTag);
 
