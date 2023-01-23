@@ -39,21 +39,13 @@ class CodeViewer extends HTMLElement {
                 tabs.innerText = "";
 
                 let pages = newValue.split(";");
-                for ( let page of pages ) {
 
-                    //TODO: promises.all() before appending to shadowRoot to ensure consistency in page order
-
-                    this.generateLabelFromPageLocation(this.stem + "/" + page)
-                        .then((tab_element) => {
-                            this.shadowRoot.querySelector(".container").appendChild(tab_element);
+                Promise
+                    .all(pages.map((page) => this.generateLabelFromPageLocation(this.stem + "/" + page)))
+                    .then((tab_list) => {
+                        tab_list[0].querySelector("input").checked = true;
+                        this.shadowRoot.querySelector(".container").append(...tab_list);
                     });
-
-
-
-
-                }
-
-                this.shadowRoot.querySelector(".tab:nth-child(1) input").checked = true;
 
                 break;
         }
