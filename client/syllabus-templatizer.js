@@ -14,3 +14,6 @@ import './components/GradingPolicy/code.mjs'
 import './components/Syllabus/code.mjs'
 import './components/Timeslot/code.mjs'
 import './components/Schedule/code.mjs'
+
+
+import './components/CodeViewer/code.mjs'

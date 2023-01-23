@@ -1,0 +1,53 @@
+
+@import url(code-highlighting.css);
+
+.container {
+    position: relative;
+    display: flex;
+    font-size: 12px;
+}
+
+
+.tab > label {
+    position: relative;
+    display: inline-block;
+    padding: 5px 20px;
+    border-top: 1px solid grey;
+    border-left: 1px solid grey;
+    border-right: 1px solid grey;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+
+    background:  lightgrey;
+    color: #181818;
+    transition: 0.3s;
+}
+
+.tab > input:checked ~ label {
+
+    background:  #181818;
+    color: grey;
+    transition: 0.3s;
+}
+
+.tab > input {
+    display: none;
+}
+
+.content {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    margin: 0;
+    padding: 20px;
+    min-width: 80em;
+    transition: 0.3s;
+}
+.tab > input:checked ~ .content {
+    visibility: visible;
+    opacity: 1;
+    transition: 0.3s;
+}
+
+

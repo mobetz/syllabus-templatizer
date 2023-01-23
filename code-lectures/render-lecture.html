@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lecture Notes</title>
+    <script  type="module" src="../client/syllabus-templatizer.js"></script>
+
+    <link rel="icon" type="image/x-icon" href="../favicon.png">
+    <link rel="stylesheet" href="../style/main-styles.css">
+
+
+    <style>
+        main {
+            padding-top: 4em;
+            margin: auto;
+            width: 80em;
+            display: block;
+        }
+    </style>
+
+    <script type="module">
+        import  '../client/components/CodeViewer/code.mjs';
+
+        function createCodeViewer() {
+            const params = new Proxy(new URLSearchParams(window.location.search), {get: (param, prop) => param.get(prop)});
+
+            let viewer = document.createElement("code-viewer");
+            viewer.stem = params.course + "/" + params.folder;
+            viewer.pages = params.pages;
+
+            document.querySelector("h3").innerText += ": " + params.course ;
+            document.querySelector("main").appendChild(viewer);
+        }
+
+        if ( document.readyState !== 'loading')
+            createCodeViewer()
+        else
+            document.addEventListener("DOMContentLoaded", createCodeViewer);
+
+
+    </script>
+</head>
+<body>
+
+<main>
+<h3>Viewing Lecture</h3>
+</main>
+</body>
+</html>

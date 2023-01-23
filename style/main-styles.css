@@ -28,14 +28,15 @@ template-syllabus {
      */
 }
 
-template-syllabus section {
+section {
     margin-top: 2em;
 }
 
-template-syllabus p {
+p {
     font-size: 11pt;
 }
-template-syllabus h3 {
+
+h3 {
     color: var(--title-accent);
     font-size: 13pt;
     margin-bottom: .75em;
