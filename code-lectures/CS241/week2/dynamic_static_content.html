@@ -1,0 +1,237 @@
+
+
+<!--
+
+Objectives for Today
+
+By the end of today, you will:
+
+   * Identify the division of responsibility between servers and clients.
+   * Define dynamic and static content as they relate to web development.
+   * Understand how to use tags to describe semantic content in HyperText Markup Language (HTML).
+   * Be able to target and manipulate specific HTML tags with Cascading Style Sheet (CSS) selectors.
+
+
+
+Static and Dynamic Content
+
+A server exposes a service or resource over a computer network, and a client is anything which consumes that service.
+
+This week, we're going to talk a bit more about what this means practically when we are designing an application for the web.
+
+
+A well-designed web-app is one that creates a "division of responsibility" between the server and client.
+This means that different types of work should generally be done on the server or on the client, but not both.
+
+
+                                               It is the ________'s responsibility to......
+
+                                      Server                 |                    Client
+                      -----------------------------------------------------------------------------------
+                                                             |
+                       permanently store any shared or       |   temporarily cache any 'local' data that the
+                         public data the user may need       |   user is working with 'right now' (or that the
+                                                             |    server doesn't need to know about)
+                                                             |
+                     Manage "interfaces" that describe       |  Make requests against interfaces asking to read
+                      how a client is permitted to access    |  or change portions of the data that a user is
+                      and modify server data                 |  interacting with right now.
+                                                             |
+                     Host code that models the data          |  Host code that describes workflows and views that
+                     related to a server's purpose, as       |  make the data understandable to users, including any
+                     well as the rules for accessing and     |  "presentation" / stylization / formatting.
+                     validating that data.                   |
+                                                             |
+                                                             |
+                    Serve the client code to the client.     |
+                                                             |
+                                                             |
+
+
+
+In particular, let us focus on that last point -- in very simple web applications, this will be the vast majority of a server's
+responsibility. For example, let's go take a look at the first ever website: http://info.cern.ch/hypertext/WWW/TheProject.html.
+
+
+What data does this server need to store? What modifications can users make?
+
+The answer is that they don't make modifications at all. This is a website that was written once as a file, and that same file
+is served to everyone every time they visit this site. Nothing ever reads from a data store, nothing responds to who is viewing
+the website or when.
+
+
+We call this type of web content "static content", because a static, unchanging file sits on the server, and the only
+thing the serverneeds to do is *serve* that file as-is. With static content, the only programming that we can do occurs
+in client-side code.
+
+
+The alternative to static content is "dynamic content".
+
+Dynamic content is content where the server doesn't know what it will return to a user until the moment the user makes a request.
+The server must do some processing to handle the request, often reading from a database or transforming the user's request in some
+way to produce its response. In dynamic websites, there will usually be coding done on both the server and the client.
+
+
+                                           This content is....
+                              Dynamic    |                                            |    Static
+                      -----------------------------------------------------------------------------------
+                                         |                                            |
+                                         |        The first website ever              |        X
+                                         |           (Pure HTML and CSS)              |
+                                         |                                            |
+                              X          |       A page of Google search results      |
+                                         |                                            |
+                                         |       An "About Me" page with a photo      |        X
+                                         |         and some styled text               |
+                                         |                                            |
+                              X          |      An Amazon shopping cart               |
+                                         |                                            |
+                              X          |      A discussion board where you log      |
+                                         |       in to post questions                 |
+                                         |                                            |
+                                         |      A website that hosts an archive       |        X
+                                         |         of old Flash games                 |
+                                         |                                            |
+
+
+For the rest of today, we will focus on the most common type of static content: HTML pages.
+
+-->
+<html>
+
+<head>
+  <link rel="stylesheet" href="./styles/main_styles.css">
+</head>
+
+
+<body>
+
+<a id="top_of_page"></a>
+
+<section id="HTML">
+
+<h2>HTML</h2>
+
+
+
+<p>HyperText Markup Language (HTML) is a "markup language" that we use to author and style content for the web.</p>
+
+<p>"Markup" in this name refers to fact that HTML content is represented as exactly the text we want to show to our users,
+but "marked up" and decorated with tags that organize and describe the content. Unlike a programming language, we cannot
+use a markup language to solve problems or give the computer a series of instructions: everything we add to the page is
+  content that we are declaring exists.</p>
+
+<p>The key component that differentiates HTML from plain text is the use of tags. A tag is a word of text that is surrounded
+by &lt;angle brackets &gt;. Most tags come in pairs, and apply their meaning to everything inside the pair.  A closing tag
+will have an identical name to its opening tag, but it will be prefixed by a / .</p>
+
+<p>The most basic example of a tag is the  &lt;html &gt; tag, which we put at the beginning and end of our document to declare
+that everything inside is HTML. We can also use the &lt;body &gt; tag to surround all the text that we want our users to
+actually see, and the  &lt;p &gt; tag to surround each individual paragraph of text.</p>
+
+
+<p> Some tags, like the img tag, do not require a closing tag -- they represent something we want to insert into the page
+  that has meaning on its own. </p>
+
+<img src="grumpy-cat-small.png" width="400px">
+
+<p> Notice that our image tag also has something else in addition to just its name.
+
+  It's not enough to just tell a browser that an image exists. We have to tell it <em>what we have an image of</em>. Since details
+  like this have their own semantic meaning, we use special name-value pairs called "attributes" inside of the tag to share these
+  details. In this case, src is an abbreviation for the "source" location for this image (think like "sources" that you cite in
+  a paper.)</p>
+
+<p>Attributes will always be names and values joined by an equals sign:</p>
+
+<img src="grumpy-cat-attribute-small.png" width="400px">
+
+
+<p>Hyperlinks are created using the &lt;a&gt; tag. A is short for "anchor", because these anchors tie two different
+  places on the web  together. Typically, an anchor tag is used with the <strong>href</strong> attribute, which has a
+  full path to <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML">another website</a>.
+  If you want to link to another file the same folder, then you can just use the file's name.</p>
+
+
+<p> There is another way to use the anchor tag: When the anchor's <strong>href</strong> uses a name prefixed by a #,
+  the browser will search for an id attribute on the same page and scroll to the anchor. </p>
+
+
+<p><a href="#top_of_page">Return to top</a></p>
+</section>
+
+
+<section id="CSS">
+  <h3> Styling </h3>
+
+  <p>CSS stands for "Cascading Style Sheets". Cascading Style Sheets are an extension to HTML that allows us to declare
+    special "rules" that modify our HTML tags. Like HTML itself, these rules are 'declarative' -- a CSS stylesheet is
+    a list of information, and the browser is responsible for interpreting that information to produce a rendered web page. </p>
+
+
+  <p class="even_paragraph"> Each rule starts with a selector that describes what tags (and content inside those tags) we want to target. Afterward,
+    we have a pair of  {curly braces}, inside of which we place one or more declaration that describes how to change
+    those targeted tags. </p>
+
+  <p> Typically, CSS is written in its own separate file, ending with the .css extension. It is then linked to the HTML page
+    using a "link" tag. Let's try out a few examples now.</p>
+
+  <img src="grumpy-cat-attribute-small.png" style="margin:auto; display:block" width="400px">
+
+  <p>The simplest selectors are just tags! If we provide the name of the tag in the selector region of a CSS rule, then
+    that block of declarations will apply to all matching tags in our document.</p>
+
+   <p class="even_paragraph">In addition, there are two other common selectors: id selectors and class selectors.
+     Every single tag in HTML has two attributes in common -- we can specify an id that uniquely identifies that
+     specific element, and a class that labels that element as being part of a set of similarly styled groups (each
+     group is separated by a space). Then, in our CSS rules, we can use #ID_NAME to refer to an element by id, and
+     .CLASS_NAME to refer to an element by class.</p>
+
+
+</section>
+
+
+<section id="combinators">
+
+  <h3>Combinators and Pseudo-selectors</h3>
+  <p>In addition to targeting individual tags or groups of tags with selectors, CSS also gives us the power to mix multiple
+    selectors together to talk about elements in relation to one another. The symbol we use to combine the two selectors
+    determines the relationship we are expressing between the two selectors. For a tag1 followed by a tag2 that we want to combine, CSS
+    gives us several useful selectors:</p>
+
+  <ul>
+    <li>A space expresses "any tag2 that is inside of a tag1", at any depth.
+      This is the <strong>descendent selector</strong>.</li>
+    <li>A right-facing arrow (the greater than sign > ), expresses "any tag2
+      that is <em>directly</em> inside a tag1". This is the <strong>child
+        selector</strong>. </li>
+    <li>A tilde (~) expresses "any tag2 that is adjacent to a tag1". This is
+      the <strong>sibling selector</strong>.</li>
+    <li>A plus (+) expresses "any tag2 that is directly adjacent to a tag1". This is
+      the <strong>sibling selector</strong>.</li>
+  </ul>
+
+  <p>
+    Additionally, there are a few special "suffixes" we can add to our selectors to indicate
+    that we want to target an element that is currently in a particular state.
+    We call these suffixes <strong>pseudo-classes</strong> or <strong>pseduo-selectors</strong>.
+  </p>
+
+
+  <p>
+    Pseudo-classes are written by taking any selector, adding a colon ( : ),
+    then adding the name of the pseduo-class. A few useful pseduo-classes:
+  </p>
+  <ul>
+    <li>:hover allows us to refer to an element that's touching our mouse.</li>
+    <li>:nth-child(N) allows us to refer to every Nth element of a type.</li>
+    <li>:target allows us to refer to an element with an id that matches the
+      last anchor tag we clicked on our page.</li>
+    <li>:checked allows us to refer to a checkbox or radio button that is currently
+      selected.</li>
+  </ul>
+</section>
+
+</body>
+
+</html>
