@@ -226,3 +226,15 @@ console.log("When we do 4+1 with text, we get: " + what_will_this_be);
 */
 
 
+
+/*
+    In node, if we want to use command line arguments in our script, instead of using $1 or $2, we
+    use process.argv[#]:
+*/
+
+console.log("The first parameter in NodeJS is: " + process.argv[2]);// in node, we start counting arguments from 2
+                                                                    // (1 is for the full command.)
+
+
+console.log("The second parameter in NodeJS is: " + process.argv[3]);
+                                       
