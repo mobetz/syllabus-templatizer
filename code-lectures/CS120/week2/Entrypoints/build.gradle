@@ -1,0 +1,88 @@
+
+/* 
+
+    The build.gradle file is a special file that works similarly to (but not exactly like) a normal Java file.
+
+
+    Notably, it does not define a class. Instead, it sets configuration variables and calls special setup
+    functions that tell Gradle how our program is set up.
+    
+    To start, we need to tell gradle which features we're planning on using, by specifying a few plugins.
+    We want to build java code, so we use the "java" plugin, and we want to be able to run our program,
+    so we use the "application" plugin.
+*/
+
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+
+
+
+/*
+
+   Next, we need to tell gradle where our code lives. There are two parts to this:
+
+        - First, we need to say what folder the code lives in. Conventionally, we often use 'src' as the name of 
+             the folder (since 'src' is short for 'source code'.)
+
+        - Afterward, we need to tell it the name of our program entrypoint/main class, exactly the same way we did for 
+             javac and java.
+
+
+*/
+
+
+sourceSets.main.java.srcDirs('src')
+application.mainClass = 'Entrypoints'
+
+
+
+
+/*
+    ...and that's it, by providing that list of plugins and those two pieces of information, we can now tell gradle
+    we want it to run our program.
+
+    To do this, we run gradle from the command line, and tell it what action we want it to perform. 
+    For example, if we want it to run our program, we would type "gradle run" from our root folder 
+
+    In order to pass arguments to gradle when we run, we use --args, and then provide all our args in "quotation marks"
+          gradle run --args "3 4"
+
+
+ */
+
+
+
+ /*
+
+
+
+     Right now, the benefit of this feels dubious -- we've saved one line when we run the code, but added
+     a small file we have write for each of our projects. 
+
+     Where gradle really shines is when running programs get more complicated. So far, we've only talked about
+     programs whose entrypoint is 'main()'. However, not all programs have main() as an entrypoint, or any
+     code that runs immediately at all...
+
+     Some programs like "code libraries" are just collections of functions that don't have a defined
+     entrypoint! They just describe things we want Java to be able to do.
+
+     However, we still want to be able to exercise this code and make sure it works. To do this, we
+     can write a special artifical entrypoint, called a "unit test". The unit test acts like a 
+     mini-main() that we can use to test a single function.
+
+     Getting Java code set up to write unit tests is normally fairly complicated. You would need to visit
+     a website, download Java code called JUnit, and "link" those functions to your program every time you use
+     javac and java.
+
+     ...Or, you can add four lines to the build.gradle file
+
+
+*/
+
+
+repositories.mavenCentral();  //<- look at a special website for Java libraries called "MavenCentral"
+dependencies.testImplementation("org.junit.jupiter:junit-jupiter:5.8.2") // <- "I depend on JUnit, so find and download it"
+sourceSets.test.java.srcDirs("test")  // <- my tests will life in the /test folder
+test.useJUnitPlatform()               // <- when I do 'gradle test', use this JUnit library

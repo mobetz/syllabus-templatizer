@@ -1,5 +1,8 @@
 import {buildComponent, initializeContentLocation} from "../setup-component.js";
 import hljs from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/es/highlight.min.js';
+import * as fflate from 'https://cdn.skypack.dev/fflate';
+
+
 
 let content = await initializeContentLocation(import.meta.url);
 
@@ -8,6 +11,8 @@ class CodeViewer extends HTMLElement {
         super();
         this.attachShadow({mode: 'open'});
         buildComponent(content, this.shadowRoot);
+        this.shadowRoot.querySelector("#download_zip")
+            .addEventListener("click", () => this.downloadAsZip(this));
         this.code = {};
     }
 
@@ -46,7 +51,7 @@ class CodeViewer extends HTMLElement {
                 let pages = newValue.split(";");
 
                 Promise
-                    .all(pages.map((page) => this.generateLabelFromPageLocation(this.stem + "/" + page)))
+                    .all(pages.map((page) =>  this.generateCodeViewFromPageLocation(page) ))
                     .then((tab_list) => {
                         tab_list[0].querySelector("input").checked = true;
                         this.shadowRoot.querySelector(".container").append(...tab_list);
@@ -58,8 +63,8 @@ class CodeViewer extends HTMLElement {
     }
 
 
-    generateLabelFromPageLocation(page) {
-        return this.getCodeFromLocation(page).then((code) => {
+    generateCodeViewFromPageLocation(page) {
+        return this.getCodeFromLocation(this.stem + "/" + page).then((code) => {
             let tab = document.createElement("div");
             tab.classList.add("tab");
 
@@ -79,7 +84,7 @@ class CodeViewer extends HTMLElement {
             content.classList.add("content");
 
             let codeTag = document.createElement("code");
-            this.code[page] = code;
+            this.code[this.stem + "/" + page] = code;
             codeTag.appendChild(document.createTextNode(code));
             tab.appendChild(content);
             content.appendChild(codeTag);
@@ -103,6 +108,29 @@ class CodeViewer extends HTMLElement {
         let HTML = await fetch(contentLocation);
         let response = await HTML.text();
         return response;
+    }
+
+    downloadAsZip(self) {
+        let code = self.raw_code;
+
+        let prefix = Object.keys(code)[0].split("/"); prefix.pop(); prefix = prefix.join("-");
+        let filename = prefix + "-lecture-notes.zip";
+
+        let zipper_code = Object.fromEntries( Object.entries(code).map(([k,v]) => [k, fflate.strToU8(v)]) );
+        let archive = fflate.zipSync(zipper_code, {
+            filename: filename
+        });
+
+        let a = document.createElement("a");
+        document.body.appendChild(a);
+        a.style = "display: none";
+
+        a.download = filename;
+        a.href = window.URL.createObjectURL(new Blob([archive], {"type": "application/zip"}));
+
+        a.click();
+        window.URL.revokeObjectURL(url);
+
     }
 
 
