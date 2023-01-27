@@ -86,3 +86,10 @@ repositories.mavenCentral();  //<- look at a special website for Java libraries 
 dependencies.testImplementation("org.junit.jupiter:junit-jupiter:5.8.2") // <- "I depend on JUnit, so find and download it"
 sourceSets.test.java.srcDirs("test")  // <- my tests will life in the /test folder
 test.useJUnitPlatform()               // <- when I do 'gradle test', use this JUnit library
+
+
+//Optionally, we can also mention what types of tests we want to 'hear about' on our results screen:
+test.testLogging.events("PASSED");
+test.testLogging.events("SKIPPED");
+test.testLogging.events("FAILED");
+test.testLogging.exceptionFormat("full");
