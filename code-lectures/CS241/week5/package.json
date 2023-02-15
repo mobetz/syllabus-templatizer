@@ -1,0 +1,17 @@
+{
+  "name": "week5",
+  "version": "1.0.0",
+  "description": "Our Week 5 Lecture Notes for CS 241",
+  "main": "index.js",
+  "type": "module",
+
+  "keywords": [],
+  "author": "Prof. Matthew Obetz",
+  "license": "ISC",
+
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "express": "^4.18.2"
+  }
+}
+
