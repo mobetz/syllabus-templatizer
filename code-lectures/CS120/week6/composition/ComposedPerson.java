@@ -1,10 +1,4 @@
 
-
-    /*
-    In our first attempt at making this object, we might decide we want to directly implement
-    all of our details as attributes:
-     */
-
 public class ComposedPerson {
 
 	//ATTRIBUTES
