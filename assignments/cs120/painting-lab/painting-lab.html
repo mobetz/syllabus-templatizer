@@ -1,0 +1,106 @@
+<html>
+<head>
+    <title>Lecture Notes</title>
+    <script  type="module" src="../../../client/syllabus-templatizer.js"></script>
+
+    <link rel="icon" type="image/x-icon" href="../favicon.png">
+    <link rel="stylesheet" href="../../../style/main-styles.css">
+    <link rel="stylesheet" href="../../../style/code-render.css">
+
+    <script type="module" src="../../../client/assignment-render.js"></script>
+</head>
+
+<body>
+<h3>Painting Lab</h3>
+
+<p>This week, we are going to be writing a program that can visually depict a grid of colored symbols described in a file.
+To assist with this painting program, I have provided for you an already written class: PaintingCell. A PaintingCell's job is to represent one symbol in the grid. A constructed PaintingCell has several functions that can help you solve this problem, such as the ability to .changeColor() and the ability to convert itself toString() to display a star based on its color. You can get a full explanation of how PaintingCell works by compiling the javadoc page for PaintingCell.java. I've also provided a few test ".pnt" files you'll be able to use with your code.
+In addition to the prebuilt PaintingCell class, you are going to create two more classes:</p>
+
+<h4>Painting</h4>
+<p>A painting tracks the following data:</p>
+<ul>
+    <li>a height</li>
+    <li>a width</li>
+    <li>a 'grid' of PaintingCells (a 'grid' is a 2D array -- an array where the type of variable in each 'slot' of the array is a sub-array.)</li>
+</ul>
+
+<p>When a painting <b>is constructed</b>...</p>
+<ul>
+    <li> The painting is given its height and width as integers.</li>
+    <li>These integers are stored on attributes, then used to construct a grid that can hold [height] x [width] painting cells.</li>
+    <li>For each row number in this constructed grid:</li>
+    <li>For each column in that row:</li>
+    <ul><li>Save a newly created painting cell into that row and column of your grid.</li></ul>
+
+
+
+When a painting wants to check boundaries of a given row and column...
+* The painting receives the row and column the user wants to check.
+* If the row is between 0 and the painting's height and the column is between 0 and the painting's width, then the result of the check is true.
+* In any other case, the result of the check is false.
+
+When a painting wants to paint a cell...
+* The painting receives the row, the column, and the color of the target cell.
+* If the row and column provided are inside the checked boundaries, then:
+- The painting retrieves the cell at that row and column from its grid, and changes the color of that cell appropriately, and then sets its visibility to true.
+* When the cell is successfully edited, painting a cell returns 'true'. Otherwise, it returns false.
+
+When a painting wants to erase a cell...
+* The painting receives the row, the column, and the color of the target cell.
+* If the row and column provided are inside the checked boundaries, then:
+- The painting retrieves the cell at that row and column from its grid, and sets the visibility of that cell appropriately.
+* When the cell is successfully edited, painting a cell returns 'true'. Otherwise, it returns false.
+When a painting wants to convert itself to a String...
+* The painting creates a space to hold a string representation.
+* For each row of its grid:
+* For each column in that row:
+- The painting converts the cell in that column and row of the grid into a string, and appends that to the representation.
+* NOTE: at the end of each row, you must append a newline character to the representation!
+* Once all rows and columns have been processed, the final painting is returned.
+
+
+I recommend testing your Painting once you make it before you start working on PaintingLoader. You can make a short main method that
+just constructs a Painting, sets a few values, then immediately prints it out to ensure that these methods work as you expect, and help you
+feel confident in how Painting works before you try to use it for real.
+
+
+You will also make a Painting loader:
+A PaintingLoader does not need to track any data, and can be constructed with a zero argument parameter that does nothing.
+
+PaintingLoader will have one private static helper function: the ability to convert a letter to color:
+* Converting a letter to a color starts with a given letter.
+* The colors available to a painting are red - "R", yellow - "Y", green -"G" , cyan - "C", blue - "B", purple - "P", black - "X", and white - "O".
+* If the painting method receives one of these letters, then it returns the corresponding color.
+
+PaintingLoader will have a public static method: the ability to generate a painting from a File...
+
+* When this method is called, it will be provided with one parameter: a string filepath.
+* This filepath will be used to construct and store a File object representing the file holding that information.
+* If the File created exists and its path ends with ".pnt":
+* PaintingLoader will create a space to track a number of rows, a number of columns, and a group of Strings representing each row of the painting.
+- NOTE: you can assume a painting will never have more than 25 rows, and that every column has the same number of symbols.
+* PaintingLoader will then make a Scanner that can read the file.
+* As long as the scanner still has a next line:
+* That next line will be appended to the group of painting rows.
+* The number of columns will be set to the length of that line.
+* The number of rows will be incremented by one.
+* Once the file has finished being read, the loader will construct a new painting object with the appropriate height and width.
+* Afterward, for each row number in the painting:
+* The loader will retrieve the string representing that row of the painting, and split that row into a group of letters (using .split("") with an empty string splits on every letter.)
+* For each column in that group of letters:
+* The loader will convert the letter in that cell into a color.
+* Afterward, the loader will tell its painting to paint the cell in that row and column the appropriate color.
+* Once the entire painting has been painting, the loader will return the finished painting.
+* If an invalid path was provided, the method will return null.
+
+After you have created your Painting and Loader, you will create a Main class with a single main method:
+* As long as the user has not provided a valid path to a painting:
+* Main will ask the user for the path to a painting file.
+* It will then use PaintingLoader's ability to generate a painting from that file, and store the resulting painting (or null if the path was invalid).
+* Once a valid painting has been loaded, main will convert that painting to a string and print it out.
+
+
+NOTE: In order to see this lab working on Windows, you will need to make sure you're using the Windows Terminal (you can download it at https://apps.microsoft.com/store/detail/windows-terminal/9N0DX20HK701?hl=en-us&gl=us&rtc=1 .) Once you download it, you can click the little arrow next to the "+" button, and select "Command Prompt" from the list of shells available.
+</body>
+</html>

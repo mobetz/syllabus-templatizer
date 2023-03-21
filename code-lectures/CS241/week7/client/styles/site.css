@@ -1,0 +1,78 @@
+
+/* In CSS, if we open a message with /*, anything that comes before a matching star and close slash will be treated as a
+comment and ignored by the browser. */
+
+/* To create a new CSS rule that selects the body, we can just use the name of the body tag: */
+
+
+body {
+    /* Say we wanted to change the background-color of our document.
+        It's as easy as using the "background-color" property, and giving it a color! */
+
+    background-color: teal;
+    color: white;
+
+    /* If we instead wanted a background image, we could use the background-image
+        property:
+        background-image: url.("http://path-to-some-image.png");
+        */
+}
+
+img {
+    /* One of the most basic styling rules we can apply is the 'display' rule. This
+  changes whether the browser treats a selected element as a block or inline element.  */
+    display: block;
+
+    /*
+    Block elements get a few special properties that we can manipulate. The first
+    group of these are the 'margin' properties. Margin refers to the amount of
+    extra space we should give each element *outside* of the content.
+    */
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    /* Sometimes, you can also specify 'auto' as a measurement of space. In the case
+    of the left and right margins, this will attempt to balance a margin with its
+    opposite margin. For a block element, this causes the element to be 'centered'. */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+section {
+    color: #ccc;
+    background-color: #1f1f1f;
+
+    margin: 1em 3em 1em 2em;
+
+    /*
+    In addition to the margin we saw before, we can also set a "padding";
+    this is the space *inside the box* that we should set aside as blank.
+    */
+    padding: 5px 10px 15px 20px;
+}
+
+
+.odd_numbered_paragraph {
+    color: #9c9;
+}
+
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+a {
+    color: #b3d4fc;
+}
+
+.blue-paragraph {
+    color: #5555ff;
+}
+
+.mono {
+    white-space: pre;
+    font-family: monospace;
+}

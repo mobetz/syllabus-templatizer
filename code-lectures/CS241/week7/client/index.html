@@ -1,0 +1,92 @@
+
+<html>
+
+<head>
+
+    <link rel="stylesheet" href="styles/site.css">
+    <link rel="stylesheet" href="styles/tables.css">
+
+    <script src="js/main.js"></script>
+
+</head>
+
+<body>
+
+<section>
+    <h3>Objectives for Today</h3>
+    <ul>
+        <li>Define dynamic content and understand how we can use JavaScript to modify our HTML pages.</li>
+        <li>Identify JavaScript variables available in the browser, including the document API and the fetch function.</li>
+        <li>Practice creating, accessing, and modifying HTML elements from JavaScript.</li>
+    </ul>
+
+    <h3>Vocabulary</h3>
+    <ul>
+        <li><strong>Document Object Model</strong> - The "Document Object Model" (or DOM) is a representation
+            of the content present on an HTML page. This model represents each element of the page as a node on a "tree"
+            (much like a folder tree in your file explorer.)</li>
+
+
+        <li><strong>Promise</strong> - A Promise is a special kind of object that captures asynchronous behavior. A promise
+            object has a .then() method that accepts a callback that should run once the asynchronous behavior is complete.</li>
+    </ul>
+</section>
+
+
+<section>
+    <p>When we make a website, we might start with some static content. However, later on in the page, we might
+        want to create content that responds to an API request or user input. We call this type of content "dynamic
+        content". </p>
+
+
+    <p>In order to create dynamic content, we need to use JavaScript. To use JavaScript in the browser, we add
+        a <span class="mono">script</span> tag (typically to the head of the document.) This script tag has an src attribute,
+        just like images and videos. Lets add a script tag that points to a "main.js" file in the "js" folder of this
+        site.</p>
+
+
+    <p id="dynamic"></p>
+</section>
+
+
+
+
+<section>
+    <p>Sometimes, we don't just want to do things immediately when a page loads. Instead, we want to respond to
+        an action a user performs. To do this, we can attach an event to the element where the action occurs. For example,
+        every <span class="mono">button</span> in a web page has an "onclick" event. We can access that event in two ways:
+
+    <ul>
+        <li>We can add a function call to the <span class="mono">onclick</span> attribute of the button.</li>
+        <li>We can call addEventListener() with the "click" event on the button object in our JavaScript.</li>
+    </ul>
+
+
+    <div id="form">
+
+        <label>Enter a city:</label>
+        <input id="city_field" >
+        <label>Salary Minimum:</label>
+        <input id="salary_min" type="number" min="0" max="250000" step="1000">
+        <button id="search-button" >Search</button>
+    </div>
+
+    <p>Let's also create a shell of a table to hold our search results:</p>
+
+
+    <table>
+        <thead>
+        <tr>
+            <td>Company</td>   <td>Title</td>      <td>Location</td>  <td>State</td> <td>Salary</td>
+        </tr>
+        </thead>
+        <tbody id="search-results">
+
+        </tbody>
+    </table>
+
+</section>
+
+</body>
+
+</html>
