@@ -1,0 +1,12 @@
+{
+    "configurations": [
+    {
+        "type": "command",
+        "name": "Local Webserver",
+        "program": "/usr/bin/python",
+        "args": ["-m", "http.server", "8000"],
+    },
+
+
+    ]
+}
