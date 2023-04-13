@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <script src="control.js"></script>
+</head>
+<body>
+
+
+<section id="not-authed">Please log in to view this page! Redirecting...</section>
+
+
+<section id="auth-only" style="visibility: hidden">
+  <span id="welcome-message">Welcome, NOUSERNAME!</span>
+  Update your password:
+
+  <div><label for="old">Old Password:</label><input type="text" id="old" /></div>
+  <div><label for="new">New Password:</label><input type="text" id="new" /></div>
+  <button id="submit">Submit</button>
+  <div id="result"></div>
+</section>
+
+</body>
+</html>

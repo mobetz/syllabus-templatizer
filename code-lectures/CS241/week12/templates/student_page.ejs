@@ -1,0 +1,32 @@
+<!--
+EJS is literally just HTML, but with two additional "psuedo-tags"
+   - < % can be used to write code that we want to execute but not show   % >
+   - < %= can be used to write code that we want to evaluate AND SHOW (most commonly, a property of a variable we passed
+         in % >
+-->
+
+
+<html>
+<head>
+
+ <link rel="stylesheet" href="/styles.css">
+ </head>
+<body>
+<table>
+    <thead>
+    <td>ID</td>
+    <td>Name</td>
+    <td>Major</td>
+    </thead>
+
+    <% for  (let student of students ) { %>
+      <tr>
+        <td> <%= student.id %> </td>
+        <td><a href="http://localhost:9999/Students/<%= student.id %>"><%= student.name %></td>
+        <td> <%= student.major %> </td>
+      </tr>
+
+    <%  }  %>
+</table>
+</body>
+</html>

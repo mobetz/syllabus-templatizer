@@ -1,0 +1,17 @@
+
+<html>
+<head>
+ <link rel="stylesheet" href="/styles.css">
+ <script> student_id = <%= student.id %>; </script>
+ <script src="/student_updater.js"></script>
+</head>
+<body>
+<h3>Single Student Summary - <%= student.name%> (ID: <%= student.id%>)</h3>
+
+<div><label>Name</label><input type="text" id="name" value="<%= student.name %>"></div>
+<div><label>Major</label><input type="text" id="major" value="<%= student.major %>"></div>
+
+<button id="update_details">Submit Changes</button>
+<div id="results"></div>
+</body>
+</html>
