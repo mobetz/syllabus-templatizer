@@ -1,0 +1,46 @@
+
+
+plugins {
+   id 'application'
+   id 'java'
+   id 'org.beryx.jlink' version '2.23.6'
+}
+
+
+
+
+sourceSets.main.java.srcDir("src")
+
+
+//To have gradle learn about our modules, we just do one more thing:
+//  specify the "main module" right alongside the main class
+
+application.mainModule = "Payroll"
+application.mainClass = "main.Modules"
+
+
+/*
+One of the big benefits of modules is that they let us easily turn our java
+code into a binary file (an .exe or .dmg package someone can click on to run
+our code.) This is done with the 'jpackage' command:
+
+
+   jpackage --type app-image --input build --module-path build --module Payroll/main.Modules  --name payrollSearcher -d dist
+
+ This command is another mouthful, but it's saying:
+    The type of thing we're creating is an executable,
+    ...using all files from the "build" folder
+    ...with the modules also located in the "build" folder
+    ...using the Payroll/main.Payroll file as our entrypoint
+    ...to create an executable called payrollSearcher
+    ...that we'll save to a "dist" output folder
+
+I strongly recommend NOT trying to remember all this manually. Instead, we can have
+gradle do it for us! To do this, all we need to do is add one more plugin to build.gradle:
+the jlink plugin.
+
+Besides adding it to the top of the file, we also tell it the name of the executable
+we want to build:
+*/
+jlink.moduleName = 'Payroll';
+jar.manifest.attributes('Main-Class': 'main.Modules');
