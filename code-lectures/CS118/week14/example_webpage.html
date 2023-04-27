@@ -1,0 +1,54 @@
+<html>
+<head>
+    <style>
+        section { margin: 20px 10%; }
+    </style>
+    <title>CS118: Example Web Page</title>
+    <script src="example_script.js"></script>
+</head>
+
+
+<body>
+<section>
+    A web page uses a special language called HTML. HTML is made up of many "tags" interspersed with text; each tag has
+    a starting point and an ending point. For example, this "section" tag says that this section of the web page starts
+    on line 10, and continues until we see a matching section tag with a / slash in front of it.
+</section>
+
+
+<section>
+    When we start a new section, the web page will automatically add some extra space for us.  Some tags, like the
+    <strong>strong tag</strong> or the <em>emphasis tag</em> also cause other changes to the styling or position of text.
+</section>
+
+
+<section>
+    We are not going to dive too deeply into how to create HTML documents in this class (the CS176 section I teach next
+    semester is a whole semester about just that!) However, for today, we are going to learn about how we can manipulate these tags using Javascript.
+</section>
+
+<section id="identifiers">
+    Every one of our tags in HTML can have a special identifier assigned to it, almost the same way we would assign
+    a variable a name. To do this, we just put id="some-unique-name" after the name of the tag, inside the angle brackets.
+
+    We call these sub-assignments 'attributes', and there are actually many attributes that can change the behavior
+    of our tags. However, more importantly, they also give us a way to talk about our tags in Javascript.
+</section>
+
+<section>
+    Before we can do that, we have to do one more quick thing -- at the very front of our web page, we need to add
+    one last tag -- a "script" tag. The script tag provides the name of a javascript file that we want to run as soon
+    as this web page starts loading. Let's point it at the example-script.js that we started writing at the beginning
+    of class, and watch what happens.
+</section>
+
+
+<section id="sandbox">
+
+</section>
+
+
+    <input  id="some-text-box" type="text" placeholder="Type your favorite thing:">
+</body>
+
+</html>
