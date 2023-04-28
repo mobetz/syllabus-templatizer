@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="501.0" prefWidth="723.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Layout">
+   <children>
+      <TableView fx:id="students_table" layoutX="36.0" layoutY="38.0" prefHeight="315.0" prefWidth="637.0" AnchorPane.leftAnchor="36.0" AnchorPane.rightAnchor="50.0">
+        <columns>
+          <TableColumn fx:id="first_column" prefWidth="161.0" text="First Name" />
+          <TableColumn fx:id="last_column" prefWidth="149.0" text="Last Name" />
+            <TableColumn fx:id="major_column" prefWidth="169.0" text="Major" />
+            <TableColumn fx:id="grade_column" prefWidth="157.0" text="Final Grade" />
+        </columns>
+      </TableView>
+      <Button fx:id="load_button" layoutX="144.0" layoutY="406.0" mnemonicParsing="false" onAction="#load_from_dummy" text="Load (from Dummy Data)" />
+      <Button layoutX="433.0" layoutY="406.0" mnemonicParsing="false" onAction="#addRandomStudent" text="Generate Random Students" />
+   </children>
+</AnchorPane>
