@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CS 200: Programming II</title>
+    <script  type="module" src="client/syllabus-templatizer.js"></script>
+
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+    <link rel="stylesheet" href="style/main-styles.css">
+
+</head>
+<body>
+
+
+<template-syllabus course="CS-200: Programming II"
+            professor="Prof. Matthew Obetz"
+            email="mobetz@massbay.edu"
+            office-link="https://massbay.webex.com/meet/mobetz">
+
+    <syllabus-timeslot slot="meeting-time" days="TR" startHour="11" startMin="30" endHour="12" endMin="45"></syllabus-timeslot>
+    <syllabus-timeslot slot="lab-time" days="T" startHour="13" endHour="14" endMin="50"></syllabus-timeslot>
+
+    <syllabus-timeslot slot="office-time" days="MTWR" startHour="9" endHour="9" endMin="50"></syllabus-timeslot>
+
+
+    <section id="description">
+        <h3>Course Description</h3>
+        <p>
+The object-oriented approach to programming with Java is developed in full.  Topics include:
+        practical object design, object-oriented principles (interfaces, composition,
+        inheritance, polymorphism, and encapsulation), and container/collection objects
+        (including arrays) and associated algorithms. As exemplars of these topics, the
+        basis of GUI interfaces, event-driven programming, and graphics are examined.
+        Exceptions and file access are introduced as well. The emphasis is on developing
+        good software craftsmanship along with an awareness of the implications for the
+        user of software design choices. Lecture: 3 hours per week. Lab: 2 hours per week.
+       </p>
+        <p style="font-weight: bold">  Prerequisite: “C” or better in CS 120 Programming I. </p>
+    </section>
+
+    <section id="texts">
+        <h3>Required Texts</h3>
+        <p>In lieu of a traditional textbook, this course will make use of Open Educational Resources (OERs). During the
+            first week of class, we will make accounts and register for the learning platforms we will be using.</p>
+    </section>
+
+    <syllabus-contact example="CS200: Unable to Open Lab 4"></syllabus-contact>
+    <syllabus-officehours></syllabus-officehours>
+
+    <syllabus-outcomes>
+        <syllabus-idea theme="Computational Thinking">
+            <li>Develop stand-alone Java applications.</li>
+            <li>Draw a complete UML diagram (an approach to modeling object-oriented systems) for any programming assignment.</li>
+            <li>Process data stored in one and two-dimensional arrays.</li>
+            <li>Recognize and demonstrate OOP concepts such as encapsulation and information hiding.</li>
+            <li>Practice and build applications using OOP key technologies such as polymorphism (inheritance and interfaces).</li>
+            <li>Create applications that employ user-friendly graphical user interfaces and handle
+            events, using Swing and/or other Java library’s GUI packages.</li>
+            <li>Construct code to handle exceptions.</li>
+            <li>Write programs that create, read, write and update files.</li>
+            <li>Apply debugging and testing skills and use them effectively and consistently.</li>
+        </syllabus-idea>
+        
+    </syllabus-outcomes>
+
+
+    <syllabus-schedule startdate="2023-09-05" enddate="2023-12-12" meetdays="TR" labdays="T">
+        <syllabus-holiday date="2023-09-26" event="Professional Day" />
+        <syllabus-holiday date="2023-10-09" event="Indigenous Peoples' Day" />
+        <syllabus-holiday date="2023-11-11" event="Veteran's Day" />
+        <syllabus-holiday start="2023-11-23" end="2023-11-24" event="Thanksgiving Break" />
+
+        <syllabus-event date="2023-09-11" event="Add/Drop Deadline" />
+        <syllabus-event start="2023-10-23" end="2023-10-27" event="Midterm Exams" highlight="2"/>
+        <syllabus-event date="2023-11-06" event="Spring Registration Begins" />
+        <syllabus-event date="2023-11-27" event="Withdrawal Deadline" />
+
+        <!--------------------------------------------------------------->
+
+        <syllabus-lecture topic="Syllabus Review" />
+        <syllabus-lecture topic="A (Re-)introduction to Java Objects"  />
+
+        <syllabus-lecture topic="Conceptualizing Assignment, Loops, Branches, and Functions"/>
+        <syllabus-lecture topic="Analyzing Arrays and Lists"/> 
+
+        <syllabus-lecture topic="Best Practices in Documentation" />
+        <syllabus-lecture topic="Writing Code for Debugging" />
+        
+        <syllabus-lecture topic="Introduction to Inheritance: Extends and Dynamic Dispatch"/>
+     
+
+        <syllabus-lecture topic="The Object Class and Overrides Revisited"  />
+        <syllabus-lecture topic="Polymorphism and Branching Class Hierarchies"  />
+        
+        
+        <syllabus-lecture topic="Inheritance Pitfalls: Downcasting and the Diamond Problem" />
+        <syllabus-lecture topic="Composition: 'Is-A' vs. 'Has-A'" dueIn="5" />
+        
+        <syllabus-lecture topic="Public Interfaces of a Class"  />
+        <syllabus-lecture topic="Abstract Classes"  />
+
+
+
+        <!------------------------MIDTERM WEEK-------------------------------->
+        <syllabus-lecture topic="Midterm Review" highlight="2"/>
+        <syllabus-lecture topic="Midterm Exam" highlight="2.5"/>
+        <!------------------------MIDTERM WEEK-------------------------------->
+
+        <syllabus-lecture topic="Midterm Results Discussion" highlight="2"/>
+        <syllabus-lecture topic="Handling Exceptions"  />
+
+        <syllabus-lecture topic="Input/Output"  />
+        <syllabus-lecture topic="Input/Output Pt. II"  />
+        
+
+        <syllabus-lecture topic="Linked Lists From Objects" />
+        <syllabus-lecture topic="Memory Modeling: The Heap and the Stack" />
+
+        <syllabus-lecture topic="Garbage Collection" />
+        
+
+        <syllabus-lecture topic="Applications of Linked Lists" />
+        <syllabus-lecture topic="An Object-Oriented Approach to GUI" />
+        
+        <syllabus-lecture topic="Responding to Events" />
+        <syllabus-lecture topic="GUI Controls That Bind Data"/>
+
+        <syllabus-lecture topic="Finals Review"/>
+
+
+        <!--------------------------------------------------------------->
+        <syllabus-assignment title="Lab 0: Environment Setup" dueIn="5" />
+        <syllabus-assignment title="Lab 1" dueIn="5" />
+        <syllabus-assignment title="Lab 2" dueIn="5" />
+        <syllabus-assignment title="Lab 3" dueIn="5" />
+        <syllabus-assignment title="Lab 4" dueIn="5" />
+        <syllabus-assignment title="Lab 5" dueIn="5" />
+        <syllabus-assignment title="Midterm Review: Past Lab Retrospective" dueIn="5" />
+        <syllabus-assignment title="Lab 6" dueIn="5" />
+        <syllabus-assignment title="Lab 7" dueIn="5" />
+        <syllabus-assignment title="Lab 8" dueIn="5" />
+        <syllabus-assignment title="Lab 9" dueIn="5" />
+        <syllabus-assignment title="Lab 10" dueIn="5" />
+        <syllabus-assignment title="Lab 11" dueIn="5" />
+        <syllabus-assignment title="Finals Review" dueIn="5" />
+    </syllabus-schedule>
+
+
+    <syllabus-format meetingdays="MWF" labdays="M"></syllabus-format>
+    <syllabus-attendance></syllabus-attendance>
+    <syllabus-submission></syllabus-submission>
+    <syllabus-dishonesty></syllabus-dishonesty>
+    <syllabus-grades>
+        <syllabus-category theme="Exam 1" value="20"></syllabus-category>
+        <syllabus-category theme="Exam 2" value="20"></syllabus-category>
+        <syllabus-category theme="Labs and Assignments" value="60"></syllabus-category>
+    </syllabus-grades>
+
+
+</template-syllabus>
+</body>
+</html>
