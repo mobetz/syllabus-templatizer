@@ -108,12 +108,60 @@ public class Encapsulation {
     
     (So how does Java solve this problem?)
     
-    To account for this, Java added 
+    To account for this, object oriented programming adds another special keyword:
+    static.
+
+    (What does static do?)
+
+    The keyword 'static' says that, even though a field or method is located
+    inside a class, that method doesn't require a specific object to be used.
+
+    NOTE: it is common for new programmers to confuse the idea of "static" with
+    "constant". Static variables are still allowed to change their value! Static
+    fields are called 'static' because they're always found in the same file (as
+    opposed to methods called on objects, where the code needs to figure out
+    which class the method is defined on...)
+
+    One of the best examples of the need for static methods is the 'main' method:
+    main() is the function that runs when a program starts, so we couldn't possibly
+    create a main object to call it on before the program had even begun. Making
+    main() static allows Java to call it directly:
      */
     
     public static void main(String[] args) {
         
+        /*
+        The key concept of OOP is that someone using an object should have
+        no idea about *how* that object is actually coded, just what it can be
+        used for.
         
+        Take the Scanner object provided by Java:
+         */
+     Scanner my_scanner = new Scanner(System.in);
         
+     /*
+     On the left of the equals, I 'declare' to the language that I need it to reserve
+     enough space for one Scanner object named my_scanner. On the right of the equals,
+     the new keyword tells Java to go out and 'instantiate' each field of the Scanner,
+     and I provide it any additional details it needs to 'construct' a Scanner object.
+
+     However, someone using Scanner has no idea what those fields actually are.
+     All the user needs to know is what the Scanner can be used for (i.e what methods
+     they are allowed to call on it:)
+      */
+     System.out.print("Enter some text: ");
+     String some_text = my_scanner.nextLine(); //<- how does this actually work??
+
+     /*
+     We can go and view the implementation of Scanner if we really want to, but
+     no one using the class is expected to do that. They simply need to understand
+     the assumptions the class makes, and what 'interface' the class exposes to the
+     world. This is the power of encapsulation!
+      */
+
+     /*
+     The same is true of objects we make ourselves:
+      */
+
     }
 }
