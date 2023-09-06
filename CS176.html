@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CS 176: Web Design</title>
+    <script  type="module" src="client/syllabus-templatizer.js"></script>
+
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+    <link rel="stylesheet" href="style/main-styles.css">
+
+</head>
+<body>
+
+
+<template-syllabus course="CS-176: Web Design"
+            professor="Prof. Matthew Obetz"
+            email="mobetz@massbay.edu"
+            office-link="https://massbay.webex.com/meet/mobetz">
+
+    <syllabus-timeslot slot="meeting-time" days="T" startHour="9" endHour="11" endMin="10"></syllabus-timeslot>
+    <syllabus-timeslot slot="lab-time" days="R" startHour="9" endHour="11" endMin="10"></syllabus-timeslot>
+
+    <syllabus-timeslot slot="office-time" days="MWF" startHour="10" endHour="10" endMin="50"></syllabus-timeslot>
+    <syllabus-timeslot slot="office-time" days="R" startHour="13" endHour="13" endMin="50"></syllabus-timeslot>
+
+
+    <section id="description">
+        <h3>Course Description</h3>
+        <p>
+This course presents web design fundamentals and essential development skills to create
+        interactive web sites. Students will learn how to organize content, incorporate
+        graphics and multimedia, and create interactive forms that capture and validate
+        user input. Web technologies such as XHTML, Cascading Style Sheets, XML, and JavaScript
+        will be presented. This course will provide students with a guide to designing the
+        presentation, navigation and organizing the content of powerful Web pages that attract
+        users and effectively convey a message. Legal issues and web accessibility topics will
+        be covered. Professional tools will be presented to enhance and accelerate the design
+        and implementation of Web content.
+       </p>
+    </section>
+
+    <section id="texts">
+        <h3>Required Texts</h3>
+        <p>In lieu of a traditional textbook, this course will make use of Open Educational Resources (OERs). During the
+            first week of class, we will make accounts and register for the learning platforms we will be using.</p>
+    </section>
+
+    <syllabus-contact example="CS176: Unable to Open Lab 4"></syllabus-contact>
+    <syllabus-officehours></syllabus-officehours>
+
+    <syllabus-outcomes>
+        <syllabus-idea theme="Web Design">
+    <li>Gain experience with foundational web technologies such as HTML, CSS, and Javascript.</li>
+    <li>Understand web design principles that drive the development and presentation of engaging web sites.</li>
+    <li>Recognize common formats used in the creation of media-rich web sites.</li>
+    <li>Obtain familiarity with popular tools for web development.</li>
+        </syllabus-idea>
+        
+    </syllabus-outcomes>
+
+
+    <syllabus-schedule startdate="2023-09-05" enddate="2023-12-12" meetdays="T" labdays="R">
+        <syllabus-holiday date="2023-09-26" event="Professional Day" />
+        <syllabus-holiday date="2023-10-09" event="Indigenous Peoples' Day" />
+        <syllabus-holiday date="2023-11-11" event="Veteran's Day" />
+        <syllabus-holiday start="2023-11-23" end="2023-11-24" event="Thanksgiving Break" />
+
+        <syllabus-event date="2023-09-11" event="Add/Drop Deadline" />
+        <syllabus-event start="2023-10-23" end="2023-10-27" event="Midterm Exams" highlight="2"/>
+        <syllabus-event date="2023-11-06" event="Spring Registration Begins" />
+        <syllabus-event date="2023-11-27" event="Withdrawal Deadline" />
+
+        <!--------------------------------------------------------------->
+
+        <syllabus-lecture topic="Syllabus Review" />
+
+        <syllabus-lecture topic="Hypertext Markup Language"/>
+        <syllabus-lecture topic=" Introduction to Styling with CSS"/> 
+        <syllabus-lecture topic="CSS Layout, Overflow, and CSS3"/>
+        <syllabus-lecture topic="Responsive Design: The 'Mobile-First' Philosophy"  />
+        <syllabus-lecture topic="Accessibility Rich Internet Applications (ARIA)"  />
+
+        <!------------------------MIDTERM WEEK-------------------------------->
+        <syllabus-lecture topic="Midterm Exam" highlight="2.5"/>
+        <!------------------------MIDTERM WEEK-------------------------------->
+        <syllabus-lecture topic="Rules of Design: Hierarchy. Scanning Patterns. Sectioning. 'The Fold'" />
+        <syllabus-lecture topic="Controlling the Web with Code: A Crash Course in JavaScript" />     
+        <syllabus-lecture topic="JavaScript, the DOM, and Basic Callbacks"  />
+        <syllabus-lecture topic="Promises, Fetch, and Web APIs"  />
+
+
+
+
+        <syllabus-lecture topic="JavaScript Frameworks for Web Design: jQuery and Beyond"/>
+        <syllabus-lecture topic="The Future of Web Design"  />
+
+        <syllabus-lecture topic="Final Presentations Continue" highlight="0.5" />
+
+
+        <!--------------------------------------------------------------->
+        <syllabus-assignment title="Lab 0: The Web Developer Toolbox" dueIn="5" />
+        <syllabus-assignment title="Lab 1: Hello, HTML" dueIn="5" />
+        <syllabus-assignment title="Lab 2: Styling Your Pages" dueIn="5" />
+        <syllabus-assignment title="Replacement Lecture: Advanced CSS Selectors and the Document Object Model" highlight=0 />
+        <syllabus-assignment title="Lab 3: Movement and Transitions" dueIn="5" />
+        <syllabus-assignment title="Lab 4: Creating a Mobile View" dueIn="5" />
+        <syllabus-assignment title="Midterm Review" highlight=2 dueIn="5" />
+        <syllabus-assignment title="Midterm Results Discussion" highlight=2 />
+        <syllabus-assignment title="Final Project Proposals" dueIn="5" />
+        <syllabus-assignment title="Final Project Wireframes" dueIn="5" />
+        <syllabus-assignment title="Final Project Status Report" dueIn="5" />
+        <syllabus-assignment title="Bonus Lab: Playing with Frameworks" dueIn="5" />
+        <syllabus-assignment title="Final Project Presentations" dueIn="5" />
+    </syllabus-schedule>
+
+
+    <syllabus-format meetingdays="TR" labdays="R"></syllabus-format>
+    <syllabus-attendance></syllabus-attendance>
+    <syllabus-submission></syllabus-submission>
+    <syllabus-dishonesty></syllabus-dishonesty>
+    <syllabus-grades>
+        <syllabus-category theme="Midterm Exam" value="20"></syllabus-category>
+        <syllabus-category theme="Final Project" value="20"></syllabus-category>
+        <syllabus-category theme="Labs and Assignments" value="60"></syllabus-category>
+    </syllabus-grades>
+
+
+</template-syllabus>
+</body>
+</html>
