@@ -1,0 +1,13 @@
+
+
+plugins {
+   id 'application'
+   id 'java'
+}
+
+sourceSets.main.java.srcDir("src");
+sourceSets.main.resources.srcDir("resources");
+
+
+
+application.mainClass = "Encapsulation";
