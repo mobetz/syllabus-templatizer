@@ -34,7 +34,7 @@
 
 public class DeclarationAssignment {
 
-    public static void main(String[] args) {
+   public static void main(String[] args) {
 
 
         /*
@@ -48,6 +48,7 @@ public class DeclarationAssignment {
         While in verbal communication there are nearly infinite types of statements that you could describe, the
         tricky thing about computer programming is that the entire solution to our problem must be reduced to just
         a few limited kinds of statements the computer knows how to handle:
+
 
            * Create a space to store some information called __<name>__. 
            * Save __<info>__ into the space called ___<name>___. 
@@ -63,12 +64,14 @@ public class DeclarationAssignment {
         Today, we are going to focus on those first two types of statements -- creating spaces to store information,
         and saving something into them. When we want to save information for later in a computer program, we use a 
         "variable".
-        
+
 
         Back in Python, when you wanted to create a new variable, you likely wrote code like this:
             first_name = "Matthew"
 
-            This code saves the text "Matthew" into the variable "first_name".
+
+            This code saves the text "Matthew" into the variable first_name.
+
 
            You were able to declare a new variable just by assigning a new value to it, even if Python had never
            heard of that value before.
@@ -76,7 +79,8 @@ public class DeclarationAssignment {
 
            Let's see what happens when we try to do the same thing in Java:
         */
-        //first_name = "Matthew";
+
+      //first_name = "Matthew";
 
 
         /*
@@ -84,27 +88,31 @@ public class DeclarationAssignment {
         Note: Just like how a sentence ends with a period, in Java a statement ends with a semi-colon!
 
 
-        
         When we run this code, we get an error saying:
               java: cannot find symbol
               symbol: variable first_name
+
 
            This is telling us that Java is looking for the "symbol" for a variable called first_name. However, we
            never declared to Java that such a variable exists.
 
            In Java, we need to declare that a variable exists before the first time we use it. To declare that
            we wanted to use first_name, we would write something like this:
-     */
+         */
 
       String first_name;
+
 
 /*
         This declaration statement has two parts:
             First, we write what type of thing we're saving (in this case, a string of text.)
             Second, we give the space we are reserving a name (in this case, "first_name".)
 
+
+
         Once we do that, we've reserved a small space that's just the right size for some text.
         You can think of declaration like creating an empty box with a label on it:
+
 
            +-----+
            |     |
@@ -115,6 +123,7 @@ public class DeclarationAssignment {
         We can then reference that variable later to assign a value to it, exactly the way we did in Python:
          */
         first_name = "Matthew";
+
 
 
         /*
@@ -129,17 +138,16 @@ public class DeclarationAssignment {
 
 
 
-
         Once we have declared a variable once, we can assign new values to it as many times as we want:
          */
-        first_name = "Logan";
-        first_name = "Serah";
-        first_name = "Caleb";
+
+
+          first_name = "Logan";
+          first_name = "Serah";
+          first_name = "Caleb";
+
 
         /*
-        We can do this because we've already saved the space for this value. We're reusing that same space each time
-        we perform a new assignment.
-
 
         Note: This erases whatever was in the box before:
 
@@ -149,11 +157,13 @@ public class DeclarationAssignment {
            +-----+
            first_name
 
+
            +-----+
            |     |
            |    <--- ---------  "Logan"
            +-----+
            first_name
+
 
            +-----+
            |     |
@@ -161,14 +171,19 @@ public class DeclarationAssignment {
            +-----+
            first_name
 
-*/
+      */
 
         System.out.println("The value saved in first_name is: " + first_name);
 
 
-        /* What's going to happen if I do this? */
+        /*
+        If we want a second box, we need to make a second variable:
+        */
+        String second_name = "John"; //<- now we can save a second name without deleting the first.
 
-        //first_name = 456; //DeclarationAssignment.java:171: error: incompatible types: int cannot be converted to String
+
+        /* What's going to happen if I do this? */
+        //first_name = 456;  //DeclarationAssignment.java:186: error: incompatible types: int cannot be converted to String
 
 
 
@@ -176,6 +191,7 @@ public class DeclarationAssignment {
         Remember, we told Java that "first_name" should be a String. If we try to assign a number into it, Java won't
         have the right amount of space saved. This means our variables must always hold the same type of data from the
         time they are declared to the time they are cleaned up. 
+
 
 
         You can think of this like each type of box we 'declare' having a specific shape:
@@ -197,15 +213,18 @@ public class DeclarationAssignment {
 
         */
 
+
         /*
         If you are trying to save space, declaration and assignment can even be performed at the same time:
          */
         String last_name     = "Obetz";
 
+
         /* Even when we do this, we should only put that declaration keyword the FIRST TIME: */
         last_name = "Moralez";
         last_name = "McKinnon";
         last_name = "Smith";
+
 
         /*
 
@@ -237,17 +256,19 @@ public class DeclarationAssignment {
         double big_dec;     //stores eight bytes of numeric data *with a decimal point* Enough for ~16 digits of precision.
 
 
+
         /*
         Fun Fact:
            Floating point numbers are called 'floating' because they store their information as details about a 
            'place', and the most significant digits from that place:
         
-                 9.76349 x 10^-6
+              9.76349  x 10 ^ -6
+
 
         You can think of this almost like storing numbers in scientific notation! Anything past the point of 
         precision will get 'truncated' / rounded off.
 
-        */
+         */
 
 
         /* All these types of values above are called our "primitive types" (sometimes also called the "base types".) They're the
@@ -257,9 +278,10 @@ public class DeclarationAssignment {
         in exactly the same way as any other type:
          */
 
-        // File      some_file;
-        // Scanner   some_input_reader;
-        // Button    a_clickable_button;
+        //File    some_file;
+        //Scanner some_input_readers;
+        //Button  a_clickable_button;
+
 
 
 
@@ -268,34 +290,35 @@ public class DeclarationAssignment {
 
         int a_num = 3;
 
+
         int the_number_four = a_num + 1;
 
         // The computer will find the box labeled "a_num", pull the value out of it, do the math, and then
         // save that final result into "the_number_four".
 
+
         a_num = 100;
+
         System.out.println("Even after changing 'a_num', 'the_number_four' is: " + the_number_four);
 
         /*
          Remember: we only had enough 'space' in our the_number_four for the integer 'final answer' of our math.
-         This means that even though 3 is 'crossed off' later, the 4 doesn't change:
+         This means that even though 3 is 'crossed off' later, the 4 doesn't change (the_number_four doesn't "remember"
+         it was related to a_num):
 
-           +-----+
-           |     |
-           |    <--- ////3////      100    
-           +-----+
-           a_num
+          +-----+
+          |     |
+          |    <---   ////3//// 100
+          +-----+
+          a_num
 
+            +-----+
+            |     |
+            |    <---  4
+            +-----+
+            the_number_four
 
-
-           +-----+
-           |     |
-           |    <---  4
-           +-----+
-           the_number_four
-
-           */
-
+            */
 
 
         /*
@@ -303,7 +326,6 @@ public class DeclarationAssignment {
 
         For instance, we can represent numbers both numerically and textually.
          */
-
         char the_letter_four = '4';
 
 
@@ -313,25 +335,22 @@ public class DeclarationAssignment {
         // Say we wanted to add one our 'letter' 4: 
 
         int should_be_five = 1 + the_letter_four;
+        System.out.println("1 + '4' = " + should_be_five);
 
-
-        // Using our print statements, we can see that final answer:
-        System.out.println("1 + '4' = " + should_be_five);  //this prints out 53, not 5!
 
 
         /* When we have text with more than one digit, we'll be using a String instead of a char:  */
         String the_word_one_hundred_twelve = "112";
         //int should_be_one_hundred_thirteen = the_word_one_hundred_twelve + 1;  // incompatible types: String cannot be converted to int
-        String should_be_one_hundred_thirteen = the_word_one_hundred_twelve + 1;
 
-        System.out.println("\"112\" + 1 = " + should_be_one_hundred_thirteen); //this gives us "1121" instead of 113!
+        String should_be_one_hundred_thirteen = the_word_one_hundred_twelve + 1;
+        System.out.println("\"112\" + 1 = " + should_be_one_hundred_thirteen);
 
          //with text, 'addition' is actually an operation called "concatenation" -- we 'squish' both bits of text end to end.
 
 
          String greeting = "Hello, " + first_name;
 
-
-    }
+   }
 
 }
