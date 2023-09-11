@@ -328,6 +328,9 @@ public class DeclarationAssignment {
          */
         char the_letter_four = '4';
 
+        // NOTE: in Python, ' and  " were interchangeable! In Java, single quotes are for chars (single letters as numbers),
+       // and " are for strings (whole lines of text).
+       
 
         // this character looks like a 4, but a char actually stores a number that represents a text character.
         // In this case, '4' will be saved as 52, the number we use to represent "4"!
