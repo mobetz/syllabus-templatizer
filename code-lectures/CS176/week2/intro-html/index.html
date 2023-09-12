@@ -1,0 +1,220 @@
+
+<html>
+
+<head>
+    <title>Intro to HTML</title>
+
+    <!--
+    One special kind of tag: the <!-- tag represents a "comment".
+    Comment tags let us put text that will be ignored by the browser completely.
+      -->
+    <!--The simplest head tag is the <title> tag. This changes what text shows
+           up on the browser tab. -->
+
+    <style>
+        body {
+            max-width: 90%;
+            margin: auto;
+            margin-top:40px;
+        }
+
+        img {
+            margin:auto;
+            display:block;
+            width: 400px;
+        }
+    </style><!-- styling information: we'll talk more about this next week!-->
+
+</head>
+
+<body>
+
+    <h2 id="top_of_page">
+        Objectives for Today
+    </h2>
+
+    <ul>
+        <li>Define tags and attributes, and explain their role in an HTML page.</li>
+    <li>Identify the major sections of an HTML document.</li>
+    <li>Cover a few basic tags used for adding paragraphs, links, and images to web pages.</li>
+    <li>Understand the meaning of semantic tags and explain how they add value to our HTML code.</li>
+    </ul>
+
+    <h3>
+        HTML: Tags and Attributes
+    </h3>
+
+    <p>HTML stands for HyperText Markup Language.</p>
+
+    <p>A markup language is a system for annotating content with additional information
+        that may convey formatting, presentation or the structure of data. Hypertext refers
+        to the links that connect pages on the web.
+    </p>
+
+    <p>One of the common prototypical markup languages that's used by many applications
+        is XML. HTML is actually a derivative of XML (the eXtensible Markup Language.)</p>
+
+    <p>In HTML, markup is indicated using "tags". A <strong>tag</strong> is just a word of text surrounded
+        by &lt;angle brackets&gt;. The most basic tag is the &lt;html &gt; tag, which
+        identifies a document as being html.</p>
+
+    <p>Most tags in HTML identify regions on a page: they come in pairs, and indicate where
+        a certain feature of the document begins, and also where it ends. A closing tag
+        will have an identical name to its opening tag, but it will be prefixed by a /.  These
+        tags will always end in last-opened first-closed order, almost like nesting dolls.</p>
+
+    <img src="img/grumpy-cat-small.png" alt="An image describing our tag.">
+
+    <p>Inside the html tag, there are two main sections of the html document: a HEAD,
+        and a BODY.<</p>
+
+    <p>The BODY represents everything about the page we interact with inside the tab.</p>
+
+    <p>The HEAD holds extra metadata about the page that does not get displayed directly,
+        but may be useful for the browser, assistive technologies, or a search engine.</p>
+
+    <p>Notice how our rendered website isn't respecting our whitespace? We have to
+        identify where paragraphs start and end using &lt;p&gt; tags. Similarly, we can use
+        &lt;h1&gt; through &lt;h6&gt; to represent different levels of headers and subheaders.
+    </p>
+
+    <p> We can emphasize important terms with &lt;em&gt; or &lt;strong&gt;. </p>
+
+    <p> Images are specified using the &lt;img&gt; tag. However, images also work just
+        a little bit differently. Some tags like images require more information than we
+        could give them using just our "nesting doll" positioning. For these types of tags,
+        we can use "attributes": Attributes are key-value pairs that identify additional
+        features about the content inside the tag.
+
+        To add an attribute, we use the name, an equals sign, then the value "inside quotation
+        marks".
+    </p>
+
+    <p>The img tag requires a <strong>src</strong> (source) attribute, which points to
+        the link where the image is located, and accepts other attributes for sizing information
+        like height and width: </p>
+
+    <img src="img/grumpy-cat-attribute-small.png" >
+
+
+
+    <p> One last major structural tag is the <em>hyperlink</em>.
+
+
+        Hyperlinks are created using the &lt;a&gt; tag. A is short for "anchor",
+        because these anchors tie two different places on the web together. Typically,
+        an anchor tag is used with the <strong>href</strong> attribute, which has
+        a full path to <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML">
+            another website.</a> If you want to link to another file the same folder,
+        then you can just use the <a href="contact_info.html">file's name</a>.
+
+
+    <p> There is another way to use the anchor tag: When used with the
+        <strong>name</strong> or <strong>id</strong> attribute, an anchor can also save a position on a
+        page. Then, if another anchor's <strong>href</strong> uses that name with
+        a #, we can instantly navigate back to the anchor.
+    </p>
+
+<p><a href="#top_of_page">Return to top</a></p>
+<p><a href="./contact_info.html">Go to the Contact Me page</a></p>
+
+
+
+    <p> One final note on writing HTML: if you want to type something out that HTML would incorrectly
+        render as a tag, we can do so using <em>escape codes</em>.Escape codes are specified
+        with an ampersand (&amp;) and ending with a semicolon (;). For instance, we can use
+        &amp; to refer to ampersand, and and &amp;lt; (less than) to refer to our opening
+        bracket in our tag.</p>
+
+
+    <section id="semantics">
+
+    <h3>Semantic Tags</h3>
+
+    <p>Most tags in HTML don't actually <em>do</em> anything at all, beyond setting some
+        basic positional data, and maybe having a bit of default styling.</p>
+
+    <p>We even have two proto-tags that represent this behavior with no extra meaning
+        attached:</p>
+
+    <p><strong>&lt;div&gt;</strong> represents a block in the document with no additional meaning.</p>
+
+
+    <p><strong>&lt;span&gt;</strong> represents an inline segment of text with no additional meaning.</p>
+
+    <p>If we wanted to, we could go through and replace every one of our paragraph,
+        header, strong, and emphasis tags with a bunch of divs and spans. So why do
+        we bother learning about so many more?</p>
+
+
+    <p> If we only had divs and spans, our webpage would end up looking something
+        like this:</p>
+
+
+    <xmp>
+        <div></div>
+        <div>
+            <span>Welcome to my page</span>
+            <div>
+                <div>
+                    <img src="...">
+                    <div>Look at this cool image</div>
+                </div>
+            </div>
+        </div>
+        <div>Copyright 2020</div>
+    </xmp>
+
+
+    <p> Looking at a page like this, it's nearly impossible to figure out what any
+        of those divs represent. What's worse, if we were trying to parse the HTML
+        not as a human, but instead as a machine, we'd have no way of knowing what
+        any of these divs meant and which were important. </p>
+
+    <p>A lot of elements, such as &lt;section&gt;, &lt;footer&gt;, and even &lt;p&gt; serve mainly
+        as clues for ourselves, other developers, and machines to help give <em>meaning</em>
+        to the structure of our document. Imagine instead our document above looked like
+        this: </p>
+
+
+    <xmp>
+        <header></header>
+        <section>
+            <h3>Welcome to my page</h3>
+            <article>
+                <figure>
+                    <img src="...">
+                    <figcaption>Look at this cool image</figcaption>
+                </figure>
+            </article>
+        </section>
+        <footer>Copyright 2020</footer>
+    </xmp>
+
+    <p>Now, it becomes clear which parts of the page are organizational, and which have
+        the main content we actually care about.The practice of using meaningful tags
+        that describe not just the layout, but also the purpose of different parts of the
+        page is known as <strong>Semantic HTML</strong>, and the introduction of semantics
+        into our HTML documents has been one of the biggest pushes in modern HTML standards. </p>
+    </section>
+
+
+
+
+    <h2>Homework</h2>
+    <ul>
+        <li>Read the <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML">
+            MDN Intro to HTML articles.</a></li> <!-- a List Item -->
+        <li>This link is also available on
+            <a href="http://blackboard.massbay.edu/">Blackboard</a>. </li>
+
+        <li>Start experimenting with HTML tags on your own.</li>
+        <li> Don't be afraid to experiment with
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element">
+                tags we didn't explicitly cover today</a>.</li>
+
+    </ul>
+
+
+</body>
+</html>
