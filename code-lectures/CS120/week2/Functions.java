@@ -1,5 +1,4 @@
 
-
 /*
 Objectives for Today
 
@@ -18,6 +17,7 @@ Vocabulary for Today
 Function - A function is a named group of statements. In order to instruct a program to follow all the statements in
             a function, we "call" that function by putting its name followed by parentheses.
 
+
 Input Parameters - Functions may accept one or more values at the time they are called. These function 'arguments' are
                     each assigned to a special variable called a 'parameter' immediately at the top of the function.
 
@@ -31,7 +31,7 @@ Returned Values - A function may optionally be declared to return a single type 
 public class Functions {
 
 
-    public static void main(String[] args) {
+  public static void main(String[] args) {
 
         /*
         Last class, we learned that all programs are constructed from a sequence of statements that are followed top
@@ -42,26 +42,24 @@ public class Functions {
            - Save a first 'guess' for the square root, equal to half of x.
            - Save a calculated 'error' based on how incorrect the square root is when re-multiplied.
            - As long as that error is too high:
-               - Save a new guess, which is the average of the old guess with the original number divided by the guess.
-               - Save a new error by calculating it with the same formula from before.
+                          - Save a new guess, which is the average of the old guess with the original number divided by the guess.
+                          - Save a new error by calculating it with the same formula from before.
 
         */
 
 
-    	double x = 16;
-    	double guess_root = x/2;
-    	double error = (guess_root * guess_root) - x;
-    	while ( Math.abs(error) > 0.000001 ) {
-    		guess_root = ( guess_root + (x / guess_root) ) /2;
-    		error = (guess_root * guess_root ) - x; 
-    	}
+    double x = 16;
+    double guess_root = x / 2;
 
-        System.out.println("The square root of " + x + " is approximately " + guess_root);
+    double error = (guess_root * guess_root) - x;
+    while ( Math.abs(error) > 0.0000001) {
+        guess_root = ( guess_root + (x / guess_root) ) /2;
+        error = (guess_root * guess_root ) - x;
+    }
 
+    System.out.println("The square root of " + x + " is approximately " + guess_root);
 
-
-
-        /* We've now written a program that solves a very important task -- square roots are used constantly in math to
+     /* We've now written a program that solves a very important task -- square roots are used constantly in math to
           do everything from calculating distances and areas to estimating return on investments.
 
 
@@ -69,33 +67,51 @@ public class Functions {
           Especially in graphics programming, these square root lines of code might be used hundreds of times to help
           determine which elements are touching, what the user was clicking, and more...
 
-
           We don't want to cut and paste this code every time.
 
-          If we did that and decided to make a change later, we would have to update *every single place* that we
+          Not every square root is going to be calulcated on the same number. We want the flexibility to not have to keep
+          changing bits of our code. It would also make it very hard to read what anything else was doing, because
+          these repeated calculations would clutter every part of our code.
+
+           If we did that and decided to make a change later, we would have to update *every single place* that we
           wrote these lines.
 
-          This is where functions come in -- a function lets us give this group of instructions a name we can use
-          as shorthand for all these steps! */
 
+          This is where functions come in -- a function lets us give this group of instructions a name we can use
+          as shorthand for all these steps! Let's scroll down and make a new function called findSquareRoot. */
 
         /*
-            Once we have declared our function "findSquareRoot" below, let us compile and run our code. Notice: this
-            code isn't doing anything yet. Even if we add print statements to "findSquareRoot", those print statements
-            never show up.
+            Once we have declared our function "findSquareRoot" below, let us compile and run our code.
 
-            A function declaration DESCRIBES instructions, but it doesn't perform them. The only code that runs when the
+            Notice: this code isn't doing anything yet. Even if we add print statements to
+            "findSquareRoot", those print statements never show up.
+
+             A function declaration DESCRIBES instructions, but it doesn't perform them. The only code that runs when the
             program starts is one special function (the 'main' function.) Much like you need to use a recipe to produce
             an edible meal, you need to call your function to get a usable result. To call our function, we put its name,
             followed by parentheses:
+        */
+
+          findSquareRoot();
+
+
+        //However, we have a problem.... We can't actually use any of the variables from our function:
+          //System.out.println(guess); //<- "guess" doesn't exist here!!!
+
+        /* This is because every variable has a 'scope' -- it only exists until the end of the block
+        where it was created. For local function variables, this means they stop existing once
+        the function is over.
+
+        If we want to save our 'final answer', we need to store it in a newly named variable:
          */
 
-          double answer = findSquareRoot();// <- remember how we said our function 'returns' a double as a final answer?
+          double answer = findSquareRoot(); // <- remember how we said our function 'returns' a double as a final answer?
                                            // This means we can use the function the same way we use any other double
                                            // expression and assign it to a double variable.
 
 
           System.out.println("When we called the function, we got back: " + answer);
+
 
 
         /*
@@ -106,6 +122,7 @@ public class Functions {
         numbers, like 4, or 25, or literally anything else I can express on a computer. It would be really inefficient
         to make a different function for each of these.
 
+
         However, if we analyze our function... what parts of our function really need to change if we're using a different
         number?
 
@@ -114,16 +131,23 @@ public class Functions {
         same, no matter what number we're using. This means we can express our function with an "input parameter".
         Let's make a new version of findSquareRoot that accepts one parameter.
 
+
         We need to be mindful of parameters when we call a function. A function's signature is like a conditional
         promise that says "If you give me these details, I'll give you back this kind of answer." We need to fulfill
         our end of the promise:
         */
 
-        double root_of_twentyfive = findSquareRoot(25);
+
+          double root_of_twentyfive = squareRootVersionTwo(25, 0.000001);
         System.out.println("The root of 25 is " + root_of_twentyfive);
 
-        double root_of_four = findSquareRoot(4);
+
+          double root_of_four = squareRootVersionTwo(4, 0.000001);
         System.out.println("The root of 4 is " + root_of_four);
+
+
+
+        System.out.println("The root of 100 is " + squareRootVersionTwo(100, 0.0000001));
 
 
         /*
@@ -168,18 +192,19 @@ public class Functions {
      original code continues
 
         */
-    } //end of main() function
-
+  }
 
 
     /*
     If I wanted to name those instructions "findSquareRoot", I would do so like this:
      */
 
-    public static double findSquareRoot() {
+
+  public static double findSquareRoot() {
 
         /*
         Notice: I did this *outside* the main() method -- each function is its own isolated block of instructions!
+
 
         We wrote a lot of words, but they follow a simple pattern:
 
@@ -193,24 +218,28 @@ public class Functions {
                these instructions. In this case, a square root is a decimal number, so we return a double. When we *don't*
                want to give anything back, we can put the word 'void' to say that nothing gets returned.
 
+
            - Finally, we have the name we want to give the function. This can be anything that starts with a letter, but
            we've chosen "findSquareRoot".
+
 
            After this we have parentheses, and then a pair of curly braces -- curly braces anywhere in Java create a 
            "block". A block lets us attach a group of statements in a single location.
 
 
            Now, we can write all those instructions from before:
-
         */
 
         double x = 16;
-        double guess_root = x / 2;
-        double error = x - (guess_root * guess_root);
+        double guess = x / 2;
+        double error = x - (guess * guess);
         while ( Math.abs(error) > 0.000001 ) {
-            guess_root = (guess_root + (x / guess_root)) / 2;
-            error = x - (guess_root * guess_root);
+            guess = (guess + (x / guess)) / 2;
+            error = x - (guess * guess);
         }
+
+        //System.out.println("INSIDE MY FUNCTION, square root is: " + guess_root);
+
 
         /*
         However, unlike last time, we don't want to print out our answer here. Functions only rarely do printing
@@ -219,15 +248,14 @@ public class Functions {
         */
 
 
-        return guess_root;   // <- this says that "guess_root" is my final answer
-        //Note: the type of the variable "guess_root" matches the return type when I declared my function!!
+        return guess;   // <- this says that "guess" is my final answer
+        //Note: the type of the variable "guess" matches the return type when I declared my function!!
+
+  }
 
 
-    } // end of findSquareRoot() function
 
-
-
-    public static double findSquareRoot( double original_number ) {
+  public static double squareRootVersionTwo( double original_number, double precision ) {
 
         /*
         Our function's "signature" (all the details we declared it with) looks almost identical to last time, but we've
@@ -239,20 +267,19 @@ public class Functions {
         of variable says "You need to give me this information in order for me to give you back an answer." However,
         inside the function we can now use that variable exactly like any other, even though we don't necessarily know
         what's in it yet:
-        */
 
+        */
         double x = original_number; // <- I'm using "original_number" here, even though it could be anything!
         double guess_root = x / 2;
         double error = x - (guess_root * guess_root);
-        while ( Math.abs(error) > 0.000001 ) {
+        while ( Math.abs(error) > precision ) {
             guess_root = (guess_root + (x / guess_root)) / 2;
             error = x - (guess_root * guess_root);
         }
 
          return guess_root;
-    }
+  }
 
 
 
-
-}// end of Functions class
+}
