@@ -6,3 +6,4 @@
 **/*.iml
 **/gradle-wrapper.jar
 **/gradlew*
+**/out/production/**
