@@ -12,9 +12,11 @@
     so we use the "application" plugin.
 */
 
+plugins {
+    id 'java'
+    id 'application'
+}
 
-apply plugin: 'java'
-apply plugin: 'application'
 
 
 
@@ -29,12 +31,12 @@ apply plugin: 'application'
         - Afterward, we need to tell it the name of our program entrypoint/main class, exactly the same way we did for 
              javac and java.
 
-
 */
 
 
-sourceSets.main.java.srcDirs('src')
-application.mainClass = 'Entrypoints'
+sourceSets.main.java.srcDirs("."); /* . says "look in the same folder build gradle is in" */
+application.mainClass = "Entrypoints"
+
 
 
 
@@ -49,14 +51,10 @@ application.mainClass = 'Entrypoints'
     In order to pass arguments to gradle when we run, we use --args, and then provide all our args in "quotation marks"
           gradle run --args "3 4"
 
-
  */
 
 
-
  /*
-
-
 
      Right now, the benefit of this feels dubious -- we've saved one line when we run the code, but added
      a small file we have write for each of our projects. 
@@ -65,31 +63,6 @@ application.mainClass = 'Entrypoints'
      programs whose entrypoint is 'main()'. However, not all programs have main() as an entrypoint, or any
      code that runs immediately at all...
 
-     Some programs like "code libraries" are just collections of functions that don't have a defined
-     entrypoint! They just describe things we want Java to be able to do.
-
-     However, we still want to be able to exercise this code and make sure it works. To do this, we
-     can write a special artifical entrypoint, called a "unit test". The unit test acts like a 
-     mini-main() that we can use to test a single function.
-
-     Getting Java code set up to write unit tests is normally fairly complicated. You would need to visit
-     a website, download Java code called JUnit, and "link" those functions to your program every time you use
-     javac and java.
-
-     ...Or, you can add four lines to the build.gradle file
-
-
+     Later this semester, we will be writing graphical programs that don't have a main() method at all (instead,
+     they use a "start()" method that we can only easily run with gradle.)
 */
-
-
-repositories.mavenCentral();  //<- look at a special website for Java libraries called "MavenCentral"
-dependencies.testImplementation("org.junit.jupiter:junit-jupiter:5.8.2") // <- "I depend on JUnit, so find and download it"
-sourceSets.test.java.srcDirs("test")  // <- my tests will life in the /test folder
-test.useJUnitPlatform()               // <- when I do 'gradle test', use this JUnit library
-
-
-//Optionally, we can also mention what types of tests we want to 'hear about' on our results screen:
-test.testLogging.events("PASSED");
-test.testLogging.events("SKIPPED");
-test.testLogging.events("FAILED");
-test.testLogging.exceptionFormat("full");
