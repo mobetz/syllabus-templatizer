@@ -1,8 +1,10 @@
 
 
 
+
 /*
    Our Course class is going to work like a 'blueprint' for describing a new course.
+
 
    Classes have two major parts:
 
@@ -10,19 +12,21 @@
    Afterward, there are "methods" which list all the things a class *can do*.
 
 
+
    We start the class the same way we've started every other .java file, by defining the class with the
    'class' keyword, and then naming it the same as the file:
- */
 
-public class Course  {
+   */
 
+
+
+public class Course {
    /*
    Everything related to our 'blueprint' is going to go inside our class' curly braces. Let's start by creating 
    sections for 'attributes' and 'methods':
    */
 
-
-   //ATTRIBUTES
+	//ATTRIBUTES
 
 /*
 
@@ -32,21 +36,18 @@ public class Course  {
 
    Note: each thing declared *on* a class needs to start with a scope/visibility keyword. Just like our functions,
    this tells us where this attribute can be seen:
-       - If we set it to "private", only this class can see this variable.
        - If we set it to "public", any file that creates a Course can read that course's values.
-
+       - If we set it to "private", only this class can see this variable.
 
    Otherwise, our attributes work just like declaring any other variable!
-
-   */
-
+*/
 
 
-		private String course_name;
-		private String meeting_days;
-		private String lab_days;
-		private String start_time;
-		private int number_of_hours;
+	private String course_name;
+	private String meeting_days;
+	private String lab_days;
+	private int start_hour;
+	private int number_of_hours;
 
 
    /*
@@ -59,16 +60,15 @@ public class Course  {
     */
 
 
+
 	//METHODS
 
    /*
    In addition to attributes, we can also choose to define functions on a class. This allows us to organize
    our code so that all the behaviors related to a course can be right near the variables that impact them.
 
-
    This matters most if we set other class elements to private! Remember, if a class feature is private,
    we can only interact with it in this file! 
-
 
    The one other difference between methods and functions are that methods are attached to a single, specific
    copy of attributes for one object. The function gets access to all those attributes for free, without
@@ -81,7 +81,8 @@ public class Course  {
 
 
 	public void changeClassDetails(String given_name, String given_meet_days, String given_lab_days, 
-		                               String start_time_in, int meeting_hours) {
+		                               int start_time_in, int meeting_hours) {
+
       /* Our method declaration here works just like every other function we've made this semester. However, 
       since we're now making a function that is supposed to work with objects, we no longer put the 'static'
       keyword!
@@ -93,18 +94,16 @@ public class Course  {
       do so, we need to use the word "this" with a dot before our attribute name, so that the code knows
       we're talking about a specific course's copies of the variables: 
       */
-
 		this.course_name = given_name;
 		this.meeting_days = given_meet_days;
 		this.lab_days = given_lab_days;
-		this.start_time = start_time_in;
+		this.start_hour = start_time_in;
 		this.number_of_hours = meeting_hours;
+	}//end of changeClassDetails
 
 
-	}
 
-
-	public String getDetailsText() {
+	public String getDetails() {
 
 		/*
 		Note: We didn't need to include function parameters here! We can use the class attributes we saved
@@ -112,11 +111,14 @@ public class Course  {
 
 		String details;
 
-		details = "Showing details for " + this.course_name + " : Meets on " + this.meeting_days + "  at " + 
-		    this.start_time + " for " + this.number_of_hours + " hours."; 
+		details = "Showing details for " + this.course_name+ " : Meets on " + this.meeting_days + "  at " + 
+		    this.start_hour + ":00 for " + this.number_of_hours + " hours."; 
 
 
 		return details;
 	}
+
+
+
 
 }

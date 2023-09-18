@@ -1,4 +1,5 @@
 
+
 /*
 
 Objectives for Today
@@ -12,50 +13,47 @@ By the end of today, you will:
 */
 
 
+
 /* Vocabulary of the Day
 
 Class -- A class is a template that describes a collection of bundled data and functions. When we use a class, we
 create an "object" of that class.
 
-
 Attribute -- An attribute is a special variable that is declared inside of a class. Unlike normal variables, which
             can only be seen in the block of code where they were declared, attributes are shared by all methods of
             a class.
 
+
 Object-Oriented Programming - Object-Oriented Programming is a problem solving approach where a programmer divides
            program logic up into one or more classes.
 
- */
-
-
+*/
 
 
 public class Classes {
 
-
 	public static void main(String[] args) {
-
 		/*
 		So far, the programs we've written have focused mostly on using base types. This is sufficient for expressing
 		complex programs, but at times it can be inconvenient. Say, for example, I wanted to create a program that
 		helps track my courses to print myself a calendar.
 		*/
 
-
 		String course_name = "Programming I";
 		String meeting_days = "MWF";
 		String lab_days = "F";
-		String start_time = "10:00 AM";
+		int start_hour = 11;
 		int number_of_hours = 1;
+
 
 
 		/*
 		Every time we were talking about the course, we would need to use all these variables in combinations:
-
 		*/
 
-		System.out.println("Showing details for " + course_name + ": " + "Meets on " + meeting_days + " at " + start_time + " for " 
-	      + number_of_hours + " hours.");
+
+		System.out.println("Showing the details for " + course_name + ": " + "Meets on " + meeting_days + " at " + 
+			start_hour + ":00 for " + number_of_hours + " hours.");
 
 
 		/*
@@ -65,11 +63,12 @@ public class Classes {
 		*/
 
 
-		String second_course_name = "Web Development";
+		String second_course_name = "Programming II";
 		String second_meeting_days = "TR";
-		String second_lab_days = "R";
-		String second_start_time = "10:00 AM";
+		String second_lab_days = "T";
+		int second_start_hour = 11;
 		int second_number_of_hours = 2;
+
 
 		/*
 
@@ -79,8 +78,9 @@ public class Classes {
 
 		*/
 
-		System.out.println("Showing details for " + second_course_name + ": " + "Meets on " + second_meeting_days + " at " + 
-			second_start_time + " for " + second_number_of_hours + " hours.");
+
+		System.out.println("Showing the details for " + second_course_name + ": " + "Meets on " + second_meeting_days + 
+			" at " + second_start_hour + ":00 for " + second_number_of_hours + " hours.");
 
 
 		/*
@@ -88,21 +88,22 @@ public class Classes {
 		to do that by creating a second file for our program!
 		*/
 
-
-		/*
+		/* 
 		Creating a class has a very important effect: Every time we create a new class, we automatically get a new data type
 		we can use for variables! The data type of the variable will match the name of the class we made!
+
+		Once I've created my 'class' description in another file, I get a brand new type I can declare like any other:
 		*/
 
-
-		Course first_course;
+		Course some_course;
 
 
 		/*
 		Just like how a variable needs to be assigned a value before it can be used, our course also needs to be assigned
 		a value. To do this, we call a special function whose name matches the name of the data type:
 		*/
-		first_course = new Course(); //<- this is called the "constructor" function, and we'll learn more about it next class.
+		some_course = new Course();  //<- this is called the "constructor" function, and we'll learn more about it next class.
+
 
 
 		/*
@@ -114,7 +115,7 @@ public class Classes {
 		|      |       +--------------+ 
 		|     <------- | [ ] name     |
 		+------+       | [ ] number   |
-	  first_course     | [ ] link     |
+	  some_course      | [ ] link     |
 		               | [ ] hours    |
 		               |              |
 		               +--------------+
@@ -129,26 +130,27 @@ public class Classes {
 		To call an object method, I will put the name of the object I want to use, then a dot, then the name of the method I am 
 		going to call:
 		*/
+		
+		some_course.changeClassDetails("CS120", "MWF", "M", 11, 1);
+		String some_courses_details = some_course.getDetails();
 
-		first_course.changeClassDetails("CS120", "MWF", "F", "10:00 AM", 1);
+		System.out.println("Showing somecourses' details: " + some_courses_details);
 
-		String received_details = first_course.getDetailsText();
-
-        System.out.println("First_course's details: " + received_details);
 
         /*
 		If I make a second object, it's copies of variables are completely separate from the first course:
 		*/
 
-		Course second_course = new Course(); 
-		second_course.changeClassDetails("CS241", "TR", "R", "10:00 AM", 2);
+		Course second_course = new Course();
+
+		second_course.changeClassDetails("CS200", "TR", "T", 11, 2);
 
 
+		System.out.println("some_course's details: " + some_course.getDetails());
+		System.out.println("Second_course's details: " + second_course.getDetails()); 
 
-		System.out.println("First_course's details: " + first_course.getDetailsText());
-		System.out.println("Second_course's details: " + second_course.getDetailsText()); 
 		                                                                          //<- even though I'm calling the 'same' function, I 
-		                                                                                  //  get different results.
+		                                                                          //  get different results.
 
 		/*
         The big benefit of classes is that they let us separate our thinking into just considering how small bundles of related 
@@ -159,7 +161,10 @@ public class Classes {
         write programs.
         */
 
-	}
 
+
+	} 
 
 }
+
+
