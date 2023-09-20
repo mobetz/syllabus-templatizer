@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./styles/common_styles.css">
+</head>
+<body>
+
+<h1>Introduction to Styling</h1>
+
+
+<section id="objectives">
+<h3>Objectives for Today</h3>
+<p>By the end of this class, you should be able to:</p>
+
+<ul>
+    <li>Describe how the Document Object Model allows us to represent HTML content in different formats.</li>
+    <li>Define CSS, styling rules, and the box model.</li>
+    <li>Identify the difference between inline and block elements.</li>
+    <li>Understand how styling rules allow us to modify the positioning and formatting of HTML elements.</li>
+    <li>Write your own stylesheets and link them to an HTML document using the link tag</li>
+    <li>Use basic styling rules for changing colors, positioning, and page behavior.</li>
+    <li>Identify basic selectors for applying rules to categories of elements.</li>
+</ul>
+</section>
+
+
+
+<p>Before we get started talking about how to style our pages, let's learn a bit of background about how the
+    computer thinks about a web page.</p>
+
+<section id="dom">
+
+    <h3>The Document Object Model</h3>
+
+    We can represent the content of a web page in many different formats.
+
+    <ul>
+    <li>Last class, we learned how to represent web content as nested tags using HTML.</li>
+    <li>The browser represents web content as a bunch of elements positioned across a page.</li>
+    <li>Programming languages (like Javascript) need to represent web content as classes and objects.</li>
+    </ul>
+
+
+        <p class="second_paragraph">It turns out, we can notate all of these different representations in a single,
+            platform-agnostic format, which we call the <strong>Document Object Model</strong>.
+
+            The Document Object Model represents all of the nested sets of tags that we learned
+            about last class as nodes into a tree (sort of like the trees you see in the left
+            pane of a file browser when expanding a series of folders.)</p>
+
+        <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/DOM-model.svg/1024px-DOM-model.svg.png"
+                style="display: block; max-width:20%; margin: auto; margin-top: 20px"
+
+        >
+
+
+        <p>In the DOM, each 'level' on the tree represents a tag that surrounds all of
+            its children nodes. When the browser receives HTML code, the first thing it does
+            is convert that code into a DOM tree like the one pictured here.</p>
+
+        <p>Text is really inconvenient to work with as a computer... every time you load the page,
+        it needs to go out and find where tags start and end, what 'sections' of the content exist to
+        layout. Programs are really good at working with tree-like data, and we've developed
+            many techniques for searching and manipulating trees efficiently. As a consequence,
+            converting an HTML document into a DOM tree allows the browser to easily navigate the
+            page when applying styling and interacting with JavaScript code.</p>
+
+</section>
+
+<section id="block_v_inline">
+    <h3>Block and Inline Elements</h3>
+
+
+    <p>When the browser wants to convert a DOM tree into a rendered website, one
+        of the first things it has to do is identify the major "blocks" of content and
+        calculate where each should be positioned on the page.</p>
+
+    <p class="second_paragraph">It does this by scanning all the nodes in the DOM, and figuring out
+        which ones actually represent new blocks of content, and which only change
+        something that exists inside a block.</p>
+
+    <p>It turns out, we can pretty cleanly divide (almost) all HTML tags into two
+        categories:</p>
+
+
+    <p><strong>Block</strong> elements represent a new block of content. When the
+        browser renders them, it assumes they're going to take up the entire width of the
+        page, and gives them a blank line of space above and below unless otherwise
+        specified.</p>
+
+    <p><strong>Inline</strong> elements represent labels, styling, or elements
+        that otherwise "fit" inside an existing block, but don't carve out their own space.</p>
+
+
+    <p>So why do we care about all of this? Because it's going to inform how we can add our own
+        additional styles  to our web pages using another language called CSS!</p>
+
+</section>
+
+
+<section id="rules">
+    <h3>What is CSS?</h3>
+
+    <p>CSS stands for "Cascading Style Sheets".
+
+        Cascading Style Sheets are an extension to HTML that allows us to declare
+        special "rules" that modify our HTML tags. Like HTML itself, these rules are
+        'declarative' -- a CSS stylesheet is a list of information, and the browser is
+        responsible for interpreting that information to produce a rendered web page.
+    </p>
+
+
+    <img src="https://media.prod.mdn.mozit.cloud/attachments/2014/11/18/9461/012655e623bef579c9bd376e227bc648/css-declaration-small.png"
+         width=400
+    >
+
+
+    <p class="second_paragraph">
+        The most common place to put these rules is in a separate file, which we can 'attach'
+        to this document using a &lt;link> tag. It contains a <em>rel</em> attribute
+        which indicates that this link is to a stylesheet, and it contains an href attribute
+        similar to our anchor tags, that indicates where this stylesheet is located.
+    </p>
+
+
+    <p>CSS rules follow a special syntax, similar to our tags:
+
+    <ul>
+        <li>First, they specify a 'selector' or group of selectors, which represents
+            what elements should be changed.</li>
+        <li>Next, they open a 'block' of declarations using a pair of {curly braces}.</li>
+        <li>Inside this block, they define one or more property:value pairs separated by a colon,
+            with a semicolon at the end.</li>
+    </ul>
+
+
+    <p>
+        What is it that makes Cascading Style Sheets "cascading"? -- We can apply multiple
+        rules that each overlap. However, when these rules conflict, one has to win.
+
+        When this happens, the <em>most specific rule</em> wins:
+
+    <ul id="priority-list">
+        <li>Style added 'inline' with a style attribute is more specific than ID.</li>
+         <li>IDs are more specific than classes.</li>
+         <li>Classes are more specific than elements.</li>
+         <li>Tags that are 'inside' other tags are more specific than their containers.</li>
+         <li>When two rules 'tie', the last rule applied wins. </li>
+    </ul>
+
+</section>
+
+
+<section id="selectors" class="course_content third_paragraph in_a_box">
+
+    <h3>Selectors</h3>
+    <p>A selector is the first part of our CSS style rules. A selector lets us specify the
+        element or elements that we want to modify with our properties. Selectors are powerful,
+        and contain many flourishes that let us precisely point to specific elements or groups
+        of elements. We will be discussing a few of these next class.</p>
+
+
+
+    <p class="second_paragraph"> However, the simplest selectors are just
+        tags! If we provide the name of the tag in the selector region of a CSS rule, then
+        that block of declarations will apply to all matching tags in our document.
+        Let's try this out in our common_styles.css by setting default styling for our
+        sections, images, and body.</p>
+
+
+    <p>
+        In addition, there are two other common selectors: id selectors and class selectors.
+        Every single tag in HTML has two attributes in common -- we can specify an
+        <strong>id</strong> that uniquely identifies that specific element, and a
+        <strong>class</strong> that labels that element as being part of a set of similarly
+        styled groups (each group is separated by a space). Then, in our CSS rules, we can
+        use #ID_NAME to refer to an element by id, and .CLASS_NAME to refer to an element
+        by class.
+    </p>
+</section>
+
+
+
+<section id="properties">
+    <h3>Common Properties</h3>
+
+    <h4>Colors</h4>
+    There are several declarations that deal with colors.
+
+    <ul>
+        <li><strong>color</strong> sets the color of text.</li>
+        <li><strong>background-color</strong> sets the color for the whitespace behind the element.</li>
+        <li><strong>border-color</strong> sets an optional outline for a block.</li>
+    </ul>
+
+    All of these color-based properties use 'web colors'. Web colors can be specified
+    in a few ways: either by using a six digit hexadecimal number, a three digit
+    hexidecimal number, a special color name, or the rgb() or hsl() css "functions".
+
+    When we use a three or six digit number, each third of the number refers to a
+    different color: the first third holds information about red values, the next
+    third holds information about green values, and the final third holds information
+    about the blue values:
+    <img src="https://files.cdn.printful.com/o/upload/bfl-image/26/11372_l_R.png" style="width: 400px">
+
+
+    <h4>Length</h4>
+
+    Length is used for properties such as width, height, margin, and padding.
+    Length can be specified as:
+
+    <ul>
+        <li>pixels (px)</li>
+        <li>% of screen (%)</li>
+        <li>"size of the letter m"-s (em)</li>
+        <li>and so <a href="https://www.w3.org/Style/Examples/007/units.en.html">
+            many more</a>...</li>
+    </ul>
+
+
+    <p>An element's width and height aren't always its width and height. The content
+        area of an element (where text and child elements will actually display) does
+        not include its margin (the extra space left beyond the edge of the element),
+        border (a styled line around the edge of the element), or padding (space inside
+        the element's "box",) by default. These different measures of space around an
+        element are collectively referred to as the <a href="https://hackernoon.com/the-box-model-44fc2c04a935">
+            "box model"</a>.</p>
+
+
+    <img src="https://hackernoon.com/hn-images/1*2jZwpWH9XO_QllhEpyGqMA.png"
+         width="600px">
+
+
+    However, if we use the "box-sizing: border-box" attribute for an element, then
+    padding and border are included in the width. Where possible, you should
+    try to position elements using only these tools we've learned about today:
+    (width, height, margin, and padding.) Doing this will help your page reflow
+    properly on screens of different sizes. Next class we'll learn a few tricks
+    for when that's insufficient.
+
+
+    <h4>Content Outside the Flow: Floating</h4>
+
+    <p>Sometimes, we have content that we want to appear "off to the side". In these situations, we can use one other
+        positional attribute: float. When we 'float' content, it will appear off to the side of its containing block:</p>
+
+
+    <div style="width: 400px; height: 200px; margin: auto; padding: 30px; background-color: darkblue">
+        <div style="width:50px;
+                    height: 70px;
+                    background-color: mediumvioletred;
+                    float: left;
+                    margin-right: 10px;
+                    ">
+
+            This box floats!
+        </div>
+        I have a bunch of text that appears inside this special blue box. However, watch what happens when we add
+        a floating element above it in the document.
+
+    </div>
+
+
+    <p>Note: floating should be used as a last resort, when other styles of positioning are unable to get you what
+        you want. Floating will make it hard to further position elements in the area around the float.</p>
+
+
+    <p>You can see a complete reference of CSS tags <a href="https://developer.mozilla.org/en-US/docs/Web/CSS">here.</a>
+
+
+
+
+
+
+</body>
+</html>
