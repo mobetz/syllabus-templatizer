@@ -1,0 +1,44 @@
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+
+sourceSets.main.java.srcDirs('src')
+sourceSets.test.java.srcDirs("test")
+application.mainClass = 'Debugging'
+
+
+/*
+When we want to use JUnit, we can add a few dependencies that specify where the code functions like "assertEquals()" live
+ */
+
+repositories {
+    mavenCentral();
+}
+
+dependencies {
+    implementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+}
+
+test {
+    useJUnitPlatform();
+}
+
+//Optionally, we can also mention what types of tests we want to 'hear about' on our results screen:
+test.testLogging.events("PASSED");
+test.testLogging.events("SKIPPED");
+test.testLogging.events("FAILED");
+test.testLogging.exceptionFormat("full");
+
+/*
+Now we can run our tests with "gradle test --tests GreetingFormatterTest" or by clicking play in an IDE:
+
+GreetingFormatterTest > testGreetingForJohn() PASSED
+
+GreetingFormatterTest > testGreetingForNameWithSpaceInFront() PASSED
+
+GreetingFormatterTest > testGreetingForNameWithLetterA() FAILED
+    org.opentest4j.AssertionFailedError: prettify_greeting() doesn't work with A ==> expected: <Hello Alex!> but was: <Hello alex!>
+
+
+ */
