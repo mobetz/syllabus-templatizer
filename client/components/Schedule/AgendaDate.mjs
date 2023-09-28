@@ -34,6 +34,20 @@ export class AgendaDate {
         return ret;
     }
 
+    linkTextFromMeeting(text, href, highlight) {
+        let meeting = document.createElement("div");
+        if ( href ) {
+            let link = document.createElement("a");
+            link.href = href;
+            link.innerText = text;
+            meeting.append(link);
+        } else if ( text !== undefined ) {
+            meeting.innerText = text;
+        }
+        meeting.classList.add(...this.highlightToClassList(highlight));
+        return meeting;
+    }
+
     generateRowFromMeeting() {
         let tr = document.createElement("tr");
         let date_col = document.createElement("td");
@@ -46,25 +60,17 @@ export class AgendaDate {
         date_col.innerText = dateFormat.format(this.date);
 
 
-        let [lecture,lab] = [document.createElement("div"),document.createElement("div")];
-
-        if ( this.topic.href ) {
-            let link = document.createElement("a");
-            link.href = this.topic.href;
-            link.innerText = this.topic.topic;
-            lecture.append(link);
-        } else if ( this.topic.topic !== undefined ) {
-            lecture.innerText = this.topic.topic;
+        if ( this.topic ) {
+            let lecture =
+                this.linkTextFromMeeting(this.topic.topic,  this.topic.href,  this.topic.highlight );
+            topic_col.append(lecture);
         }
-        lecture.classList.add(...this.highlightToClassList(this.topic.highlight));
-        topic_col.append(lecture);
 
         if ( this.assignment ) {
-            lab.innerText = this.assignment.title;
-            lab.classList.add(...this.highlightToClassList(this.assignment.highlight));
+            let lab =
+                this.linkTextFromMeeting(this.assignment.title, this.assignment.href, this.assignment.highlight);
             topic_col.append(lab);
         }
-
 
         this.events.map(
             (e) => {
