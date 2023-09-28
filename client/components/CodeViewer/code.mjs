@@ -17,7 +17,7 @@ class CodeViewer extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['pages', 'stem'];
+        return ['pages', 'stem', 'embed'];
     }
 
     get pages() {
@@ -36,6 +36,14 @@ class CodeViewer extends HTMLElement {
         this.setAttribute('stem', value)
     }
 
+    get embed() {
+        return this.getAttribute('embed');
+    }
+
+    set embed(value) {
+        this.setAttribute('embed', value)
+    }
+
     get raw_code() {
         return this.code;
     }
@@ -51,19 +59,27 @@ class CodeViewer extends HTMLElement {
                 let pages = newValue.split(";");
 
                 Promise
-                    .all(pages.map((page) =>  this.generateCodeViewFromPageLocation(page) ))
+                    .all(pages.map((page) =>  this.generateCodeViewFromPageLocation(page, false) ))
                     .then((tab_list) => {
                         tab_list[0].querySelector("input").checked = true;
                         this.shadowRoot.querySelector(".container").append(...tab_list);
                     });
 
                 break;
+            case 'embed':
+
+
+                 this.generateCodeViewFromPageLocation(newValue, true)
+                    .then((tab) => {
+                        this.shadowRoot.querySelector(".container").append(tab);
+                    });
+
         }
 
     }
 
 
-    generateCodeViewFromPageLocation(page) {
+    generateCodeViewFromPageLocation(page, asIFrame) {
         return this.getCodeFromLocation(this.stem + "/" + page).then((code) => {
             let tab = document.createElement("div");
             tab.classList.add("tab");
@@ -75,23 +91,42 @@ class CodeViewer extends HTMLElement {
             option.name="file_choices";
             tab.appendChild(option);
 
-            let label = document.createElement("label");
-            label.htmlFor = option.id;
-            label.innerText = page;
-            tab.appendChild(label);
 
-            let content = document.createElement("pre");
-            content.classList.add("content");
+            if ( asIFrame ) {
+                let label = document.createElement("label");
+                option.id = page + "_opt_webview";
+                label.htmlFor = option.id;
+                label.innerText = "Web View";
+                tab.appendChild(label);
 
-            let codeTag = document.createElement("code");
-            this.code[this.stem + "/" + page] = code;
-            codeTag.appendChild(document.createTextNode(code));
-            tab.appendChild(content);
-            content.appendChild(codeTag);
+                let content = document.createElement("iframe");
+                content.classList.add("content");
+                content.src = this.stem + "/" + page;
+                content.height = 1000;
+                content.style.marginTop = "28px";
+                content.style.padding = "0";
+                content.style.border = "0";
+                content.style.minHeight = "100%";
+                tab.appendChild(content);
+
+            } else {
+                let label = document.createElement("label");
+                label.htmlFor = option.id;
+                label.innerText = page;
+                tab.appendChild(label);
+
+                let content = document.createElement("pre");
+                content.classList.add("content");
+
+                let codeTag = document.createElement("code");
+                this.code[this.stem + "/" + page] = code;
+                codeTag.appendChild(document.createTextNode(code));
+                tab.appendChild(content);
+                content.appendChild(codeTag);
 
 
-            hljs.highlightElement(content);
-
+                hljs.highlightElement(content);
+            }
             return tab;
         });
     }
