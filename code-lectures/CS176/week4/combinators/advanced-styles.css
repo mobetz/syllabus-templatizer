@@ -103,5 +103,5 @@ h3 {
 
 @font-face {
     font-family: "Gravity";
-    src: url("fonts/Gravity-Regular.woff") format("woff");
+    src: url("combinators/fontsty-Regular.woff") format("woff");
 }
