@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Selector Combinators</title>
+    <link rel="stylesheet" href="common-styles.css">
+    <link rel="stylesheet" href="advanced-styles.css">
+</head>
+<body>
+
+<nav>
+    <ul>
+        <!-- have you ever noticed how some webpages have clickable images?
+     We can wrap our <a> tags around anything to say "make this clickable"! -->
+        <a href="#objectives"><li>Objectives</li></a>
+        <a href="#combinators"><li>Combinators</li></a>
+        <a href="#pseudoselectors"><li>Pseudo-classes</li></a>
+        <a href="#animations"><li>Animations</li></a>
+        <a href="#fonts"><li>Fonts</li></a>
+    </ul>
+</nav>
+
+
+<section id="objectives">
+    <h3>Objectives for Today</h3>
+    <p>By the end of this class, you should be able to:</p>
+    <ul>
+        <li>Understand how we can use selector combinators to apply more precise style rules.</li>
+        <li>Identify the syntax for pseudo-element selectors.</li>
+        <li>Use the :target, :hover, and :nth-child pseudoselectors to style pages.</li>
+        <li>Understand how CSS keyframes allow us to animate transitions between
+            different sets of styling rules.</li>
+    </ul>
+</section>
+
+
+<section id="combinators">
+
+    <h3>Combinators</h3>
+
+    <p>Last class, we discussed how we can use CSS rules to style elements.
+
+        We discussed how each style rule has a selector and a block of declarations.
+
+        Afterward, we looked at three common types of selectors: tag selectors,
+        id selectors, and class selectors.
+    </p>
+
+    <p> Today, we are going to take that lesson one step further: we're going
+        to talk about how we can target more specific elements by <em>chaining
+            selectors together</em>.
+    </p>
+
+    <p> For our website today, let's try adding a navbar that lets us jump
+        between sections.
+    </p>
+
+    <p> If we create each item of our navbar using a ul tag, then we can't use
+        a normal tag selector to style our unordered list or its list elements.
+
+        This is because we have two different meanings for 'lists' on our page: they
+        mean one thing when they're inside the nav bar, and another thing when
+        we're talking about them in our main sections.
+    </p>
+
+
+    <p> While we could use an id or class selector to describe this difference,
+        CSS also gives us the power to express "a list that's inside a nav element"
+        directly. We can do this using <strong>selector combinators</strong>. To
+        write a selector combinator, we just write our first selector, some specific
+        character, then our second selector.
+    </p>
+
+    <p>For a tag1 and a tag2 that we want to combine, CSS gives us the following combinators:
+    <ul>
+        <li>A space expresses "any tag2 that is inside of a tag1", at any depth.
+            This is the <strong>descendent selector</strong>.</li>
+        <li>A right-facing arrow (the greater than sign > ), expresses "any tag2
+            that is <em>directly</em> inside a tag1". This is the <strong>child
+                selector</strong>. </li>
+        <li>A tilde (~) expresses "any tag2 that is adjacent to a tag1". This is
+            the <strong>sibling selector</strong>.</li>
+    </ul>
+
+    <p> Let's practice these combinators with our ul inside of our nav!</p>
+</section>
+
+
+
+<section id="pseudoselectors">
+
+    <h3>Pseudoselectors</h3>
+
+    <p>Our combinators let us precisely identify elements on the page,
+        but we can go <em>even further</em>.</p>
+
+
+    <p>
+        There are a few special "suffixes" we can add to our selectors to indicate
+        that we want to highlight an element that is currently in a particular state.
+        We call these suffixes <strong>pseudo-classes</strong>.
+    </p>
+
+
+    <p>
+        Pseudo-classes are written by taking any selector, adding a colon ( : ),
+        then adding the name of the pseudo-class. A few useful pseudo-classes:
+    </p>
+
+    <ul>
+        <li>:hover allows us to refer to an element that's touching our mouse.</li>
+        <li>:nth-child(N) allows us to refer to every Nth element of a type.</li>
+        <li>:target allows us to refer to an element with an id that matches the
+            last anchor tag we clicked on our page.</li>
+    </ul>
+
+    <p>
+        Let's practice these selectors in advanced-styles.css, giving our navbar some
+        hover properties and our other bullet lists some alternating colors.
+    </p>
+</section>
+
+<section id="animations">
+    <h3>Animations</h3>
+
+    <p>
+        We can use animations to make the transition between when something is
+        and isn't targeted by our selector smooth. To do this, we have to define
+        our animation as a series of <strong>keyframes</strong>.
+    </p>
+
+    <p>
+        To define an animation, we create a new named animation with @keyframe [animation-name].
+        Then inside the braces, we put a percentage through the animation, a second
+        set of braces, then a set of rules as normal. For example, if we wanted text
+        to change colors from red to white, we might write:
+    </p>
+
+    <pre>
+        <code>
+          @keyframe ANIMATION_NAME {
+            0% {
+              color: red;
+            }
+            50% {
+              color: pink;
+            }
+            100% {
+              color: white;
+            }
+          }
+        </code>
+      </pre>
+
+    <p>
+        Then, when we want to use the animation, we use the animation property,
+        give the name of our keyframe animation, then the duration we want the
+        animation to take from start to finish.
+    </p>
+
+    <pre>
+        <code>
+          section:hover {
+            animation: ANIMATION_NAME 5s;
+          }
+        </code>
+      </pre>
+
+
+    <p>
+        Let's practice keyframe animations by making a fade-in for our :hover
+        coloring from before!
+    </p>
+
+    <p>
+        One important limitation: CSS doesn't know how to 'tween' between all properties.
+        Some style rules (like display: block) they just happen immediately when the
+        animation hits that percentage if they're included. Specifically, we need to use
+        continuous (decimal) numeric properties like color, margin, padding, opacity.
+    </p>
+
+    <p>There is one other "shortcut" for writing animations. If you don't want to put
+    an entire @keyframe because you only have a start and end point that specifically
+    come from a pseudo-class (like :hover), you can do this with a "transition" css
+    declaration. Transition applies whenever the new rule applies, and goes away
+    when the rule stops applying.</p>
+
+</section>
+
+
+<section id="fonts">
+    <h3>Fonts</h3>
+
+    <p>Sometimes we don't want to limit ourselves to just default fonts like
+        the system default fonts installed in the browser. When we want to add
+        our own font to a webpage, we can use Web Fonts.
+    </p>
+
+
+    <p>
+        To define a font, we create a new @font-face block in our CSS stylesheet.
+        Inside the braces, we must give our font a font-family name -- this is the
+        name we will use to refer to this font in other stylesheet rules. Then,
+        we must also specify the src of the font.</p>
+
+
+    <pre>
+      <code>
+        @font-face {
+
+        font-family: "SOME_NAME";
+        src: url(some/path/to/a/font.woff) format("woff");
+      }
+    </code>
+  </pre>
+
+
+    <p>
+        Note that the src declaration is slightly more advanced than most of the
+        declarations we've looked at so far. A src declaration has two parts: a
+        location specifier, which is typically a url() link to a font file, and
+        a format() that specifies the format of that font file. Web Fonts support
+        multiple common font formats, including Web Open Font Faces (woff), and
+        TrueType Fonts (ttf).
+    </p>
+
+    <p>
+        Once we've defined a font, we use it by applying the matching font-family
+        to another selector:
+    </p>
+
+
+    <pre>
+      <code>
+        p {
+        font-family: "SOME_NAME";
+      }
+    </code>
+  </pre>
+
+
+
+</section>
+</body>
+</html>

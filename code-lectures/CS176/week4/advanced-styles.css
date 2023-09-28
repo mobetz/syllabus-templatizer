@@ -1,0 +1,107 @@
+
+
+nav  >  ul {
+    /* We might say, for instance, that we want to remove the bullet points: */
+    list-style: none;
+
+    /* Perhaps we also want to make the background dark, and give it some margin
+    and remove all the padding. */
+    background: #222;
+    margin: 0em 3em 0em 2em;
+    padding:0;
+    text-align: center;
+}
+
+
+nav   li {
+
+    /* Maybe we want to use that special 'inline-block' display type, to make our
+    nav items display side by side. */
+    display: inline-block;
+
+    /* Perhaps these get some default background and padding too: */
+    background: #222;
+    padding: 20px;
+    transition: 0.5s;
+
+}
+
+
+nav   a  {
+    color: #77f;
+}
+
+
+nav   li:hover  {
+    color: white;
+    background-color: blue;
+    transition: 0.5s;
+}
+
+
+section {
+    display: none;
+}
+
+section:target {
+    display: block;
+    background: #333;
+}
+
+
+section ul > li:nth-child(2n-1) {
+    /*
+    The nth-child selector is a bit special -- we give it an algebraic expression
+    representing every element that this rule should apply to -- this
+    example of 2n-1 says take every 2nth element (every other/every even), and the
+    -1 says subtract one, so we're left with every oddth li directly inside a ul
+    anywhere inside a section.
+     */
+    color: #f99;
+
+}
+
+
+@keyframes cycle-colors {
+    0% {
+        color: red;
+    }
+    20% {
+        color: orange;
+    }
+    40% {
+        color: yellow;
+    }
+    60% {
+        color: green;
+    }
+    80% {
+        color: blue;
+    }
+    90% {
+        color: purple;
+    }
+    100% {
+        color: red;
+    }
+}
+
+
+section:hover {
+    animation: cycle-colors 5s infinite;
+}
+
+
+h3 {
+    /*
+    When you are specifying a font, you write a "first-choice", and then a
+    fallback choice, or even a 'generic family name' like sans-serif (without hooks)
+    or serif (with hooks.)
+     */
+    font-family: "Gravity", "Roboto", "Arial", sans-serif;
+}
+
+@font-face {
+    font-family: "Gravity";
+    src: url("fonts/Gravity-Regular.woff") format("woff");
+}

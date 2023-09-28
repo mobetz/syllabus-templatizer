@@ -1,4 +1,5 @@
 
+
 /*
      Objectives for Today
 
@@ -9,15 +10,15 @@
         * Compare the differences between while loops and for loops.
  */
 
-import java.time.LocalTime;
-import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
+
+import java.util.Scanner;
+import java.time.LocalTime;
+import java.util.concurrent.TimeUnit;
 
 public class LoopsAndBranches {
 
-    public static void main(String[] args) throws InterruptedException {
-
+   public static void main(String[] args) throws InterruptedException {
 
         /* Last class, we had started to preview the concept of branching in our Java programs.
 
@@ -27,21 +28,23 @@ public class LoopsAndBranches {
         For example, say we were writing a quiz program:
          */
 
+      int score = 0;
 
-        int score = 0;
+      Scanner guess_taker = new Scanner(System.in);
 
-        Scanner in = new Scanner(System.in);
+
+
 
         System.out.println("Who was the first president?");
         System.out.print("Enter your guess: ");
 
-        String guess = in.nextLine();
+      String user_guess = guess_taker.nextLine();
 
+          if ( user_guess.equals("George Washington")) {
+                System.out.println("Very good!");
+                score = score + 1;
+          }
 
-        if ( guess.equals("George Washington")) {
-            System.out.println("Very good!");
-            score = score + 1;
-        }
 
 
         /*
@@ -63,50 +66,53 @@ public class LoopsAndBranches {
                                  V                        |                           V
                                  |                        |                           |
                                  v                        |                           v
+                              rest of program
+
 
         We're only going to do that block of extra instructions when the answer to the question was right, otherwise
         we'll skip them entirely and continue on.
 
-
+         
         However, sometimes we want to do something not just when a single condition is true; we might want to create
         many different possible paths. Fortunately, our if statements give us the tools to do that!
          */
 
 
+
+
         System.out.println("What year was the U.S Constitution ratified?");
         System.out.print("Enter your guess: ");
-        guess = in.nextLine();
+
+        user_guess = guess_taker.nextLine();
 
 
-         if ( guess.equals("1776")) {
-            System.out.println("Close, but that's when the Declaration of Independence was written.");
-
-        /*In addition to our first branch, we can create another possible path by putting "else if" and a new condition
-          after our first block of instructions: */
-         } else if ( guess.equals("1787") ) {
+        if ( user_guess.equals("1787")) {
             score = score + 1;
             System.out.println("Very good!");
+        /*In addition to our first branch, we can create another possible path by putting "else if" and a new condition
+          after our first block of instructions: */
+        } else if ( user_guess.equals("1776")) {
+            System.out.println("Close, but that's when the Declaration of Independence was written.");
         /* At the end, we can also put an "else" block that will only happen if no other path was taken: */
-         } else {
+        } else {
             System.out.println("Uh oh, you might need to go back and study!");
         }
-
-        /* If we were to extend our visualization from before, this second quiz program would look like:
+            /* If we were to extend our visualization from before, this second quiz program would look like:
 
 
 
                                Enter  |
                                       |
                                      +-----------------------+
-                                     |   Was guess 1776?     |
+                                     |   Was guess correct?  |
                                      +-----------------------+
                                   Yes   |          |  No
                               +--------------+    +-------------------+
-                              |  Print hint  |    | Was guess correct?|
+                              | add to score |    |    Was it close?  |
                               +--------------+    +-------------------+
                                         |              | Yes        \ No
                                          \        +---------------+    +----------------+
-                                          \       |  add to score |    |  Print uh-oh.  |
+                                          \       |  print hint   |    |  Print uh-oh.  |
                                            \      +---------------+    +----------------+
                                              \         |                 /
                                                \       |               /
@@ -117,6 +123,8 @@ public class LoopsAndBranches {
                                                        |
                                                        V
 
+
+
             We can keep adding as many else-ifs as we want onto the same if-elseif-elseif-elseif... chain.
 
 
@@ -125,24 +133,23 @@ public class LoopsAndBranches {
             What time will be saved in "wakeup_time" at the end of this program:
          */
 
+
         boolean its_snowy = true;
         boolean its_a_workday = true;
 
-
-        // if we normally sleep until 8AM
         LocalTime wakeup_time = LocalTime.of(8,0);
 
-        // we might change that if....
+
         if ( its_snowy ) {
             //we sleep in on snow days!
             wakeup_time = LocalTime.of(10,0);
          } else if ( its_snowy && its_a_workday ) {
             //we have to wake up early to scrape off the car!
             wakeup_time = LocalTime.of(6, 30);
-        } else if ( its_a_workday ) {
+         } else if ( its_a_workday ) {
             //we have to get up for work!
             wakeup_time = LocalTime.of(7, 0);
-        }
+         }
 
         System.out.println("We will wake up at: " + wakeup_time);
 
@@ -153,11 +160,11 @@ public class LoopsAndBranches {
         This program has a bug! Even though its_snowy and its_a_workday are both true, the program is telling us to sleep
         in.
 
-
         We can fix it by reordering the branches, so that our most specific/important branch is tested first, or by using
         nested branches.
 
         */
+
 
 
         /*
@@ -170,14 +177,14 @@ public class LoopsAndBranches {
         Last class, we had previewed loops using the 'while' keyword:
          */
 
+
         int seconds_left = 5;
 
-        while ( seconds_left > 0 ) {
+        while (  seconds_left > 0 ) {
             System.out.println("Seconds left: " + seconds_left);
             TimeUnit.SECONDS.sleep(1);
             seconds_left = seconds_left - 1;
-         }
-        System.out.println("Time up!");
+        }
 
 
         /*
@@ -196,6 +203,8 @@ public class LoopsAndBranches {
                       |       |                  |             |                 |       |                  |
                       |        \ ______________ /              |                 |        \ ______________ /
                       v                                        |                 v
+            rest of the program
+
 
 
               It's very common for us to know exactly how many times we want a loop to run, such as when we're counting
@@ -204,7 +213,8 @@ public class LoopsAndBranches {
               Java gives us a shortcut to write a loop that counts this way, called a "for" loop:
          */
 
-        for ( int i=0;   i<10;   i=i+1 ) {
+
+        for ( int i=0; i<10;  i=i+1 ) {
 
             /*
                 A for loop declaration has three parts, each separated by a semicolon:
@@ -213,8 +223,8 @@ public class LoopsAndBranches {
                      - performing some "incrementor" statement to update the variable
              */
             System.out.println("The value of 'i' is now: " + i);
-
         }
+
 
 /*       
       Any time we have a for loop, we can make an equivalent while loop by:
@@ -223,6 +233,7 @@ public class LoopsAndBranches {
            - moving the "incrementor" statement to the bottom of the loop
          */
 
+
         int i=0;
         while ( i<10 ) {
             System.out.println("The value of 'i' is now: " + i);
@@ -230,14 +241,15 @@ public class LoopsAndBranches {
         }
 
 
-        /*
-        NOTE: We cannot always go from while to for:
-             - We might have multiple conditions we are testing/incrementing
-             - We might have variables that aren't 'incrementing' each step!
+        int some_number = 0;
 
-       While loops are more flexible than for loops, but it can often be easier to think about your problem 
-       in terms of counting, which is a natural fit for for loops.
-        */
+        while ( some_number < 1 || some_number > 10 ) {
+         System.out.print("Pick a number between one and ten: ");
+         some_number = Integer.parseInt( guess_taker.nextLine());
+      }
+
+
+
 
 
 
@@ -251,7 +263,7 @@ public class LoopsAndBranches {
 
             System.out.println("What is the name of the branching keyword in Java?");
             System.out.print("Enter your guess: ");
-            guess = in.nextLine();
+            guess = guess_taker.nextLine();
 
             if ( guess.equals("if") ) {
                guess_count = 3; //<- they don't need to guess again, make ourselves the loop
@@ -266,13 +278,8 @@ public class LoopsAndBranches {
 
 
 
-        
-
-        
 
 
+   }
 
-
-    }
-
- }
+}
