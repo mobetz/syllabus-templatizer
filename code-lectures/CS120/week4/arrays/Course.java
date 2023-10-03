@@ -90,6 +90,11 @@ public class Course  {
 	}
 
 
+	public String getCourseName() {
+		return this.course_name;
+	}
+
+
 
 	//SETTERS
 

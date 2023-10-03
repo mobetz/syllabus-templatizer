@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Layout</title>
+    <link rel="stylesheet" href="common_styles.css">
+
+
+    <style>
+        td {
+            padding: 10px;
+            border: 1px solid white;
+        }
+
+        div > p {
+            border: 2px solid black;
+            padding: 3px;
+        }
+
+        section > div {
+            background-color: azure;
+            color: darkslategray;
+            margin: auto;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+
+
+<section id="objectives">
+    <h1>Layout and Positioning</h1>
+    <h3>Objectives for Today</h3>
+    <p>By the end of today, you will:</p>
+    <ul>
+        <li>Define the concept of 'layout' when talking about positioning elements on web pages.</li>
+        <li>Describe the differences between normal layout, column layout, grid layout, and flex layout.</li>
+        <li>Understand the use of different positioning coordinate systems in CSS.</li>
+        <li>Practice relative, absolute, fixed, and sticky positioning.</li>
+        <li>Identify different overflow rules for content that exceeds its layout and positioning guidelines.</li>
+    </ul>
+</section>
+
+
+<section id="normal-layout">
+
+    <h3>Reviewing the Normal Flow Rules</h3>
+
+    <p>A few weeks ago in class, we discussed two 'categories' of elements that each have default styling on a web
+        page.</p>
+
+    <p>
+        Those categories were:
+    <ul>
+
+    <li>Block elements take up the entire width of their container and have spacing placed above and below.</li>
+    <li>Inline elements only take up the minimal space required and reflow within their parent container.</li>
+
+    </ul>
+
+    <div style="color: #1f1f1f; background-color: azure; border: 5px double mediumseagreen; text-align: center">
+        This element is a block element. It takes up as much space as possible to its left and right. When we place another
+        element inside it, it will be positioned relative to its parent container.
+
+        <div style="background-color: seagreen; width: 100px; height: 100px; margin: 1em auto"></div>
+
+        When we have too much content, the entire box expands to take up another full line. On the other hand, when we
+        have an inline element like a <span style="background-color: darkslategray; color: white">span</span> we can see
+        that the layout does not adjust. Instead, the box shrinks to just barely wrap around the
+        <span style="background-color: darkslategray; color: white; margin: 20px">elements inside</span>.
+    </div>
+
+
+
+    <p>In the normal layout engine, each new block is positioned after the previous one in reading order (normally
+        top-to-bottom.) However, this is not the only layout engine available in CSS.</p>
+
+</section>
+
+
+<section id="changing-rules">
+    <h3>Changing the Rules</h3>
+
+    <p>Sometimes, we don't want to follow the normal rules of layout.</p>
+
+    <p> For instance, the normal flow rules struggle to present content that should appear side by side, and they have
+        no good mechanism for describing overlapping content.</p>
+
+
+    <p>When we want to design websites like this, we have to use a different set of layout rules. Fortunately, CSS gives
+        us several options for many common tasks. For instance, say we want our text to appear in columns with the 'columns'
+        CSS declaration:</p>
+
+    <p style="margin: auto; width: 50%; columns: 3">
+        This text is going to be evenly spread across three different columns.
+        This is useful if we are creating a "journal article" style layout where text should appear in multiple thin
+        vertical lines. However, the column layout is still relatively limited. Typically, when we are using other
+        layout rules, we want a greater degree of control over where things are placed. In this case, we might need to
+        set more than a single attribute.
+    </p>
+
+
+
+    <h4>Grids</h4>
+    <p>The oldest alternate layout engine we used for websites was the table. Originally, tables were used for
+        describing groups of columnar data with the table tag:</p>
+
+    <table style=" padding: 10px">
+        <!-- much like HTML pages, tables had a 'head' and a 'body'. -->
+
+        <thead style="text-align: center; font-weight: bold">
+          <td>Tag Name</td>
+          <td>Description</td>
+          <td>Rating</td>
+        </thead>
+
+        <!-- then in the body, each 'row' of data was represented with a <tr>, and each cell was a <td> nested inside: -->
+
+        <tbody>
+        <tr>
+            <td>thead</td>
+            <td>The special row that gives details to each column</td>
+            <td>5/10 kinda oldschool</td>
+        </tr>
+
+        <tr>
+            <td>tr</td>
+            <td>Contains one row of information.</td>
+            <td>9/10 I love rows</td>
+        </tr>
+        <tr>
+            <td>td</td>
+            <td>Contains one cell inside the row.</td>
+            <td>8/10 kinda clunky</td>
+        </tr>
+        </tbody>
+
+    </table>
+
+
+    <p>By creating a table that took up the whole width and height of the screen, people could lay out their webpage
+            as a grid of boxes inside. Originally, this was even still done with the table tag. However, this was not a semantic
+            use of table.
+        </p>
+
+
+        <p>Today, we have extended the idea of a table to create a display model called 'grids': A grid aligns content
+            into a template of rows:</p>
+
+
+
+        <p>Today, we have extended the idea of a table to create a display model called 'grids': A grid aligns content
+            into a template of rows:</p>
+        <img style="width: 800px" src="https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Grids/grid.png">
+
+        <div style="
+        display: grid;
+        /* grid-template-columns: 200px 200px 200px; */
+        grid-template-columns: 1fr 1fr 1fr;
+         /* grid-template-rows: 150px 100px 200px; */
+    width: 800px;
+    height: 400px">
+            <p>Now, content inside the grid will be aligned to the columns we created.</p>
+            <p>If we have multiple 'blocks', each block will slot in to the next column.</p>
+            <p>When content overflows onto another line, that row of the grid automatically expands.</p>
+
+            <p>As a result, later content remains vertically aligned.</p>
+            <p>We can use this to create a more sophisticated column-like layout.</p>
+
+            <p style="grid-column: 3; grid-row: 3">
+                We can even specify where in the grid we want a specific block to slot
+                in using the grid-column and grid-row properties, and the grid will automatically grow to fill it.
+            </p>
+
+            <p style="grid-row: 5; grid-column: 1/4;">In fact, if you use a slash to specify a starting and ending column,
+                you can even create an element of the grid that spans multiple columns or rows.</p>
+
+        </div>
+
+
+        <p>When specifying grid templates, instead of using the 'flexible row' measurement of fr, we might instead choose
+            to give each area of our site a verbal name using grid-template-areas:</p>
+
+
+
+        <div
+                style="
+                display: grid;
+                grid-template-areas:
+                     'navbar top-bar top-bar'
+                     'navbar middle   sidebar'
+                     'footer footer   sidebar';
+
+                width: 800px;
+                height: 300px
+                ">
+
+            <p style="grid-area: top-bar">If we do this, then we just need to tell our blocks which 'area' of the grid
+            they belong to by specifying the name of the area in the grid-area declaration.</p>
+
+            <p style="grid-area: footer">Tags will appear in the right area, even if they're out of order in our HTML!</p>
+
+            <p style="grid-area: navbar">This is useful for creating a website with features like a persistent navbar along the
+                left edge of the screen.</p>
+
+            <p style="grid-area: middle"> You can even combine grid-template-areas and grid-template-columns to create known-size
+                named areas to precisely place content with just a name!</p>
+
+            <p style="grid-area: sidebar">Our different areas can specify column spans and row spans implicitly!</p>
+        </div>
+
+
+
+        <h4>Flexbox</h4>
+        <p>Sometimes, I don't care about content being aligned vertically AND horizontally. For instance, I might want my rows
+            to be aligned, but it's ok if some items are bigger or smaller based on the amount of space they take up. In this
+            case, I might choose to use a flex-grid:</p>
+
+
+        <div
+            style="
+            display: flex;
+
+            flex-flow: row wrap;
+
+            width: 800px;
+            height: 260px
+        ">
+
+            <p style="flex: 200px">Inside a flex grid, each element takes up however much space is required.</p>
+            <p style="flex: 100px">You can think of a flex-grid almost like a "one dimensional grid".</p>
+            <p style="flex: 240px">Each element is only told how many units in a single 'timeline' of content it can take up.</p>
+            <p style="flex: 150px">Columns might not always match, but once rows become too claustrophobic.... </p>
+            <p style="flex: 170px">A flex element detects there is not enough space left on a row, and drops down to the
+                following row.</p>
+            <p style="flex: 400px">From here, each new cell is aligned on the axis (in our case row).</p>
+            <p style="flex: 310px">Even when columns do not line up.</p>
+        </div>
+
+
+</section>
+
+
+<section id="positioning">
+    <h3>Positioning</h3>
+
+
+    <p>Using one of the layout engines ensures we render content consistently. These engines are designed to be
+        easy to scale to any screen size, and they are well-supported in all modern browsers. However, sometimes they are
+        not enough.</p>
+
+    <p>When this is the case, we can try using manual positioning.</p>
+
+    <p>To specify manual positioning, we rely on two things: first, a position declaration that describes what we are
+        positioning our content in relation to. Then, measurements for the left, right, top, and bottom of our element,
+        relative to that position.</p>
+
+
+    <p>There are four main positioning rules we will talk about today:</p>
+
+    <ul>
+        <li><strong>Relative</strong> positioning lets us 'adjust' relative to where an item would normally display.</li>
+        <li><strong>Fixed</strong> positioning lets us set a position relative to the screen someone is using to view our page.</li>
+        <li><strong>Sticky</strong> positioning lets us adjust an element relatively until we scroll past it, then it is fixed.</li>
+        <li><strong>Absolute</strong> positioning lets us set a position relative to the first 'positioned' parent.</li>
+    </ul>
+
+
+
+    <h4>Relativity</h4>
+
+    <p>If we just want to give an element a nudge in a certain direction without modifying anything on the page around it,
+        we can do so using 'relative' positioning:</p>
+
+
+    <div style="width: 520px; height: 100px">
+        <div style="display: inline-block; background-color: red; width: 100px; height: 100px"></div>
+        <div style="display: inline-block; background-color: yellow; width: 100px; height: 100px"></div>
+        <div style="display: inline-block; background-color: green;; color: white;
+        position: relative;
+        left: 40px;
+        top: 20px;
+        width: 100px; height: 100px">This div moves 'relative' to where it would normally be. </div>
+        <div style="display: inline-block; background-color: blue; width: 100px; height: 100px"></div>
+        <div style="display: inline-block; background-color: mediumvioletred; width: 100px; height: 100px"></div>
+
+    </div>
+
+    <p>Watch what would happen if we tried to do the same thing with margin:</p>
+
+    <div style="width: 520px; height: 100px">
+        <div style="display: inline-block; background-color: red; width: 100px; height: 100px"></div>
+        <div style="display: inline-block; background-color: yellow; width: 100px; height: 100px"></div>
+        <div style="display: inline-block; background-color: green;; color: white;
+        margin-left: 40px;
+        margin-top: 20px;
+        width: 100px; height: 100px">With margin, all boxes shift in our blocks. </div>
+        <div style="display: inline-block; background-color: blue; width: 100px; height: 100px"></div>
+        <div style="display: inline-block; background-color: mediumvioletred; width: 100px; height: 100px"></div>
+
+    </div>
+
+
+    <p>Relative positioning lets us adjust elements to push them on top of other content, without reflowing the rest
+        of the page.</p>
+
+
+
+    <h4>Fixed to the Screen</h4>
+
+    <p>If we want something to always be visible, we can achieve this effect with 'fixed' positioning.</p>
+
+    <p>When an element is 'fixed', we are describing its position relative to the borders of the window:</p>
+
+    <div style="
+position: fixed;
+bottom: 20px;
+right: 20px;
+">
+        <!-- Even though we're describing this element in the middle of our paragraphs, it appears in the corner of the
+        screen as we scroll around! -->
+        <a href="#objectives">Go to top of page.</a>
+    </div>
+
+
+    <p>We can use fixed positioning to create navigation panes, static headers, and control panels that should travel with
+        our users.</p>
+
+
+
+    <h4>A 'Sticky' Hybrid</h4>
+
+
+    <p>We can combine 'relative' and 'fixed' positioning with a third positioning style: sticky positioning. When an
+        element uses sticky position, it will start off relatively positioned. However, once it is scrolled past, it will
+        lock to the edge of the screen as if it were fixed.</p>
+
+    <p>To demonstrate this, we're also going to quickly introduce one more property: overflow. Overflow describes what
+        should happen when we have too much text to fit in the described bounds of our content.</p>
+
+    <div style="
+      overflow-y: scroll;
+      width: 340px;
+      height: 200px;"
+      >
+
+        <p>When we have too much content for this div, all of the excess will scroll vertically (because we have specified
+            the overflow-y property.</p>
+        <p>However, watch what happens if somewhere along this page, we put a sticky element:</p>
+        <div style="position: sticky; top: 20px; background-color: blue; height: 10px"></div>
+        <p>At first it looks like this element is doing exactly what we want it to do using the normal flow layout.</p>
+        <p>However, it is actually lurking... waiting to take its users by surprise!</p>
+        <p>As we continue to scroll down the pane, it moves with the page at first, but once we cross it, it will use
+            our directional properties to pin itself to the screen!</p>
+    </div>
+
+
+    <p>Sticky positioning can be used to create effects like 'section titles' that fold into one another as you scroll
+        through a page.</p>
+
+
+    <h4>Position: Absolute</h4>
+
+    <p>When an element is displayed <strong>absolutely</strong>, it is yanked completely out of the normal flow of the
+        page. It will be anchored to the first parent above it that has had a positioning rule applied. Then, our four
+        directional properties tell it how far to move from the borders of its parent:</p>
+
+    <div style="
+    position: relative;
+     width: 340px;
+     height: 200px;"
+         >
+
+
+        <p>Now, inside of this frame, each absolutely positioned child will pin itself to one of the sides of this box:</p>
+
+
+        <div style="position: absolute; left: 0px; background-color: red; width: 40px; height: 40px;"></div>
+        <div style="position: absolute; right: 0px; background-color: yellow; width: 40px; height: 40px;"></div>
+        <div style="position: absolute; bottom: 0px; left: calc(50% - 20px); background-color: green; width: 40px; height: 40px;"></div>
+        <div style="position: absolute; bottom: 0; top: 0; left: calc(50% - 5px); background-color: blue; width: 10px;"></div>
+
+    </div>
+
+    <p>Positioning rules are powerful, but remember that they can have complex interactions with one another.</p>
+
+</section>
+
+
+<section>
+    <h3>Transforming a Position</h3>
+
+
+    <p>Once we have put an element in its place using our layouts and position rules, we can specify one last "transformation"
+        that should happen to it using the 'transform' declaration.
+    </p>
+
+    <p>Transform has several different 'functions' that it provides, each manipulating the element in a different way.</p>
+
+
+    <div style="width: 400px; height: 200px;
+    transform: rotate(-20deg);
+    position: relative;
+    ">This block here will be transformed with the rotate rule.
+        Watch what happens to the text inside.</div>
+
+
+    <p>Transform does way more than just rotate. Each different function is just a different keyword we put before
+        the parentheses.</p>
+
+
+    <div style="width: 400px; height: 200px;
+        transform: skew(-20deg, 0deg);
+        position: relative;
+">This block will have its contents skewed.</div>
+</section>
+</body>
+</html>
