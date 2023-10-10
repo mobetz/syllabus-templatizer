@@ -1,19 +1,19 @@
 
 
-
 public class Grocery {
 	
+
 	//ATTRIBUTES
     private String name;
     private double normal_price;
     private double current_price;
     private double weight;
-
-
+    private int stock_in_inventory;
 
 
 
 	//METHODS
+
 
 
     /*
@@ -24,22 +24,22 @@ public class Grocery {
      Let's look at two different ways I could do this:
      */
 
-
-
     /* ---------------- BAD COUPLED VERSION --------------- */
+
 
     // I might think "oh, when I create a Grocery, I'll ask the user to enter its name and price, so let me
     // use a Scanner to collect that info here!"
 /*
-	public Grocery(){
-		Scanner input = new Scanner(System.in);  //<-- I'M ASSUMING THERE'S ONLY EVER ONE WAY TO MAKE A GROCERY
-		System.out.print("Enter the grocery's name: ");
-        this.name = input.nextLine();  // <- THE PROGRAM STOPS HERE AND WAITS FOR SOMEONE TO TYPE
-        System.out.print("Enter the grocery's price: ");
-        this.normal_price = Double.parseDouble(input.nextLine());
+    public Grocery() {
+    	Scanner in = new Scanner(System.in);//<-- I'M ASSUMING THERE'S ONLY EVER ONE WAY TO MAKE A GROCERY
+    	                                    // in the future if I decide to use groceries.csv, I have to rewrite this
+    	System.out.print("Enter the grocery's name:");
+    	this.name = input.nextLine();// <- THE PROGRAM STOPS HERE AND WAITS FOR SOMEONE TO TYPE
+    	System.out.print("Enter the grocery's price:");
+    	this.price = Double.parseDouble(input.nextLine());
         this.current_price = normal_price;
-	}
-*/
+    }
+    */
 
     /*
      As soon as we write the constructor above, we've done something bad. We've "coupled" the way we make
@@ -48,23 +48,29 @@ public class Grocery {
      Similarly, if I had an idea that groceries could change price, I might end up making a setter that
      looks like this:
      */
-/*
+
+    /*
     public void setDiscountPrice() {
- 		Scanner input = new Scanner(System.in);  //<-- I'M ASSUMING THERE'S ONLY EVER ONE WAY TO CHANGE PRICE
-        System.out.print("Enter the percentage discount as a decimal: ");
-        this.current_price = this.normal_price * Double.parseDouble(input.nextLine());
+    	Scanner input = new Scanner(System.in);  //<-- I'M ASSUMING THERE'S ONLY EVER ONE WAY TO CHANGE PRICE
+    	System.out.print("Enter the percentage discount as a decimal:");
+    	this.current_price = this.normal_price * Double.parseDouble(input.nextLine());
     }
-*/
-    /*  If in the future I decide I want to read from a file, I have to rewrite this entire class from scratch. */
+    */
+
+    /*  If in the future I decide I want to read from a file, I have to rewrite this entire class from scratch.
+
+	This also applies to PRINTING in classes -- generally, we don't always know how our programmer is going to use
+	the data that we can calcualte in our methods. We should return the results of calcuations, not print them out.
+     */
 
 
     /* -------------------- GOOD "DECOUPLED" VERSION ------------------ */
-
     public Grocery(String name, double default_price) {
         this.name = name;
         this.normal_price = default_price;
         this.current_price = default_price;
     }
+
 
         /*
         In this version of the constructor, I'm now asserting "I don't care how you get the information.
@@ -77,9 +83,9 @@ public class Grocery {
         have that number to give us.
         */
 
-
     public void setDiscountPrice( double percentage_discount ) {
-    	this.current_price = this.normal_price * percentage_discount;
+
+    	this.current_price = this.normal_price * (1-percentage_discount);
     }
 
     /*
@@ -90,7 +96,9 @@ public class Grocery {
     * I can more easily understand what changes in my class when the discount is applied, because I'm not
     cluttering the function with Scanner functions or type conversions.
     * MY function doesn't need to change even if the way we create Groceries changes in the future.
-     */
+
+    */
+
 
     public double getPrice() {
         return this.current_price;
@@ -100,6 +108,13 @@ public class Grocery {
     public String getName() {
         return this.name;
     }
+
+    /*
+    Similarly with returning information (such as in a "getter"), we don't want to do PRINTING here, because
+    we don't care what our programmers are DOING with that information, we just want to give it to them 
+    in the "purest form" we have available. (If the result of a calculation is a number, we return that number,
+    not a string containing that number, not something printed out immediately.)
+    */
 
     /*
     Because we have low coupling, I can reuse this class in almost any program I care about that deals with 

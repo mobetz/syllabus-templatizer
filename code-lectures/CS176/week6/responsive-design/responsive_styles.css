@@ -1,0 +1,136 @@
+
+@media ( min-width: 641px ) { /* when the screen is big: */
+
+    nav > ul {
+        margin: 0em 3em 0em 2em;
+        text-align: center;
+    }
+
+    nav li {
+        display: inline-block;
+        padding: 20px;
+    }
+
+    nav li:hover {
+        background: #2a2;
+        color: white;
+        text-decoration: none;
+
+        animation: fade-in 0.7s;
+    }
+}/* end of big screen */
+
+
+@media  (  max-width: 640px )   { /* when the screen is small: */
+
+
+    body {
+        margin: 0;
+    }
+
+    section {
+        max-width: 100%;
+        margin: 5px 0px;
+    }
+
+    nav {
+        width: 100%;
+        margin: 0;
+    }
+
+    nav > ul {
+        margin: 0;
+        margin-bottom: 10px;
+    }
+
+    nav li {
+        display: block;
+        width: 100%;
+    }
+
+    nav a {
+        text-decoration: none;
+    }
+}
+
+@media ( min-width: 640px )  and  ( max-width: 1080px ) {
+/* Rules that apply to a medium sized screen */
+}
+
+@media ( min-width: 1081px) and (max-width: 2096px ) {
+    /* medium-large screen */
+}
+
+@media ( min-width: 2097px ) {
+    /* very big screen */
+}
+
+@media ( max-width: 640px ) and ( orientation: landscape) {
+
+    section {
+        margin-left: 1em;
+        margin-right: 1em;
+    }
+}
+
+
+@media ( pointer: coarse ) {
+    /* These rules apply when you are using a touchscreen */
+    input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+
+
+@media print {
+
+    nav {
+        display: none; /* we often hide navigational content (because someone cannot click a link on a page) */
+    }
+
+    /*  These rules will only apply when sending our webpage to a printer, they should be "print-friendly"  */
+    section {
+        background-color: white;
+        color: black;
+        border: 1px solid black;
+        margin: 0.25in;
+    }
+
+    body {
+        background-color: white;
+    }
+
+    img {
+        filter: grayscale(100%); /* if we want our images to not use color ink! */
+    }
+
+}
+
+
+
+@media screen {
+    /* These rules only take effect when viewing the page on a real screen. */
+}
+
+@media speech {
+    /* These rules only take effect when using a screen reader. */
+}
+
+
+
+@supports ( display: grid ) {
+    /* These rules will only apply when a browser supports the display: grid layout engine */
+}
+
+@supports ( animation: ease-in ) {
+    /* These rules only apply when a browser supports animations and the ease-in easing method */
+}
+
+
+@supports not( display: grid ) {
+    /* These rules will only apply when a browser DOES NOT support grids */
+}
+
+

@@ -1,24 +1,25 @@
 
-
 public class GroceryFinder {
+	
 	
     private Grocery[] available_items;
     private int num_items;
 
 
-    public GroceryFinder() {
-        this.available_items = new Grocery[30];
-        this.num_items = 0;
-    }
 
+
+    public GroceryFinder() {
+    	this.available_items = new Grocery[30];
+    	this.num_items = 0;
+    }
 
 
     public void addItem(String name, double price) {
-        Grocery item_as_grocery = new Grocery(name, price);
+    	Grocery item_as_grocery = new Grocery(name, price);
         this.available_items[num_items] = item_as_grocery;
         this.num_items = this.num_items + 1;
     }
-    
+
     /*
     NOTE: because our grocery finder is a helper we made just for storing and tracking
     the available groceries, we might decide that constructing those groceries *IS*
@@ -28,20 +29,5 @@ public class GroceryFinder {
      */
 
 
-    public Grocery findItem(String looking_for) {
 
-        Grocery found_grocery = null;
-
-
-        for ( Grocery next : this.available_items ) {
-            if ( next != null ) {
-            	if ( next.getName().equals(looking_for) ) {
-            		found_grocery = next;
-            	}
-            }
-        }
-
-
-        return found_grocery;
-    }
 }

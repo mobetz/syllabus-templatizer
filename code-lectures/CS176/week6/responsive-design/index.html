@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="author" content="Prof. Obetz">
+
+    <!-- many phones "pretend" to be a bigger screen size than they actually are,
+     which can shrink our text down to an illegible size.
+     Setting the "viewport" meta property tells websites to not do this. -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Responsive Design</title>
+    <link rel="stylesheet" href="common_styles.css">
+    <link href="./responsive_styles.css" rel="stylesheet">
+</head>
+<body>
+
+
+<nav>
+    <ul>
+        <a href="#objectives"><li>Objectives</li></a>
+        <a href="#responsive"><li>Responsive Design</li></a>
+        <a href="#viewport"><li>Viewport</li></a>
+        <a href="#media"><li>@media</li></a>
+        <a href="#good_mobile"><li>Mobile First Design</li></a>
+    </ul>
+</nav>
+
+
+
+<section id="objectives">
+    <h3>Objectives for Today</h3>
+    <p>By the end of this class, you should be able to:</p>
+    <ul>
+        <li>Define responsive design.</li>
+        <li>Understand how the @media tag allows us to define responsive CSS rules.</li>
+        <li>Practice using media queries to reflow text and formatting.</li>
+    </ul>
+</section>
+
+
+<section id="responsive">
+    <h3>Responsive Design</h3>
+    <p><strong>Responsive design</strong> is a set of design principles
+        that guide how we build websites. A website is "responsive" if it reacts to
+        the features of the device and software viewing it.</p>
+
+
+    <p>At normal browser size, we can see that the page behaves similarly to what
+        we would expect, with a nav bar full of hoverable sub-menus.</p>
+
+    <img src="responsive_icon.png">
+
+
+    <p>We can open Responsive Design Mode by clicking the smartphone icon in
+        the top right corner of the Web Developer panel in Firefox, or the top left
+        corner of the Web Developer panel in Chrome.</p>
+    <img src="full_size.png" >
+
+
+
+    <p>This is responsive design. By reflowing our elements to fit the size of
+        the screen, we can make sure that the navigation menu is useable no matter
+        how much screen space we have available.</p>
+
+    <p>Our website isn't currently very responsive... What do you think is happening?</p>
+
+    <p>Answer: Most mobile devices "emulate" being bigger than they actually
+        are. If you've ever visited a website on a smartphone and seen text  that
+        looks "zoomed out", this is why. However, we can tell mobile browsers to
+        stop doing this by setting the "viewport".
+    </p>
+
+
+    <p>
+        The viewport is set using a &lt;meta> tag in the &lt;head>. We set the
+        "name" attribute of the tag to "viewport", and the "content" tag to be
+        a set of instructions for how to manipulate the initial zoom and screen
+        size. Let's set some good defaults for this at the top of the page now.
+    </p>
+
+</section>
+
+
+<section id="media">
+
+    <h3>@media</h3>
+
+
+    <p>
+        This gets us a bit closer to a workable website, but we still want to
+        touch up our site a bit more. For example, our navbar still looks
+        messy when it is split up across two lines.
+    </p>
+
+
+    <p>
+        We can fix this using @media css rules. A <strong>@media</strong> rule
+        lets us surround another rule in a second set of brackets, and describe
+        what features our screen must possess in order for the rules inside to
+        activate. For example:
+    </p>
+
+
+    <pre>
+      		<code>
+@media  (  max-width: 640px )   {
+  nav li {
+    display: block;
+    width: 100%;
+  }
+}
+          </code>
+        </pre>
+
+    <p>
+        This @media rule says that the "nav li" styling inside should only apply
+        if we're viewing the website on a screen smaller than 640 pixels wide.
+    </p>
+
+    <p>
+        Let's practice this media rule by changing our navbar to a full width
+        vertical list of buttons when the screen is too small.
+    </p>
+
+    <p>
+        The @media tag can do more than just screen width.We also have many other
+        useful properties like "orientation" (portrait or landscape) and "pointer"
+        ("coarse" if the user has a touchscreen, "fine" if the user has a mouse
+        or trackpad).
+    </p>
+    <div>
+        <input id="example_checkbox" type="checkbox">
+        <label for="example_checkbox">Some label on this checkbox</label>
+    </div>
+    <div>
+        <input id="second_box" type="checkbox">
+        <label for="second_box">More options</label>
+    </div>
+    <div>
+        <input id="third_box" type="checkbox">
+        <label for="third_box">So many options</label>
+    </div>
+
+
+    <p>
+        The "print" mediatype is active when a web page is being sent to a printer.
+    </p>
+    <p>
+        The "screen" mediatype is active when a web page is being displayed on a
+        screen or digital display.
+    </p>
+</section>
+
+<section id="good_mobile">
+    <h3>Mobile-Friendly Design Considerations</h3>
+
+    <p>
+        We've now learned the code for making a mobile-specific layout for our webpages. However, what actually makes a website mobile-friendly?
+    </p>
+
+
+    <p>
+        Desktop monitors tend to be locked to a few well-known resolutions. By contrast, mobile devices come in many distinct
+        resolutions and aspect ratios.  For this reason, it's important to ensure your website <strong>reflows text gracefully</strong>
+        even when resolution changes.
+    </p>
+
+    <p>Mobile devices most often rely on touch controls. For this reason, navigation and action buttons should be
+        <strong>sized appropriately to be easily touched with large fingers</strong>. Navigation and accessibility (e.g
+        language selection) also <strong>benefit from being modal</strong> (i.e full-screen fixed-position that
+        require a press to pass through.)</p>
+
+    <p>
+        Mobile aspect-ratios tend to be very tall and narrow. For this reason, mobile sites tend to be
+        <strong>vertically oriented</strong>, and avoid the use of excessive columns or grids.
+        When grids are necessary, they are often restyled into a vertical orientation.
+    </p>
+
+
+    <p>
+        Screen space on a mobile device is at a premium. Mobile friendly layouts<strong>stretch to use all space available</strong>.
+        This means keeping padding visible, but minimized, and <strong>avoiding the use of percentages that aren't close to
+        100 or 0 for measurements related to text element sizing.</strong>
+    </p>
+
+
+</section>
+</body>
+</html>

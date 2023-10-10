@@ -1,5 +1,6 @@
-public class Lecture {
 
+public class Lecture {
+	
     private String date;
     private String title;
     private double score;
@@ -14,6 +15,7 @@ public class Lecture {
     }
 
 
+
     public void setComments(String new_comments) {
         this.comments = new_comments;
     }
@@ -22,9 +24,6 @@ public class Lecture {
         return this.title + " (" + this.date + ")";
     }
 
-    public String toCSV() {
-        return this.date + "," + this.title + "," + this.comments;
-    }
 
 
     public static Lecture fromFile(String line_of_text) {
@@ -34,7 +33,14 @@ public class Lecture {
         String score_as_text = parts[2];
         int score = Integer.parseInt(score_as_text);
 
+
         Lecture created_lecture = new Lecture(date, title, score);
         return created_lecture;
+
     }
+
+    public String toString() {
+    	return this.title + ", held on " + this.date;
+    }
+
 }

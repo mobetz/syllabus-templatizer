@@ -11,6 +11,7 @@ public class Janitor extends Worker {
         this.rooms_assigned = new ArrayList<>();
     }
 
+
     public boolean addRoom(String name) {
         this.rooms_assigned.add(name);
         return true;

@@ -1,3 +1,4 @@
+
 /*
 Objectives for Today
 
@@ -7,36 +8,43 @@ Objectives for Today
      * Understand how to convert datetime strings into Java's LocalDate class.
  */
 
-
-import java.io.*;  //<- putting a * says "give me every class in that folder"
 import java.util.Scanner;
+import java.io.*;   //<- putting a * says "give me every class in that folder"
 import java.time.LocalDate;
 import java.time.format.*; //DateTimeFormatter and FormatStyle both live here
 import java.time.temporal.ChronoUnit;
 
+
 public class WritingFiles {
-    public static void main(String[] args) throws IOException {
+
+	public static void main(String[] args) throws IOException {
+
+
 
         /*
         Last class, we learned how to take a file and read its information into
         Strings in our program:
-        (How?)
-         */
+        */
+        String file_location = "resources/lectures.csv";
+        File my_file = new File(file_location);
+        Scanner lecture_reader = new Scanner(my_file);
 
-        File lectures_file = new File("resources/lectures.csv");
-        Scanner lecture_reader = new Scanner(lectures_file);
-
-        int lecture_count = 0;
         Lecture[] lectures_collection = new Lecture[45];
-        while (lecture_reader.hasNext() ) {
-            String nextLecture = lecture_reader.nextLine();
-            lectures_collection[lecture_count] = Lecture.fromFile(nextLecture);
-            lecture_count = lecture_count + 1;
+        int lecture_count = 0;
+
+
+        while ( lecture_reader.hasNext() ){
+        	String next_lecture = lecture_reader.nextLine();
+        	lectures_collection[lecture_count] =  Lecture.fromFile(next_lecture);
+        	System.out.println(lectures_collection[lecture_count]);
+        	lecture_count = lecture_count + 1;
         }
+
 
         /*
         The Scanner class was a powerful object that knows how to do reading from
         all types of "input streams", including from Files!
+
 
         Sometimes, we also want to be able to write information TO a file:
                - to save a permanent record of actions performed
@@ -49,30 +57,36 @@ public class WritingFiles {
          also accept a File object when it is created.
          */
         File lecture_comments = new File("output/comments.csv");
-        lecture_comments.createNewFile();
         PrintWriter comments_writer = new PrintWriter(lecture_comments);
 
         /*
-        (Ideas on how we use this thing?)
+
         As its name would suggest, the print writer uses functions with the same
         name as printing. In fact, System.out.println() is just using a PrintWriter
         on the virtual file System.out, the same way Scanner can read from System.in!
 
          */
+
+
         Scanner input_reader = new Scanner(System.in);
 
-        for ( Lecture lecture : lectures_collection ) {
-            if ( lecture != null ) {
-                String prompt_name = lecture.getPromptName();
 
-                System.out.print("How did you feel about the lecture " + prompt_name + ": ");
+        for ( Lecture lecture : lectures_collection ) {
+
+            if ( lecture != null ) {
+
+                String prompt_name = lecture.getPromptName();
+                System.out.println("How did you feel about the lecture " + prompt_name + "?:");
                 String comments = input_reader.nextLine();
                 lecture.setComments(comments);
 
-                String new_file_line = lecture.toCSV();
-                comments_writer.println(new_file_line); //<- we're adding one line to the end of the file!
+                String new_line = lecture + ", " + comments;
+                comments_writer.println(new_line);
             }
+
         }
+
+        comments_writer.println("Here is the text of my file!!!!");
 
         /*
         Note: We need to "close()" our file when we're done writing to it. You can think of
@@ -88,17 +102,9 @@ public class WritingFiles {
         /*
         Now the comments file suddenly exists, and it has all the comments we wrote!
 
-        ..However, there's a problem. Watch what happens if we try to append to the file again:
+        ..However, there's a problem. Watch what happens if we try to append to the file again by running the
+        program a second time.
          */
-
-       /*
-        comments_writer = new PrintWriter(lecture_comments); //<- we need a new writer, our old one is "closed"
-
-        System.out.println("\nHow did you feel about today's lecture?");
-        String comments = input_reader.nextLine();
-        comments_writer.println("2023-02-15,Today's Lecture," + comments);
-        comments_writer.close();
-*/
 
 
         /*
@@ -106,8 +112,10 @@ public class WritingFiles {
         file, we must first wrap up our File in a "fileWriter", which is a class that
         knows about the difference between appending and overwriting:
          */
+
+
         FileWriter wrapper = new FileWriter(lecture_comments, true); //<- this true says we should append
-        comments_writer = new PrintWriter(wrapper);
+		comments_writer = new PrintWriter(wrapper);
         comments_writer.println("This line will appear at the very end of the file!");
         comments_writer.close();
 
@@ -131,6 +139,7 @@ public class WritingFiles {
         but our boolean expression would be three miles long:
          */
 
+
         int project_month = 2;
         int project_day = 28;
         int project_year = 2023;
@@ -139,8 +148,11 @@ public class WritingFiles {
         int current_day = 15;
         int current_year = 2023;
 
-        boolean deadline_passed = current_year > project_year ||  current_year == project_year &&
-                ( current_month > project_month || current_month == project_month && current_day > project_day );
+
+        boolean deadline_passed = current_year > project_year || current_year == project_year &&
+          ( current_month > project_month || current_month == project_month &&
+          	( current_day > project_day));
+
 
         /*
 
@@ -150,8 +162,7 @@ public class WritingFiles {
 
         Dates are created with a special static method on LocalDate, called "of()":
          */
-
-        LocalDate deadline = LocalDate.of(project_year, project_month, project_day);
+          LocalDate deadline = LocalDate.of(project_year, project_month, project_day);
         LocalDate today = LocalDate.now(); //<- the now() function gives us today automatically!
 
         /*
@@ -161,17 +172,26 @@ public class WritingFiles {
 
         We can even make dates from Strings:
          */
-
         LocalDate end_of_semester = LocalDate.parse("2023-05-15"); //<- it's parse(), just like integer!
 
         /*
-        Note: Dates are always parsed by default in YYYY-MM-DD (because anything else is ambiguous.)
+        Once I've got a date written with any of these three methods, I can use it in my program. Print it out,
+        or do comparisons:
+        */
 
+        System.out.println("The deadline is: " + deadline);
+
+        /*
+        Note: Dates are always parsed by default in YYYY-MM-DD (because anything else is ambiguous.)
+		*/
+        //end_of_semester = LocalDate.parse("05-07-2023"); //<- In the US, this is May 7th. In Europe, this is July 5th.
+
+        /*
         If we want to specify a different format, we can do so, using a "date format":
          */
 
         DateTimeFormatter format = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-        LocalDate US_end_of_semester = LocalDate.parse("05-15-2023", format);
+        LocalDate US_end_of_semester = LocalDate.parse("05-07-2023", format);
 
 
         /*
@@ -183,11 +203,13 @@ public class WritingFiles {
         boolean currently_in_semester = today.isBefore(end_of_semester);
               long how_many_days_left = ChronoUnit.DAYS.between(today, end_of_semester);
 
+
         /* Dates also use the same formatter objects to let us easily and prettily print out a date: */
         DateTimeFormatter display_format = DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL); //<- uses this computer's
                                                                                                 // default date format
-        String pretty_today_text = today.format(display_format);
+    String pretty_today_text = today.format(display_format);
         System.out.println("Today is: " + pretty_today_text);
+
 
 
         /*
@@ -195,6 +217,5 @@ public class WritingFiles {
         represent important information, so make sure to check out the JavaDocs for all three of these classes!
          */
 
-
-    }
+	}
 }
