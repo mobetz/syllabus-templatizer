@@ -3,7 +3,7 @@
     {
         "type": "command",
         "name": "Local Webserver",
-        "program": "/usr/bin/python",
+        "program": "python",
         "args": ["-m", "http.server", "8000"],
     },
 
