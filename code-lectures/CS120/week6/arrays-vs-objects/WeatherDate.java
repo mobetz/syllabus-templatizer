@@ -1,11 +1,16 @@
 import java.time.LocalDate;
 
+
+
 public class WeatherDate {
+
+
 
     //ATTRIBUTES
     private int temperature;
     private String wind_direction;
     private LocalDate date;
+
 
     /*
     One other benefit of classes is they make it easy to change the way individual fields of an object are
@@ -19,15 +24,14 @@ public class WeatherDate {
     attributes with a constructor and a few getters. A lot of objects start like this before we start identifying
     useful behaviors that can be attached to them.
      */
-
-    //METHODS
+    
 
     public WeatherDate(int temp, String wind_direction, LocalDate date) {
-        this.temperature = temp;
-        this.wind_direction = wind_direction;
+    	this.temperature = temp;
+    	this.wind_direction = wind_direction;
         this.date = date;
     }
-
+    
 
     public int getTemperature() {
         return this.temperature;

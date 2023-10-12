@@ -7,7 +7,6 @@ By the end of today, you will be able to:
     * Identify signs that code should be creating a new class for objects.
  */
 
-
 /*
 Vocabulary for the Day
 
@@ -15,7 +14,6 @@ Vocabulary for the Day
    program to represent it. For example, the data type of a variable may be "a string of text", but its semantic
    type may be "a first name of a student".
  */
-
 
 import java.time.LocalDate;
 
@@ -34,7 +32,6 @@ public class ArraysAndObjects {
         The distinction here can be subtle for some people, so today we are going to investigate when to use arrays,
         when we should be creating a class, and when we should be combining both to create an array of objects.
 
-
          Say, for instance, we were writing a program that let us track the weather. Initially, we might decide we're
          going to record a few different measures. Since they're all coming from a text file, they will all initially
          be strings:
@@ -42,7 +39,8 @@ public class ArraysAndObjects {
 
         String temperature = "68F";
         String wind_direction = "NE";
-        String date = "2023-02-22";
+        String date = "2023-02-02";
+
 
 
         /*
@@ -52,6 +50,7 @@ public class ArraysAndObjects {
         Looking at this collection of information, I might incorrectly conclude that these are all strings, so they
         should all be part of an array:
          */
+
 
         String[] day_of_weather = new String[]{temperature, wind_direction, date}; //<- THIS IS WRONG!!!
 
@@ -64,6 +63,7 @@ public class ArraysAndObjects {
         slot, second slot, and third slot each have a different meaning, so a loop would be meaningless.
 
         */
+
 
 
         for (String next_field : day_of_weather ) {
@@ -82,19 +82,17 @@ public class ArraysAndObjects {
 
         WeatherDate a_day = new WeatherDate(Integer.parseInt(temperature), wind_direction, LocalDate.parse(date));
 
+
         /*
         Now, each 'part' of the day's weather is correctly associated with a semantic name that identifies its
         purpose. I can say that the date is available by getting the "Date" property, rather than having to remember
         that it's stored in day_of_weather[2], since 2 has no inherent connection to dates.
          */
 
+
         String arrays_date = day_of_weather[2]; //<- What is [2], why is it a date?!?!?!!?
         LocalDate weather_date = a_day.getDate(); //<- getDate() is very clearly related to dates, and I know what to expect
-
-
-        if ( weather_date.isEqual(LocalDate.now())) {
-            System.out.println("This is today's weather: " + a_day.getTemperature());
-        }
+        String wind_direction = a_Day.getWindDirection(); //<- even though this is a string, I know based on the method name what it's for
 
 
 
@@ -113,18 +111,17 @@ public class ArraysAndObjects {
 
 
 
-
         /*
         As one last example, let us pretend we were writing a program to track dogs in a daycare. We might build up
         multiple different arrays, each storing a different detail:
          */
 
 
+       String[] dog_names = new String[] { "Fido", "Spot", "Skipper", "Allie" };     // \ once again....
+           int[] dog_ages =    new int[] {      4,      5,        11,    7    };     //  > THIS IS WRONG
+      String[] dog_breeds = new String[] { "Lab", "Beagle", "Retriever", "Samoyed" };// / (at least if you're doing 
+                                                                                     // it more than temporarily...)    
 
-        String[] dog_names = new String[] { "Fido", "Spot", "Skipper", "Allie" };        // \ once again....
-            int[] dog_ages =    new int[] {      4,      5,        11,    7    };        //  > THIS IS WRONG
-        String[] dog_breeds = new String[] { "Lab", "Beagle", "Retriever", "Samoyed" };  // / (at least if you're doing
-                                                                                         // it more than temporarily...)
 
 
 
@@ -148,9 +145,7 @@ public class ArraysAndObjects {
                             3     |  Skipper  |   11    |  Retriever
                             4     |  Allie    |   7     |  Samoyed
 
-
-       */
-
+        */
 
         for ( int i=0; i<dog_names.length; i++ ) {
             String dog_name = dog_names[i];
@@ -160,7 +155,6 @@ public class ArraysAndObjects {
             }
         }
 
-
         /*
         I have to assume that "i" will be the right dog in a different list!!!
         If we are adding or removing dogs, it will be really easy for the lists to become out of sync.
@@ -169,12 +163,14 @@ public class ArraysAndObjects {
         probably be using objects.
         */
 
+
         Dog[] daycare = new Dog[]{
+
                 new Dog("Fido",         "Lab",  4),
                 new Dog("Spot",       "Beagle", 7),
                 new Dog("Skipper", "Retriever", 11),
                 new Dog("Allie",     "Samoyed", 7)
-        }
+            };
 
 
         /*
@@ -182,20 +178,21 @@ public class ArraysAndObjects {
         the information we need:
          */
 
+            Scanner in = new Scanner(System.in);
+            System.out.print("Enter the dog you want to find the age of: ");
+            String target_dog = in.nextLine();
 
         for ( Dog next_dog  :  daycare ) {
-            if ( next_dog.getName().equals("Fido")) {
-                System.out.println("Fido is " + next_dog.getAge() + " years old.");
+            if ( next_dog.getName().equals(target_dog)) {
+                System.out.println(next_dog.getName() + " is " + next_dog.getAge() + " years old.");
             }
         }
+
 
 
         /*
         Knowing when to use arrays and objects can help us clearly maintain the semantic meaning of our data and
         leave our variables easier to use and maintain in the future!
          */
-
-
     }
 }
-
