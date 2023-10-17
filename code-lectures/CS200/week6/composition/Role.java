@@ -1,14 +1,14 @@
+
+
 public class Role {
+
 
     //ATTRIBUTES
     protected int id_num;
-    protected String name;
     private static int employees_id_generator = 1000;
 
-
     //METHODS
-    public Role(String name) {
-        this.name = name;
+    public Role() {
         this.id_num = employees_id_generator++;
     }
 
