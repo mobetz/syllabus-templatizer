@@ -1,6 +1,5 @@
-
-
 public interface IPromptable {
-	
-	public void ask();
+
+    public void ask();
+
 }
