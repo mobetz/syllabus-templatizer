@@ -176,7 +176,7 @@ public class DotChaining {
 
         Integer[] resulting_rolls = my_dice.roll();
 
-        
+
         int total = 0;
         for ( int next_roll : resulting_rolls ) {
             total = total + next_roll; 
@@ -184,6 +184,14 @@ public class DotChaining {
         }
 
         System.out.println("The total roll is: " + total);
+
+
+        
+        /*
+        Dot method chaining is never required. However, designing methods that work with chaining can make our
+        code "feel more ergonomic" to people who want to use it, and help us understand what is happening when
+        we read code written by others!
+         */
 
     }
 }
