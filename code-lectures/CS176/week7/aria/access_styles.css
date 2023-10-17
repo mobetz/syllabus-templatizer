@@ -1,0 +1,77 @@
+
+
+nav {
+    position: fixed;
+    visibility: hidden;
+    top: 0;
+    bottom: 0;
+    background-color: #222;
+    width: 200px;
+
+}
+
+#open-menu {
+    position: relative;
+    left: 5px;
+    top: 20px;
+
+    appearance: initial;
+    background-color: grey;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    font-size: 18pt;
+}
+
+#open-menu:after {
+    content: '>';
+    color: white;
+    margin-left: calc(50% - 0.3em);
+
+}
+
+#open-menu:checked:after {
+    content: '<';
+
+}
+
+
+#open-menu ~ nav {
+    left: -200px;
+}
+
+#open-menu:checked ~ nav {
+    visibility: visible;
+    left: 0px;
+}
+
+#open-menu:checked {
+    left: 200px;
+}
+
+
+#open-menu ~ article {
+    position: relative;
+    width: 100%;
+    left: 0px;
+}
+
+#open-menu:checked ~ article {
+    left: 200px;
+    width: calc(100% - 200px);
+}
+
+
+
+nav > ul {
+    list-style: none;
+}
+
+nav a {
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    width: 90%;
+    margin: auto;
+}

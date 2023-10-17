@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ARIA and Accessibility</title>
+    <link rel="stylesheet" href="common_styles.css">
+    <link rel="stylesheet" href="access_styles.css">
+</head>
+<body>
+
+<input type="checkbox" id="open-menu" aria-label="Toggle Navigation Visibility" role="button">
+<nav>
+    <ul>
+        <a href="#objectives"><li>Objectives</li></a>
+        <a href="#accessibility"><li>Accessibility</li></a>
+        <a href="#rules"><li>The Five Rules</li></a>
+        <a href="#basic-considerations"><li>Basic Measures</li></a>
+        <a href="#aria-tags"><li>ARIA Tags and Roles</li></a>
+        <a href="#tab-control"><li>Keyboard Navigation</li></a>
+    </ul>
+
+</nav>
+
+<section id="objectives" aria-flowto="accessibility">
+    <h3>Objectives for Today</h3>
+    <p>By the end of the day, you will:</p>
+    <ul>
+        <li>Identify the Accessible Rich Internet Applications (ARIA) standard.</li>
+        <li>Define the five rules of ARIA-compliant web pages.</li>
+        <li>Understand how we can use ARIA attributes on our HTML properties to change the way they are read by assistive
+            technologies.</li>
+        <li>Contrast the use of ARIA attributes and HTML5 semantic tags.</li>
+    </ul>
+</section>
+
+<section id="accessibility" aria-flowto="rules">
+    <h3>Accessibility as a Standard</h3>
+
+
+    <p>
+        Originally, web pages weren't much more than some text on a page with minor changes to color and position. However, as
+        our websites became more enriched with different types of tags with their own style rules, they started to become
+        less and less accessible.
+
+        As we introduced style rules to completely change where an element appears or how it is displayed,
+        and we began layering more tags to achieve complex designs, assistive technologies
+        had more work to do to help users navigate the web.
+    </p>
+
+
+    <p>
+        When we say accessibility, we are referring to how well our site can be interacted with by users with disabilities.
+
+
+        Much like our discussion of responsive web design last week, accessibility covers a wide range of different user
+        experiences.
+
+        Users may have vision problems, such as reduced visual clarity or color perception.
+        They may even be completely blind, and use text-to-speech screen readers to navigate the web.
+        They may also have motor problems and use input methods other than a typical keyboard and mouse.
+    </p>
+
+
+    <p>
+        If we want to observe these tools in action, we can use a tool such as a screen reader,
+        available as browser plugins like <a
+            href="https://chrome.google.com/webstore/detail/screen-reader/kgejglhpjiefppelpmljglcjbhoiplfn?hl=en"
+            aria-label="link to ChromeVox screen reader">
+        here</a>
+    </p>
+
+    <p>
+        As assistive technologies evolved to meet the new enriched web, we came across
+        patterns of websites that could effectively be translated to other modalities,
+        and others which were hard to navigate. To help codify these patterns for web
+        developers, we created the Accessible Rich Internet Applications (ARIA) standard.
+    </p>
+
+</section>
+
+<section tabindex="1" id="rules">
+    <h3>The Five Rules of ARIA</h3>
+
+
+    <p>
+        The core of the ARIA standard is five rules that guide the development of websites.
+        Those rules are:
+    </p>
+
+
+    <ol>
+        <li><h4>When possible, express content using meaningful semantic HTML Tags</h4>
+            <p>Screen readers specialize in figuring out how to display web content. If
+                you use meaningful tags for your content, screen readers can often figure
+                out how to appropriately present that content without any further intervention
+                on your part!</p>
+        </li>
+
+
+
+        <li><h4>At the very least, do not use tags in a way that <em>contradicts</em> the
+            normal semantic meaning.</h4>
+
+            <p>For the same reason that using tags semantically causes them to display
+                appropriately on a screen reader, using tags in a way that conflicts with
+                their normal meaning will cause assistive technology to incorrectly assume
+                the role of an element. For example, turning a "header" tag into a clickable
+                tab might cause confusion to users who are primarily hearing about tags by
+                role. In particular, try not to cross the "interactive"/"non-interactive"
+                barrier.
+            </p>
+
+
+        <li><h4>Your website must be navigable without the use of a mouse.</h4>
+        <p>Mice are notoriously precise, and difficult to emulate if a user
+            cannot actually manually point one. Instead, most users with assistive
+            technology make use of tab-controls or another tool that uses a tab
+            control (such as saying the word "next".) You should be able to navigate
+            between controls and between text in a sane order.
+        </p>
+
+
+        <li><h4>Do not hide elements that can trap focus.</h4>
+        <p> Since we are saying all controls should be easy to navigate between,
+            it stands to reason that we should not "hide" controls that can still
+            steal focus (since using tab may cause the site to behave differently
+            than the way it does to normal users.) One exception to this: if you
+            use display: none or visibility: hidden, an element can no longer be
+            the target of focus, and its safe to hide it from the aria view.
+        </p>
+    </li>
+
+        <li><h4>Controls on a site should have accessible and meaningful labels.</h4>
+            <p>Without visual cues, there is no direct link between labeling elements
+                and the things they label:
+
+                <img src="labels.png" alt="An image of labeled inputs">
+
+                We must ensure that, if labels are contained in an element separate
+                from the control themselves, that these labels are appropriately linked
+                through the use of aria attributes.
+            </p>
+        </li>
+    </ol>
+</section>
+
+
+
+
+<section tabindex="2" id="basic-considerations">
+    <h3>Basic Considerations</h3>
+
+    <h4>"Click Me!" Links and Buttons</h4>
+    <p>
+        When we have a link, ideally we should put descriptive text in the link itself.
+        When we can't do that, we can use the aria-label="" attribute to set additional
+        text that can be associated with a link or button. We can add labels to our
+        link and navigation drawer.
+    </p>
+</section>
+
+
+<section tabindex="3" id="aria-tags">
+
+    <h3>Hidden and Role Manipulation</h3>
+
+
+    <p>
+        When we show or hide controls, we should make those controls are actually added
+        or removed from the document. For instance, we may want to ensure our navigation
+        menu can only be tabbed to while it is on screen.
+
+        Similarly, we can manipulate roles of tags to change how a screen reader reads them
+        to be more in-line with a way a user would think about them. Watch what happens if
+        we change the role of our checkbox to be a 'button'.
+
+        There is one special role in ARIA: presentation. Watch what happens when we try
+        setting the presentation role on an element.
+
+        When we set a presentation role, those elements will be treated as plain text. We should
+        be careful not to set important interactive elements to the presentation role.
+    </p>
+
+    <h4 >Aria-Label and Aria-LabelledBy</h4>
+
+
+    <p aria-flowto="tab-control">
+        We can specify labels using the aria-label as we saw before to set a label on
+        our link and navigation button. Similarly, we can use aria-labelledby to indicate
+        which ID in the document holds the label text:
+    </p>
+
+
+    <label id="name-label">User Name:</label><input type="text" aria-labelledby="name-label">
+    <label for="mytextbox">User Name:</label><input id="mytextbox" type="text">
+</section>
+
+
+
+<section tabindex="4" id="tab-control">
+
+    <h3>Controlling Tab Order</h3>
+    We can set a tabindex="" on each focusable element to specify the order we want to tab through them,
+    starting with one. A tabindex will even allow things we can normally not tab to steal focus on the
+    page.
+
+
+    <h4>Controlling Text Read Order</h4>
+    In addition to tab order, we can also set normal text order using the aria-flowto property. This
+    property specifies the next thing we want to flow to when using normal text navigation in a
+    screen reader.
+</section>
+
+
+
+</body>
+</html>
