@@ -1,0 +1,49 @@
+
+
+body {
+    background-color: #ccc;
+}
+
+
+p {
+    background-color: #333;
+    color: azure;
+    padding: 10px;
+    width: 50%;
+}
+
+
+section {
+    background-color: #333;
+    padding: 10px;
+    margin-bottom: 15px;
+    color: azure;
+}
+
+
+@keyframes emphasize {
+    0% {
+        background-color: #222;
+        color: azure;
+        padding: 10px;
+    }
+
+    100% {
+        color: red;
+        background-color: #eee;
+    }
+}
+
+
+section:hover {
+    animation: emphasize 2s;
+}
+
+
+
+@media (max-width: 640px) { /* <- "when the screen is sufficiently small */
+
+    p {
+        width: 100%;
+    }
+}

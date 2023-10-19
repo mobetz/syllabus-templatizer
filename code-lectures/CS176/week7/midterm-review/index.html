@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Prof. Obetz">
+    <!-- ^ meta tags generally take the form of name="<some keyword>" content="<some value>", and they all
+         provide extra indexable information for search engines and web scrapers (like internet archive.)
+         Some, like meta viewport, will give the browser extra instructions on how to render the webpage. -->
+
+    <meta name="viewport" content="initial-scale=1"> <!-- <- this disables 'virtual resolutions on mobile devices -->
+    <title>Midterm Review</title>
+    <link rel="stylesheet" href="review-styles.css"> <!-- <- this says there's another file with styles that should be applied here -->
+</head>
+<body>
+
+
+<main>
+
+    <h3>Objectives for Today</h3>
+
+    <ul>
+        <li>We will review all the content we have covered so far in CS176.</li>
+        <li>You will be able to identify topics likely to appear on the midterm exam next week.</li>
+    </ul>
+
+
+    <section id="tags-and-attributes">
+
+
+
+
+        <h3>Tags and Attributes</h3>
+        <p>HTML is what is known as a "markup" language -- this means that most content in the document
+            is text that is rendered exactly as it appears. The 'markup' is extra structural information about
+            formatting or relationships between our text. When we're writing an
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML">HTML document</a>,
+            we are 'marking up' content using 'tag'.A tag starts with a greater than
+            carat &gt;, and it ends with a less than carat &lt;. In between is the name of the tag, which may
+            affect what the tag will do on the web page.</p>
+
+        <p>
+            Most tags define a region (using a starting tag, and then a matching ending tag (which is prefixed with a /).
+            Some tags are exceptions, like the image tag &gt;img&lt;.
+
+            If you forget to place a closing tag, the browser will make its best guess at where that closing tag belongs.
+            This sometimes works, but should not be relied upon -- especially for more "general" tags like divs or spans,
+            it may deduce a different structure than the one you had intended.
+        </p>
+
+        <p>
+            Every single HTML page has to start with the HTML tag, and inside of it there are exactly two 'children' tags:
+            the head (which has metadata about the page), and the body (which has the actual content inside the tab when we
+            navigate to the page.)
+        </p>
+
+        <p>
+            Inside of tags, we can add additional information about the tag. These 'attributes' are identified by a name
+            (like "id"), and associated with a value (="some_id"). Different attributes may affect how a HTML element works,
+            is displayed, or is linked to other parts of the document.
+    </section>
+
+
+
+    <section id="basic-styling">
+
+        <h3>CSS Styling</h3>
+        <p>
+            Our HTML pages don't just have text, they also have rules that allow us to modify how and where that text should be
+            displayed. To write these rules, we use an entirely different language: CSS.
+        </p>
+
+        <p>
+            To attach a .css file to a .html file, we use the 'link' tag (which belongs in the head as part of the metadata.)
+            Once the file is attached, the browser will read the entire thing top-to-bottom, and afterward decide how to apply
+            the rules contained to the HTML elements.
+
+            CSS rules can be 'inlined' as an attribute on a specific tag. This is generally discouraged (it's a little
+            bit messier, and requires you to copy and paste rules several times if they apply to several tags.) When
+            we write rules this way, they're all written on one line with style="every;declaration;here;".
+        </p>
+
+
+        <p>
+            CSS 'cascades' -- rules can overlap, and the most specific rules will take effect.
+        </p>
+
+
+        <p>
+            A rule has a few parts: a selector (which describes what we want to find), and a group of declarations inside
+            curly braces (which describes what we want to *do* to what we find.) Each declaration in that rule takes the
+            format of "some-property": some-value;
+
+            Selectors can be tag names, #id attributes, or .class attributes.
+        </p>
+
+
+        <p>
+            We can chain together selectors to specify how elements are organized on our HTML page with respect to one another
+            using our combinators (the operators like space, &gt;, and ~.) For instance, if we write " div &gt; p " as our
+            selector, we're saying "look for a paragraph that is directly inside of a div." In this case, the order matters!
+            If, on the other hand, we put "p &gt; div", we would be looking for a div inside of a paragraph. (The last
+            element is always the one that will be targeted and have style rules apply.)
+        </p>
+
+
+        <p>The sibling selector (~) will target the second-mentioned of two elements that are at the same depth in the
+            Document Object Model. For example:</p>
+
+        <xmp>
+            <div id="first-thing">
+                <p>Some inner text.</p>
+            </div>
+
+            <p>Some outer text.</p>
+
+            <div>
+                <p>Some extra text.</p>
+                <p>A second paragraph.</p>
+            </div>
+
+            <p>Some more outer text.</p>
+        </xmp>
+        <!--
+        If we look at a DOM view of our webpage:
+
+            HTML
+              |
+              + head
+              + body
+                  +  first-thing
+                  |       + p
+                  + "outer text"
+
+        The outer text paragraph is "adjacent" to the first-thing
+        -->
+
+
+        <p>
+            If I wrote a rule that said " #first-thing ~ p " I am looking for a paragraph that sits at the same level in
+            the document as the #first-thing div. If I applied style rules to that selector, they would change "Some outer
+            text", but the inner text and extra text would not be affected. This is because the outer-text paragraph and the
+            div are 'next  to' each other in the document, but the inner text is actually inside one of the two.
+        </p>
+        <p>
+            With combinators, the rules inside the curly braces only apply to the very last element in the list. In addition
+            to combinators, we can also specify multiple selectors before a rule (separated by a comma.) In this case, order
+            doesn't matter (because the entire document is read top to bottom before the rules are applied, and everything next
+            to a comma will be affected by the rules.)
+        </p>
+
+        <p>Margin, padding, border, and content together are four declarations that all affect how much space an element
+            will take up. These four together form what's known as the "box model". Order doesn't matter, but we can affect
+            how they are measured by also setting <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing">a
+                box-sizing declaration</a> (for instance, whether or not content counts as part of the width of an element.)</p>
+
+        <p>The most basic styling feature of our elements are whether they display as a "block", "inline", or "inline-block"
+            element by default. Block elements take up the entire width of the page (like a div by default) and have space above
+            and below, inline elements take up just the space of their content (like a span by default), and inline-block
+            cuts the difference (only taking up its space, but allowing other positioning to be applied.)
+
+            Certain properties (like margin) only make sense in the context of a full block (something inline is normally part
+            of a body of text, so we wouldn't want to break it up by applying spacing mid-paragraph.)</p>
+    </section>
+
+
+    <section id="positioning">
+        <h3>Positioning Rules</h3>
+
+        <p>We learned about several ways to layout our webpages. Under the normal flow rules, blocks and inline elements
+            determine the structure based on their width, height, and margins/padding using the CSS rules. However, we can change
+            this by setting a different display engine.</p>
+
+        <p>The grid layout allows us to specify a number of columns and rows (or provide template area names) and then assign
+            each thing inside to a numbered column and row (or an area name.) This can even cause divs to move up/down in the
+            page from the order they were written, and makes it easy to create things like headers/footers/sidebars with
+            advertisements.</p>
+
+        <p>The 'flex' layout worked almost like a 1D grid -- we were able to specify how much space on the flex strip something
+            would take up, and if we had more flex items than fit in one row, the flex grid would drop down elements to the next
+            row (and keep them flush, even if the previous row didn't have elements of equal height.)</p>
+
+        <p>In addition to our layout engines, we also learned how we can manually position elements with the position declaration.
+            We talked about four positioning styles: relative (which moves things 'relative' to their normal position), absolute
+            (which moves things relative to their positioned parent's borders), fixed (which moves things relative to the window
+            borders), and sticky (which positions things normally until they're scrolled past, then makes them 'stick' like fixed
+            positioning.) All four of these describe which boundaries we're talking about, but all four take a "top", "bottom",
+           "left", and "right" that provide distances from those boundaries.</p>
+
+    </section>
+
+
+    <section id="animations">
+        <h3>Animations</h3>
+
+        <p>In CSS, we can define an animation using the @keyframes rule. Inside of our @keyframes, we can create different
+            sets of rules that should apply to animated thing at different percentages of progress during an animation.</p>
+
+        <p>Once we've created those rules, we can apply that animation to any other selector by using the 'animation' declaration
+            (which is given the name of our keyframe, a duration, and optionally an order to play that animation in and behavior
+            after its finished.) If we only want an animation to play on change, then we can use the 'transition' declaration
+            instead.</p>
+
+        <p id="animated">Selectors can have 'pseduo-selectors' after their name, which lets them be the target of styling only when they're
+            in a particular state (for instance, appending :hover to a selector will create a block of styling rules that only
+            apply when the mouse is on top of that element.) This is how we usually apply conditional animations that don't play
+            continuously or only when the page loads.</p>
+
+    </section>
+
+
+    <section id="responsive">
+        <h3>Responsive Design</h3>
+
+        <p>Responsive design is the idea that websites should perform well regardless of the features of the device that is
+            used to view it. This includes things like screen resolution, and also supported features. In particular, we should
+            make sure our websites respond well to being viewed on a small screen such as a mobile device.</p>
+
+        <p>To set these conditional rules, we have to use a @media tag with some condition when the styling should apply. Media
+            supports several different qualities of displays, such as minimum and maximum width, whether it is a screen or printed,
+            and what type of pointing device the user has access to (a mouse, a touchscreen...)
+        </p>
+
+        <p>
+        We had observed that some phones have a "virtual resolution" that pretends to be much higher than their available
+        screen space. To disable this, we were able to use &lt; meta &gt; tag with the viewport attribute in our header.
+        </p>
+
+        <p>We also discussed the @support tag, which allows us to test whether or not a browser has access to a certain
+            CSS declaration or HTML tag. This lets us create 'fallback' styling that achieves the same visual goal.</p>
+
+    </section>
+
+
+    <section id="accessibility">
+        <h3>Accessibility</h3>
+        <p>We learned that the standard for making accessible webpages is called ARIA (the Accessibility Rich Internet Applications.
+            This standard governs the recommendations for how to design webpages that work not just for normal browsers, but
+            also with assistive technologies (like screen readers, speech-to-text commands, inputs besides a mouse..)</p>
+
+        <p>There were five rules of ARIA that emphasize using HTML elements properly, properly labeling things in a way that
+            the label isn't just positional, and ensuring that all navigation for your site works without a mouse.</p>
+    </section>
+
+</main>
+
+</body>
+</html>
