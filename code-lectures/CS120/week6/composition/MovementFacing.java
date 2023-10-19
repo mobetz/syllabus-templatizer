@@ -14,6 +14,8 @@ public class MovementFacing {
     private int speed;
     private String direction;
 
+
+
     //METHODS
     public MovementFacing(int given_x, int given_y, int initial_speed, String direction) {
         this.x_pos = given_x;
@@ -34,22 +36,12 @@ public class MovementFacing {
         return this.speed;
     }
 
+
     public void setSpeed(int newSpeed) {
         this.speed = newSpeed;
     }
 
 
-    public void step() {
-        if (this.direction.equals("NORTH")) {
-            this.y_pos = this.y_pos - this.speed;
-        } else if ( this.direction.equals("EAST")) {
-            this.x_pos = this.x_pos + this.speed;
-        } else if ( this.direction.equals("SOUTH")) {
-            this.y_pos = this.y_pos + this.speed;
-        } else if ( this.direction.equals("WEST")) {
-            this.x_pos = this.x_pos - this.speed;
-        }
-    }
 
 
     public void turnLeft() {
@@ -87,9 +79,19 @@ public class MovementFacing {
 
 
 
+    public void step() {
+        if (this.direction.equals("NORTH")) {
+            this.y_pos = this.y_pos - this.speed;
+        } else if ( this.direction.equals("EAST")) {
+            this.x_pos = this.x_pos + this.speed;
+        } else if ( this.direction.equals("SOUTH")) {
+            this.y_pos = this.y_pos + this.speed;
+        } else if ( this.direction.equals("WEST")) {
+            this.x_pos = this.x_pos - this.speed;
+        }
+    }
+
+
     
-    /*
-    Once we have created our MovementFacing, let's make a new attempt at a "ComposedPerson" that uses this
-    object.
-     */
+
 }

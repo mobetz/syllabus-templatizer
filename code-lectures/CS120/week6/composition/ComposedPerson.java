@@ -1,19 +1,24 @@
 
+
 public class ComposedPerson {
 
+
 	//ATTRIBUTES
+    private MovementFacing position; //<- all four of our details before can be saved in a single object!
 
     private String name;
-    private MovementFacing position;
     private int grid_width;
     private int grid_height;
+
 
     /*
     This time, all the movement related information gets stored in one place, our 'position' attribute.
      */
 
 
+
     //METHODS    
+    
     
     public ComposedPerson(String given_name) {
 
@@ -21,13 +26,14 @@ public class ComposedPerson {
         this.grid_width = 10;
         this.grid_height = 10;
 
-    	this.position = new MovementFacing(4, 4, 0, "NORTH");
+        this.position = new MovementFacing(4, 4, 0, "NORTH");
                 /*
         ComposedPerson is internally creating a MovementFacing when it is constructed -- from the perspective of
         people using our Person, nothing has changed!
          */
 
     }
+
 
     public String getName() {
         return this.name;
@@ -71,27 +77,30 @@ public class ComposedPerson {
         return grid;
     }
 
-
     /*
-    The same holds true when we're trying to perform movement-related behaviors:
-     */
+    The real benefit of composition comes from how much simpler our movement related code becomes:
+    */
+
+
 	
 	public void turnRight() {
-        this.position.turnRight();
+		this.position.turnRight(); //<- person only needs to know *its* rules for turning, the general rules live somewhere else
 	}
 
 	public void turnLeft() {
         this.position.turnLeft();
 	}
 
+
     public void speedUp() {
         //Sometimes our composed objects and our public interfaces don't perfectly match up. That's fine! Our
         // code that changes these values still benefits from the composition:
         int max_speed = 4;
         int current_speed = this.position.getSpeed();
-        int new_speed = Math.min(current_speed+1, max_speed); //<- current speed can never get higher than max speed
+        int new_speed = Math.min(current_speed+1, max_speed);//<- current speed can never get higher than max speed
         this.position.setSpeed(new_speed);
     }
+
 
     public void slowDown() {
         int min_speed = 0;
@@ -101,16 +110,19 @@ public class ComposedPerson {
     }
 
 
-	public void step() {
 
+	public void step() {
         this.position.step();
 	}
+
 
     /*
     Now, our ComposedPerson class only has to write code that is specific to himself. All of the movement-related
     code that we could want to reuse is outside of this file!
-     */
 
+    In the future if I decide I want a Turtle, all the movement code can be applied by just giving turtle its own
+    MovementFacing!
+     */
 
 
 }
