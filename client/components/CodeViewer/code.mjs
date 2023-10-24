@@ -68,11 +68,13 @@ class CodeViewer extends HTMLElement {
                 break;
             case 'embed':
 
+                if ( newValue !== undefined ) {
 
-                 this.generateCodeViewFromPageLocation(newValue, true)
-                    .then((tab) => {
-                        this.shadowRoot.querySelector(".container").append(tab);
-                    });
+                    this.generateCodeViewFromPageLocation(newValue, true)
+                        .then((tab) => {
+                            this.shadowRoot.querySelector(".container").append(tab);
+                        });
+                }
 
         }
 
