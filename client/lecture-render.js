@@ -7,7 +7,9 @@ function createCodeViewer() {
     let viewer = document.createElement("code-viewer");
     viewer.stem = params.course + "/" + params.folder;
     viewer.pages = params.pages;
-    viewer.embed = params.embed;
+    if ( params.embed ) {
+        viewer.embed = params.embed;
+    }
 
     document.querySelector("h3").innerText += ": " + params.course ;
     document.querySelector("main").appendChild(viewer);
