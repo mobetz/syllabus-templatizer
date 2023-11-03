@@ -11,6 +11,7 @@ By the end of the day, you will:
  */
 
 
+
 /*
 Vocabulary for the Day 
 
@@ -25,6 +26,7 @@ Abstraction - Abstraction is the process of taking a real world domain and simpl
 in code.
 
 */
+
 
 
 
@@ -44,19 +46,20 @@ public class Main {
         process of taking that one big sequence of instructions, and repeatedly breaking it down into smaller and smaller
         parts. (Sort of like how factoring in math is breaking a big number up into smaller factors we can multiply together.)
 
-
         There are two dimensions on which we can factor a program:
             - we can determine how to break data up into objects
             - we can determine how to break instructions up into smaller functions
 
 
-        Today, we are going to focus on the first of these: object-oriented factoring.
+        Today, we are going to focus on the first of these: object-oriented factoring. Last time (with our Restaurant
+        program, we did Top Down Object-Oriented Factoring -- we started with a word problem, identified ideas, then
+        wrote classes and decided on attributes for each of these. This time, we'll look at Bottom Up Refactoring, starting
+        from the data we have.)
 
 
         In order to factor our data, we must first identify what our goal is with a program, and what data we have that
         matters for solving that goal. This process of taking a real world thing and stripping away everything to create
         a model for our program is called "abstraction".
-
 
             The first step of abstraction is summarizing -- try to take your goal, and put it into a single sentence:
 
@@ -65,6 +68,8 @@ public class Main {
                "I want to make a program that finds members of congress based on the terms they were elected for."
                "I want to make a program that can index the payroll for state employees."
 
+
+
             The next step of abstraction is elaborating: now that we have a clear goal, we want to brainstorm all the
             SIMPLE pieces of data that might be part of this problem -- note: it should be immediately clear what Java type
             each piece is. If it isn't, try breaking that piece of information down further until you get something that
@@ -72,6 +77,7 @@ public class Main {
 
             Work up from the constraint of "these are the types I know how to represent", not down from "this is the
             type of data I think I have."
+
 
            There are two crucial features of abstracting a model:
                - First, the model is less detailed/simpler than the original problem (so that it can be used efficiently)
@@ -84,22 +90,25 @@ public class Main {
             - What is the simplest way to express that piece of information?
             - What other data does this piece of information get used with?
 
+                    For a Congress program with the original goal of "I want to make a program that finds members of 
+                    congress based on the terms they were elected for.":
 
-		
-		For a Congress program with the original goal of "I want to make a program that finds members of congress based on the terms they were elected for.":
               - String: a congressperson has a name
+              - String: a congressperson has a named party 
+              - String: a congressperson belongs to a state with a name (can this also change over the course of their tenure?)
+              - String: a congressperson has a named position (But this only lasts a certain amount of time... can they have more than one?)
               - LocalDate: a congressperson has a birthday
               - LocalDate: a congressperson was elected on a particular date  
               - LocalDate: a congressperson has a term end on a particular date
-              - String: a congressperson has a named party
-              - String: a congressperson belongs to a state with a name (can this also change over the course of their tenure?)
-              - String: a congressperson has a named position  (But this only lasts a certain amount of time... can they have more than one?)
               - Number: a position has a number of years it lasts for after an election
-              - String: a position is for a chamber of congress with a name ("representatives" are in the "House", "senators" are in the "Senate")
+              - String: a position is for a chamber of congress with a name 
               - String: a position serves for a district
               - String: a party has a named chairperson
-              - String: a party holds a number of seats
-              - String: a congressperson has a committee assignment (wait... can a congressperson serve on more than one committee? If so, this becomes an array)
+              - String: a party holds a number of seats 
+              - String: a congressperson has a committee assignment
+
+            Often when we're using the Bottom Up approach, we're starting from an actual data file that's giving us
+            many/most of the pieces of information we can identify.
 
 
 
@@ -107,7 +116,7 @@ public class Main {
             a great deal of information about the state, or it could be just a single name that's a string. When thinking
             about this abstraction, review whether each piece of data you've come up with helps with the single sentence
             problem you're trying to solve.
-:
+
 
 
 
@@ -119,8 +128,10 @@ public class Main {
                  - Does an entire one of these 'groups' get used by another group? (Do you need access to all the details?)
 
 
+
                  NOTE: This process is *iterative* -- much like a rough draft of an essay, you will
                  keep revisiting and refining until you are happy with the result.
+
 
                  Don't be constrained by the way you originally phrased the data in your brainstorming. You may
                  find out that something you thought was part of one of your "groups" of data is actually part of another
@@ -128,34 +139,27 @@ public class Main {
                  these groups as a type, the way you used Strings or Numbers previously.
 
 
-            For the Congress program:
-              - Number: a position has a number of years it lasts for after an election
-              - String: a position is for a chamber of congress with a name ("representatives" are in the "House", "senators" are in the "Senate")
-              - String: a position serves for a district
-              - String: a party has a named chairperson
-              - String: a party holds a number of seats
-              - String: a congressperson has a committee assignment (wait... can a congressperson serve on more than one committee? If so, this becomes an array)
-
-
 
             CongressPerson
               - String: a congressperson has a name
               - LocalDate: a congressperson's birthday
-            -------------------------------------------------------------
-              - String: a congressperson has a named party    //<- sometimes, we may start finding ourselves heirarchically bundling some related pieces of info
-                     - the party also needs seats                 When this occurs, its generally a sign that we're talking about another group, and we should create
-                     - the party has a chairperson                a object type and use it here
-          ------------------------------------------------------------------
-              - Party: the details about a party             //<- now, we've got a reference to another part of our model
-          -------------------------------------------------------------------
-              - String: a congressperson has a named position  
+              ----------------BEFORE-------------------
+              - String: a congressperson has a named party  //<- when you notice that one of your groups relates to one of the attributes
+                                                            // you're adding here, that might be a sign that the field of this "thing"
+                                                               is actually an object of the other type
+              - String: a congressperson has a named state
+             -----------------AFTER-----------------------------
+              - Party: a congressperson has an associated Party
+              - State: a congressperson has an associated State
+              ----------------------------------------------
 
-		      - String: a congressperson belongs to a state with a name
-           ----------------------------------------------------------------------
-              - LocalDate[]: a congressperson was elected on a particular date     //<- when you notice yourself making 'parallel arrays', that might be a sign that
-              - LocalDate[]: a congressperson has a term end on a particular date  // you're actually building a group of objects
-          -------------------------------------------------------------------------
-              - Term[]: the terms a congressperson was elected for
+
+             - String: a congressperson has a named position  
+             ----------------BEFORE------------------
+             - LocalDate[]: a congressperson was elected on a particular date   //<- when you notice yourself making 'parallel arrays', that might be a sign that
+             - LocalDate[]: a congressperson has a term end on a particular date //I'm actually building a group of objects
+             ----------------AFTER-------------------
+              - Term[]: the terms a congressperson was elected for //<- we recognize you could be elected more than once, and all the details of that election are here
 
 
               Party
@@ -170,9 +174,11 @@ public class Main {
               - String: each state has a named state flower 
 
 
-			  Term
+
+              Term
               - LocalDate: a congressperson was elected on a particular date  
               - LocalDate: a congressperson has a term end on a particular date
+
 
 
 
@@ -183,11 +189,44 @@ public class Main {
               - String: a congressperson has a name
               - LocalDate: a congressperson's birthday
               - String: a congressperson has a named position  
-		      - String: a congressperson belongs to a state with a name
-		      ---------------------------------------
-              - Party: the details about a party           //<- wait... can this change election-by-election. If so, maybe this isn't a detail of a PERSON, but a TERM
-              -----------------------------------------
               - Term[]: the terms a congressperson was elected for
+              ----------BEFORE-----------------------------
+              - Party: the details about a party           //<- wait... can this change election-by-election. If so, maybe this isn't a detail of a PERSON, but a TERM
+              ----------AFTER, we move it to Term-------------------------------
+
+              Party
+              - String: a party has a name
+              - String: a party has a named chairperson
+              - String: a party holds a number of seats
+
+              Term
+              - LocalDate: a congressperson was elected on a particular date  
+              - LocalDate: a congressperson has a term end on a particular date
+              ---------AFTER realizing some of our details change each election ----------
+              - State: the state the congressperson was elected for
+              - Party: the details about a party   
+              ------------------------------------
+
+
+
+    --------------- AFTER TWO ROUNDS OF DRAFTING ------------------------------
+
+          CongressPerson
+              - String: a congressperson has a name
+              - LocalDate: a congressperson's birthday
+              - String: a congressperson has a named position  
+              - Term[]: the terms a congressperson was elected for
+
+
+             ////DELETED AFTER WE REMOVED UNNECESSARY ATTRIBUTES////////
+             State
+              - String: each state has a name
+              ----- REALIZATION: state biographical info doesn't help me find congresspeople --------------
+              - String: governor ///<- does this actually solve the problem?
+              - String: flower ///<- do we need this directly any way to find people?
+              - Number: population  ///<- is this ever relevant? 
+              ----- AFTER: we may delete all these attributes --------
+
 
 
               Party
@@ -195,47 +234,34 @@ public class Main {
               - String: a party has a named chairperson
               - String: a party holds a number of seats
 
-             ////DELETED AFTER WE REMOVED UNNECESSARY ATTRIBUTES////////
-              State
-              - String: each state has a name
-              ----------------------------------------------------------
-              - String: each state has a named governor  ///<- does this actually solve the problem?
-              - Number: each state has a population count    ///<- do we need this directly any way to find people?
-              - String: each state has a named state flower  ///<- is this ever relevant? 
-             ------------------------------------------------------------  
-                 Sometimes we might remove attributes when we realize they don't actually solve the goal of our program.
-                 In extreme cases, we might be left with just a single attribute, which means... maybe this shouldn't be a 
-                 separate object at all.
-             ------------------------------------------------------------
-
-			  Term
+              Term
               - LocalDate: a congressperson was elected on a particular date  
-              - LocalDate: a congressperson has a term end on a particular date
-              ----------------------
-              - State: the state the congressperson was elected for  //<- it turns out we didn't need all this extra info
-              ----------------------
-              - String: each election is for a state, we only care about the name
-              ----------------------
+              - LocalDate: a congressperson has a term end on a particular date\
+              -------- BEFORE: We condensed state down to a single attribute ----------------
+              - State: the state the congressperson was elected for
+              --------- AFTER: We can delete the state class and make it just a string property here ----------
+              - String: two character name of a state
+              ---------------------
               - Party: the details about a party   
 
 
-           ------------- AFTER TWO ROUNDS OF DRAFTING -------------------------
+            ------------ AFTER THREE ROUNDS ----------------
 
 
 
           CongressPerson
               - String: a congressperson has a name
               - LocalDate: a congressperson's birthday
-              - String: a congressperson has a named position  
-		      - String: a congressperson belongs to a state with a name
               - Term[]: the terms a congressperson was elected for
 
 
-		  Term
+          Term
               - LocalDate: a congressperson was elected on a particular date  
               - LocalDate: a congressperson has a term end on a particular date
               - String: the name of the state they ran for
               - String: the name of the party that a candidate ran under
+              - String: a congressperson has a named position  
+
 
 
 
@@ -254,6 +280,7 @@ public class Main {
                        + If this is the case, maybe I can simplify by removing the whole group and replacing it where
                           used with just the one important detail.
 
+
         When we go through and do all of this, we're left with just a few groups with simple attributes.
 
         Once we've done this, we have objects and it's time to make classes!
@@ -263,6 +290,6 @@ public class Main {
         */
 
     }
-
-
 }
+
+

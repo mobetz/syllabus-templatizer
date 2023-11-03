@@ -1,0 +1,10 @@
+plugins {
+   id 'java'
+   id 'application'
+}
+
+
+sourceSets.main.java.srcDir("src")
+sourceSets.main.resources.srcDir("resources")
+
+application.mainClass = "ControlFlow"

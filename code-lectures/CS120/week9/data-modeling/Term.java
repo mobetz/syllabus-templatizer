@@ -13,26 +13,17 @@ Our model had the description of:
 
 public class Term {
 
+
+
+
     //ATTRIBUTES
 
     /* This model directly maps to our attributes:*/
-	private LocalDate start_date;
-	private LocalDate end_date;
-	private String state;
-	private String party; 
-	private String position;
+    private LocalDate start_date;
+    private LocalDate end_date;
+    private String state;
+    private String party; 
+    private String position;
 
-
-	//METHODS
-	//These come from those 'specialized behaviors' or attributes we realized we didn't need to store and could recalculate on the fly:
-	public int getLengthOfTermInDays() {
-
-	}
-
-	public boolean isCurrentlyActive() {
-		return start_date.isBefore(LocalDate.now()) && end_date.isAfter(LocalDate.now());
-
-	}
-	
 
 }

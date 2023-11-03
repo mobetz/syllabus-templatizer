@@ -1,7 +1,4 @@
 
-import java.time.LocalDate;
-import java.io.FileNotFoundException;
-
 /*
 Objectives for Today
 
@@ -10,9 +7,10 @@ By the end of today, you will be able to:
     * Analyze common concerns that might indicate the need for a factory method.
     * Write static factory methods for our own classes.
     * Identify existing Java classes that use static factory methods.
-*/
 
-/*
+
+
+Vocabulary for the Day
   
  Factory - A 'factory' in programming refers to a group of instructions that are responsible for the creation
  of other objects, often hiding or replacing a normal constructor. Factories can be implemented either as
@@ -20,17 +18,20 @@ By the end of today, you will be able to:
 
  */
 
+import java.time.LocalDate;
+import java.io.FileNotFoundException;
+
 
 public class Factories {
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args)  {
 
         /*
          Whenever we've wanted to create an object in Java, the constructor has been our go-to tool for 
          bundling all the required details into a single variable:
          */
 
-        Student some_student = new Student("Jae", "Freeman", 19, 1);
+         Student some_student = new Student("Jae", "Freeman", 19, 1);
 
 
         /*
@@ -39,20 +40,18 @@ public class Factories {
          a single string with all the student details.
 
          Our first strategy might be to try and overload the constructor with a second pattern for creating students:
-         */ 
+         */
 
-
-        String student_as_text = "Carol,Chu,20,1";
-        Student parsed_student = new Student(student_as_text);
+         String student_as_text = "Carol,Chu,20,1";
+         Student parsed_student = new Student(student_as_text);
 
         System.out.println("Carol's email is: " + parsed_student.generateEmail()); 
 
-
-        String bad_data = "Harold,Levin,apple,3.2132,100,100,100";
-        Student what_does_this_create = new Student(bad_data);  //<- when I call this constructor with 'junk' data, I still get a student
-
+        String bad_data = "Harold";
+        Student what_does_this_create = new Student(bad_data); //<- when I call this constructor with 'junk' data, I still get a student
 
         //...However, just like when we were learning about constructors, this student might break if I try to use him:
+
         //String bad_email = what_does_this_create.generateEmail();  //java.lang.NullPointerException: "this.first_name" is null
         //System.out.println("The fake student's email address is: " + bad_email);
 
@@ -66,8 +65,10 @@ public class Factories {
         This is the idea behind the 'Factory' pattern -- my function will work like a factory that should produce working Students
         when given the proper inputs, but it has the flexibility to return a dummy value or null when creation fails.
 
+
         We need to decide where to put this 'factory' method. Since it's still related to students, Student.java seems like a good
         fit. Since we won't have a student yet when we're making a new student, we should declare this new factory as static! 
+    
         */
 
         Student possible_student = Student.parse(bad_data);
@@ -77,7 +78,7 @@ public class Factories {
         Now, when student creation fails, the entire object doesn't get created:
         */
         if ( possible_student != null ) {
-            //In here, I know my student was produced with valid data, and it will only run when the factory succeeded:
+            //In here, I know my student was produced with valid data, and this code will only run when the factory 'succeeded':
             String email = possible_student.generateEmail(); 
             System.out.println("The fake student's email address is: " + email);
         }
@@ -105,7 +106,8 @@ public class Factories {
         We can even create multiple specialized factories that let us build objects from different sources, or build whole
         arrays of objects at once:
         */
-        Student load_from_file = Student.fromFile("student.sdt");
+
+       Student loaded_from_file = Student.fromFile("student.sdt");
 
         if ( load_from_file != null ) {
             System.out.println("The student who was loaded from file has the email address: " + load_from_file.generateEmail());
@@ -115,15 +117,6 @@ public class Factories {
         if ( non_existent_student != null ) {
             System.out.println("The student who was loaded from file has the email address: " + load_from_file.generateEmail());
         }
-
-
-
-        Student[] my_class = Student.fromCourseRosterFile("roster.rst");
-
-        System.out.println("The loaded roster has: " + my_class.length + " students. Their emails are:");
-        for ( Student next : my_class ) {
-            System.out.println("  - " + next.generateEmail());
-        }
         
         
         /*
@@ -131,5 +124,4 @@ public class Factories {
         */
 
     }
-
 }
