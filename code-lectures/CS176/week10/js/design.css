@@ -1,0 +1,25 @@
+
+body {
+    background: hsl(250, 100%, 80%);
+}
+
+section {
+
+    color:  hsl(250, 100%, 95%);
+    background: hsl(250, 10%, 15%);
+    width: 90%;
+    margin: auto auto 2em;
+    padding: 2em;
+}
+
+img {
+    max-width: min(80%, 400px);
+    display: block;
+    margin: 1em auto;
+}
+
+a {
+    color: hsl(250, 100%, 70%);
+    text-decoration: none;
+}
+

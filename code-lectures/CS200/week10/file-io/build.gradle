@@ -1,8 +1,8 @@
+
 plugins {
     id "java"
     id "application"
 }
-
 
 
 compileJava.dependsOn(processResources)
@@ -12,5 +12,5 @@ jar.manifest {
 }
 
 
-sourceSets.main.java.srcDir(".");
+sourceSets.main.java.srcDir("src");
 sourceSets.main.resources.srcDir("resources")
