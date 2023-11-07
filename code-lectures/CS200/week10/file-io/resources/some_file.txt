@@ -1,0 +1,3 @@
+Spot,Dalmation,7
+Pumpkin,Tabby,3
+Chirps,Parrot,20

@@ -1,0 +1,16 @@
+plugins {
+    id "java"
+    id "application"
+}
+
+
+
+compileJava.dependsOn(processResources)
+mainClassName='Main'
+jar.manifest {
+    attributes "Main-Class": "Main"
+}
+
+
+sourceSets.main.java.srcDir(".");
+sourceSets.main.resources.srcDir("resources")
