@@ -5,14 +5,10 @@ that counts up every time we add a thing, using the current value of the counter
 decide what slot to push something into:
 */
 
-
-
-
 public class NumberStorer {
 
 
 	//ATTRIBUTES
-
 	private int[] arr;
 	private int count;
 
@@ -22,14 +18,18 @@ public class NumberStorer {
 
 	public NumberStorer() {
 		this.arr = new int[25];
-		this.count = 0;
+		this.count = 0; //<- originally, there's nothing in the list so far
 	}
 
 
 	public void add(int new_num) {
 		this.arr[this.count] = new_num; //<-add the thing into the first empty slot
 		this.count = this.count + 1; //<- now there is one more thing stored, point to the *new* empty slot
+
 	}
+
+
+
 
 
 	/*
@@ -43,12 +43,16 @@ public class NumberStorer {
 		To "remove" something from an array, we would just need to 
 		slide everything after it forward one position in the array:
 		*/
-		for ( int i=slot_num; i<this.count-1; i++) { //<- start at the slot being removed, go to one before the first empty slot
-			this.arr[i] = this.arr[i+1]; //<- take the next slot, move it back into the current slot 
+		for (int i = slot_num+1; i<this.count; i++) { //<- start at the slot being removed, go to one after the first empty slot
+			this.arr[i-1] = this.arr[i];  ; //<- take the next slot, move it back into the current slot 
+
 		}
 
+
 		this.count = this.count - 1;
+
 	}
+
 
 
 	public int get(int slot) {
@@ -56,11 +60,9 @@ public class NumberStorer {
 	}
 
 
-
 	public int size() {
 		return this.count;
 	}
-
 
 
 }
