@@ -1,4 +1,9 @@
 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
+import java.util.Scanner;
+import java.util.concurrent.Executors;
 
 /*
 Objectives for Today
@@ -9,15 +14,11 @@ By the end of today, you will:
    * Get more practice with file access objects.
 */
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.StandardOpenOption;
-import java.util.Scanner;
-import java.util.concurrent.Executors;
+
 
 public class Main {
+    public static void main(String[] args) {
 
-	public static void main(String[] args) {
 		/*
 		Last class, we learned about several different ways to interact with files on our computer:
 
@@ -34,13 +35,17 @@ public class Main {
 		     * Having an event log monitoring multiple different components
 		     * Having your program detect when uploads or other long running tasks are making progress
 
+
 		  All of these tasks require that our program know of a way to "watch" a file, and "listen" for changes.
 		  Today we are going to see one way we could implement such behavior, by creating a FileListener class:
 		 */
 
-		File target_file = new File("watched_file.txt"); //<- if I decide I want to watch this one specific file
+        File target_file = new File("watched_file.txt"); //<- if I decide I want to watch this one specific file
 
-		FileListener l = new FileListener(target_file); //<- I can give that file to the FileListener I've written in FileListener.java
+        FileListener l = new FileListener(target_file); //<- I can give that file to the FileListener I've written in FileListener.java
+
+        //l.run(); //<- if I write this, I'm saying "stop everything and go watch for changes to the file"
+
 
 		/*
 		Since our FileListener implements Runnable, we can tell it to go off on its own and "run" in its own
@@ -50,24 +55,26 @@ public class Main {
 		This is actually a very basic example of creating programs with multiple "threads" of execution!
 		 */
 
-		Executors.newSingleThreadExecutor().submit(l);
+        Executors.newSingleThreadExecutor().submit(l);
 
 		/*
 		Now, I can make a small block of code to write to my file, and watch those changes get announced in my Listener:
 		 */
 
-		Scanner s = new Scanner(System.in);
-		System.out.print("Enter a username: ");
-		String username = s.nextLine();
+        Scanner s = new Scanner(System.in);
+        System.out.print("Enter a username: ");
+        String username = s.nextLine();
 
-			while ( true ) {
-				try {
-					String input = username + " >> " + s.nextLine() + "\n";
-					Files.writeString(target_file.toPath(), input, StandardOpenOption.APPEND);
-				} catch ( Exception e) {
-					System.out.println("Failed to write to file:" + e.getMessage());
-				}
-			}
+        while ( true ) {
+            String input = s.nextLine();
+            try {
+                String file_addition = username + " >> " + input + "\n";
+
+                Files.writeString(target_file.toPath(), file_addition, StandardOpenOption.APPEND);
+            } catch ( IOException e ) {
+                System.err.println("Failed to write to file: " + e.getMessage());
+            }
+        }
 
 			/*
 			If I were feeling extra creative, I could even run two copies of this program at once and have them
@@ -75,5 +82,6 @@ public class Main {
 			communication on some operating systems (like Linux!)
 			 */
 
-	}
+
+    }
 }
