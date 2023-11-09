@@ -1,0 +1,5 @@
+Evil Twin >> hello
+Prof. Obetz >> hi there!
+Evil Twin >> how are you?
+Prof. Obetz >> i can chat
+Evil Twin >> like this
