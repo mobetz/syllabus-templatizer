@@ -19,25 +19,16 @@ public class DictionaryLoader {
 	}
 
 
+	public List<String> load_dictionary() throws IOException {
+		List<String> all_words = new ArrayList<String>();
 
+		Scanner word_reader = new Scanner(new File(this.filepath));
+		while ( word_reader.hasNextLine() ) {
+			String next_word = word_reader.nextLine();
+			next_word = next_word.toLowerCase();
+			all_words.add(next_word);
+		}
 
-
-    public List<String> load_dictionary() throws IOException {
-
-    	List<String> all_words = new ArrayList<String>();
-
-        Scanner word_reader = new Scanner(new File(this.filepath));
-
-
-        while ( word_reader.hasNextLine() ) {
-        	String next_word = word_reader.nextLine();
-            next_word = next_word.toLowerCase();
-            all_words.add(next_word);
-        }
-
-        return all_words;
-
-    }
-
-
+		return all_words;
+	}
 }

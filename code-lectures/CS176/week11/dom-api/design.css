@@ -1,0 +1,105 @@
+
+body {
+    background: hsl(250, 100%, 80%);
+}
+
+section {
+
+    color:  hsl(250, 100%, 95%);
+    background: hsl(250, 10%, 15%);
+    width: calc(90% - 200px);
+    margin: auto auto 2em 200px;
+    padding: 2em;
+}
+
+
+
+img {
+    max-width: min(80%, 400px);
+    display: block;
+    margin: 1em auto;
+}
+
+a {
+    color: hsl(250, 100%, 70%);
+    text-decoration: none;
+}
+
+nav {
+    display: block;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 200px;
+}
+
+nav > ul {
+    text-decoration: none;
+    list-style: none;
+}
+
+nav li {
+    display: block;
+    border: 1px solid;
+    padding: 20px;
+    display: block;
+    color: black;
+    background-color: white;
+}
+
+
+header > div {
+    display: inline-block;
+    padding: 10px;
+    margin: 3px;
+    background-color: white;
+    color: black;
+}
+
+header {
+    margin-left: 220px;
+    width: calc(90% - 200px);
+    overflow: visible;
+    position: relative;
+}
+header > div > ul {
+    display: none;
+    position: absolute;
+    top: 0;
+    background-color: white;
+    padding: 20px;
+
+}
+
+header > div {
+    position: relative;
+}
+
+header > div:hover > ul {
+    display: block;
+}
+
+#search {
+    position: absolute;
+    right: 20px;
+}
+
+
+#objectives > h3 {
+    animation: scroll 20s linear infinite;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(90%);
+    }
+    100% {
+        transform: translateX(20%);
+    }
+}
+
+
+#carousel > img {
+    display: none;
+}
