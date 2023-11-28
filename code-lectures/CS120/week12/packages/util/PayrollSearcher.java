@@ -1,9 +1,3 @@
-/*
-    - Ask a person for their total salary across all jobs.
-    - Ask a person how many jobs they hold.
-    - Ask a person the title of their highest earning job.
-    - Represent a whole person as a string (including all their job titles and their total salary)
- */
 
 package util;
 

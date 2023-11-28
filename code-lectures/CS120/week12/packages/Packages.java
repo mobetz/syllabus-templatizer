@@ -1,6 +1,5 @@
 
 
-
 /*
 
 Objectives for Today
@@ -16,16 +15,19 @@ By the end of today, you will:
  */
 
 
+
+
 import java.io.FileNotFoundException;
 import java.util.List;
-
 
 import data.loader.PayrollLoader; //<- treat PayrollLoader like it was in this folder
 import data.model.*; //<- the * here says "grab every single file in that package."
 
-public class Packages {
 
+
+public class Packages {
     public static void main(String[] args) throws FileNotFoundException {
+
         /*
         This semester, every single program that we've written has had all of its code live side by side in a single 'source' directory,
         normally the root folder of our project. This works well enough for small programs that only have one or two classes, but can
@@ -37,6 +39,7 @@ public class Packages {
         data.
 
 
+
         Let's try sorting the code files from that project so that our data model classes, data loading classes, and helper classes are
         split up into separate folders.
 
@@ -46,9 +49,6 @@ public class Packages {
               │   ├── Job.java
                   ├── PayrollSearcher.java
                   └── Packages.java
-
-
-
 
               ├── data
               │ ├── loader
@@ -76,6 +76,8 @@ public class Packages {
         List<Employee> employees = loader.load();
         */
 
+
+
         /*
          Packages.java:56: error: cannot find symbol
          PayrollLoader loader = new PayrollLoader("resources/2022-payroll.csv");
@@ -85,10 +87,10 @@ public class Packages {
 
          Our PayrollLoader class is right there, but javac can't see it when we try to compile our code!
 
+
          In Java, when we use folders to organize our code, we create what are called "packages"-- a package is just 
          a bundle of related files that exists in its own 'name space'.  You can think of this like giving your class 
          a category name or a tag that prefixes the actual class name.
-
 
          Historically, Java liked people to name these packages after the website where people could download the code, 
          with each part of the web address listed in reverse (this is why a lot of packages have names like 
@@ -106,7 +108,7 @@ public class Packages {
         by listing out the whole package path before the name of our class:
          */
 
-        data.loader.PayrollLoader loader =  new data.loader.PayrollLoader("resources/2022-payroll.csv");
+        data.loader.PayrollLoader loader = new data.loader.PayrollLoader("resources/2022-payroll.csv");
         List<data.model.Employee> employees = loader.load();
 
 
@@ -125,6 +127,7 @@ public class Packages {
         System.out.println(first_employee.toString());
 
 
+
         /*
         The imports we've been writing all semester work no differently. When you import java.util.ArrayList, 
         what you're actually telling Java to do is:
@@ -132,14 +135,12 @@ public class Packages {
                 - navigate to the ./util/ folder inside that base directory
                 - Treat the ArrayList.java file there as if it were part of my current package
 
-          If we wanted to, we could even go look at the source code for ArrayList:
-                  https://github.com/openjdk/jdk/tree/master/src/java.base/share/classes
 
          In fact, we can even use the 'fully qualified' names of packages we haven't imported, the same way we did 
          when we specified data.model.Employee:
          */
 
-        java.util.ArrayList<java.lang.Integer> list_of_numbers = new java.util.ArrayList<>();  //<- I never imported ArrayList, but I'm still using it!
+        java.util.ArrayList<java.lang.Integer> list_of_numbers = new java.util.ArrayList<>(); //<- I never imported ArrayList, but I'm still using it!
 
         list_of_numbers.add(3);
         list_of_numbers.add(4);
@@ -155,8 +156,8 @@ public class Packages {
            One of the nice things about packages is that they let us use the same name for classes that live in different packages.
            For example, if we wanted to we could have a data.model.Employee, and a http.request.Employee that represented an employee
            in different parts of our program. Both files would be named Employee.java, but Java would be able to tell them apart!
-       
-           (NOTE: it can still be inconvenient to do this if you're likely to use both in the same file.) 
+
+           (NOTE: it can still be inconvenient to do this if you're likely to use both in the same file.)
 
 
            This can even help us write more succinct class names -- if I were creating a bunch of classes named things like
@@ -166,17 +167,21 @@ public class Packages {
 
         */
 
+
+
         /*
         One last thing we can mention about packages: sometimes it makes sense to have extra documentation around your package that describes what the purpose
         of a folder is for or how to use the classes inside. We looked at a tool called JavaDoc that can help us write descriptions and generate a webpage that
         describes how to use our code. Let's make a package-info for data.model, and see that package-level documentation in action!
          */
 
+
         
         /*
         Packages let us provide a bit more organization to our code, and can help us more clearly and succinctly describe the name and role of classes we create.
         Next class we'll see how we can take packages a step further by creating modules that describe "public" and "private" parts of packages!
          */
+
 
     }
 }

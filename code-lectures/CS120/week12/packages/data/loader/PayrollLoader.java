@@ -1,6 +1,6 @@
 
 
-package data.loader; //<- this here says that this file is inside the ./data/loader/ folder, inside our source root
+package data.loader; //<- this line here says that this file is inside ./data/loader/FILE, relative to the source root.
 
 /*
 Notice: Java uses dots to indicate folders instead of slashes -- this means the symbol will be the same on Windows, Mac,
@@ -10,6 +10,7 @@ and Linux (but also means you must be careful not to use dots in your actual fol
 
 import data.model.Employee;
 import data.model.Job;
+
 
 import java.util.Scanner;
 import java.io.File;

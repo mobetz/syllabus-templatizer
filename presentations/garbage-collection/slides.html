@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Garbage Collection</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.0.2/reveal.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.0.2/plugin/highlight/monokai.min.css">
+  <link rel="stylesheet" href="../slide-theme.css">
+
+
+  <script type="module" src="../../client/third-party.js"></script>
+
+
+
+</head>
+<body>
+<div class="reveal">
+<main class="slides">
+
+  <section class="title-slide">
+    <h1>Garbage Collection</h1>
+  </section>
+
+    <section>
+        <h2 class="slide-title">Objectives for Today</h2>
+        <div class="spaced">
+            <p>By the end of today, you will...</p>
+            <ul>
+                <li>Identify the concept of <span class="term">garbage collection</span>.</li>
+                <li>Describe how heap allocated memory can be <span class="term">reference counted</span>.</li>
+                <li>Understand Java's <span class="term">mark-sweep</span> algorithm for garbage collection.</li>
+                <li>Analyze how <span class="term">generational marking</span> can enhance mark-sweep garbage collection.</li>
+            </ul>
+        </div>
+    </section>
+
+
+    <section>
+        <h2 class="slide-title">Reviewing the Heap</h2>
+
+        <div style="display: grid; grid-template-columns: 800px 1fr;">
+            <div style="height: 80%; padding: 20px; padding-top: 30%; background-color: hsl(1, 0%, 90%);  border: 2px solid black; align-content: center">
+                <img src="images/heap-vs-stack.svg">
+            </div>
+            <div class="spaced">
+                <p>Remember, if a variable <span class="term">points to an object or array</span>, we allocate space on the <span class="term">heap</span>.</p>
+
+                <p class="fragment">Any time we pass such a variable into a function, we actually pass a <span class="term">
+                    reference</span> to that location on the heap.</p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section>
+        <h2 class="slide-title">Reviewing the Heap</h2>
+
+        <div style="display: grid; grid-template-columns: 800px 1fr;">
+            <div style=" padding: 20px; padding-top: 30%; padding-bottom: 30%; background-color: hsl(1, 0%, 90%);  border: 2px solid black; align-content: center">
+                <img src="images/heap-vs-stack.svg">
+            </div>
+            <div class="">
+                <p>"Cleaning up" stack variables was easy -- when a stack frame is complete, all variables get <span class="term">popped</span>.</p>
+
+                <p class="fragment">However, we had a problem doing this with the heap...</p>
+
+                <p class="fragment">The entire point was that the heap outlives any particular function!</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section>
+        <h2 class="slide-title">Reviewing the Heap</h2>
+
+        <p> The main topic of today is going to be how we can handle cleaning up this memory!</p>
+
+        <p>But first... why do we need to clean up the heap at all?</p>
+        <p class="fragment">If we didn't clean up memory, our program would use more and more space as it continued running!</p>
+    </section>
+
+    <section>
+        <h2 class="slide-title">Garbage Collection</h2>
+
+        <div class="spaced">
+            <p>Since we need to do <span class="term">something</span> to tell when memory is ready to be freed, we must first brainstorm
+                what constitutes the "end of life" for a variable.</p>
+
+            <div class="r-stack">
+                <p class="fragment fade-out" data-fragment-index="0">When can we tell that a variable is ready to be <span class="term">garbage collected</span>?</p>
+                <p class="fragment" data-fragment-index="0">A variable is ready to be collected if nothing points to it.</p>
+            </div>
+            <p class="fragment">Once a variable has no live refrences remaining, it is ready to be deleted <span class="fragment">(because there's
+        no way to ever 'get back' a live reference to already reserved memory.) </span></p>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="slide-title">The Mark-Sweep Algorithm</h2>
+
+        <div class="spaced">
+            <p>In Java, this reference tracing happens using what's called the <span class="term">Mark-and-Sweep algorithm</span>.</p>
+
+            <p>Mark and sweep happens in two steps:</p>
+            <ol>
+                <li class="fragment">We need to <span class="term">mark</span> every object still in use.</li>
+                <li class="fragment">Afterward, we <span class="term">sweep</span> up any object that isn't marked.</li>
+            </ol>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="slide-title">The Mark-Sweep Algorithm</h2>
+
+        <div style="display: grid; grid-template-columns: 800px 1fr;">
+            <img src="images/mark-and-sweep.PNG" style="align-self: center">
+            <div>
+                <p>When java prepares for a mark-and-sweep, it first <span class="term">"Stops the world"</span>, pausing
+                    all instructions for a split second.</p>
+                <p class="fragment">Then, it starts iterating through every currently allocated variable on both the stack and heap.</p>
+                <p class="fragment">Whenever a stack variable points to something on the heap, that heap object is <span class="term">marked</span>
+                    Anything left unmarked at the end is unused!</p>
+            </div>
+        </div>
+    </section>
+    <section>
+        <h2 class="slide-title">The Mark-Sweep Algorithm</h2>
+
+        <div style="display: grid; grid-template-columns: 800px 1fr;">
+            <img src="images/sweep.PNG" style="align-self: center">
+            <div>
+                <p>Once all the marked objects have been identified, they can be removed!</p>
+                <p class="fragment">The memory of the heap is freed, leaving us with empty spaces where those objects once resided.</p>
+                <p class="fragment">This leaves us with many small holes in the allocations we've made (a kind of
+                    <span class="term">memory fragmentation</span>.) This isn't great, because new objects might not fit.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="slide-title">The Mark-Sweep Algorithm</h2>
+
+        <div style="display: grid; grid-template-columns: 800px 1fr;">
+            <img src="images/compact.PNG" style="align-self: center">
+            <div>
+                <p>Just like a disk defragmentor, Java fixes this by compacting the remaining objects.</p>
+                <p class="fragment">Each object is copied forward to fill in the blank space in front of it.</p>
+                <p class="fragment">This means after garbage collection, java only needs to keep track of one location
+                    to allocate its next heap object at any time.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="slide-title">Generational Sweeps</h2>
+
+        <div class="spaced">
+            <p>Now we've discussed <span class="term">how</span> the garbage collector works, but we still haven't figured
+            out <span class="term">when</span> it works.</p>
+            <p>Especially since Java needs to "stop the world" every time it runs garbage collection, it wants to make
+            sure it is doing sweeps as efficiently as possible.</p>
+            <p>To figure out what would make garbage collection more efficient, Java engineers turned to the data.</p>
+        </div>
+    </section>
+
+
+    <section>
+        <h2 class="slide-title">Generational Sweeps</h2>
+
+        <div style="display: grid; grid-template-columns: 800px 1fr;">
+            <div style=" padding: 20px; background-color: hsl(1, 0%, 90%);  border: 2px solid black; align-content: center">
+                 <img src="images/lifecycle.gif" style="align-self: center; margin-top: 15%">
+            </div>
+            <div>
+                <p>When Java engineers observed what objects end up marked, they noticed an interesting observation...</p>
+                <p class="fragment">Most Java programs create very many <span class="term">short-lived</span> objects,
+                    and a few <span class="term">near-permanent</span> objects.</p>
+                <p class="fragment">This means we should pay the most attention to newer objects!</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="slide-title">Generational Sweeps</h2>
+
+        <div style="display: grid; grid-template-columns: 800px 1fr;">
+            <img src="images/generations.PNG" style="align-self: center">
+            <div>
+                <p>To take advantage of this, Java divides its heap into a few sections:</p>
+                <ul>
+                    <li class="fragment">An <span class="term">eden space</span> for brand new allocations.</li>
+                    <li class="fragment">A <span class="term">young generation</span> for objects that haven't yet "proven their worth".</li>
+                    <li class="fragment">A <span class="term">tenured generation</span> for objects that have survived many sweeps.</li>
+                </ul>
+
+            </div>
+        </div>
+    </section>
+    <section>
+        <h2 class="slide-title">Generational Sweeps</h2>
+
+        <div style="display: grid; grid-template-columns: 800px 1fr;">
+            <img src="images/generations.PNG" style="align-self: center">
+            <div>
+                <p>Notice that there are two <span class="term">survivor spaces</span> in the young generation.</p>
+                <p>Each time garbage collection is run, one of the two survivor spaces gets used as the place to copy
+                heap objects with valid references, and anything left over in the other is wiped.</p>
+                <p>This is how Java efficiently marks and sweeps!</p>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="slide-title">Generational Sweeps</h2>
+
+        <div style="display: grid; grid-template-columns: 800px 1fr;">
+            <img src="images/eden.PNG" style="align-self: center">
+            <div>
+                <p>When your Java program is running, all new objects you construct get added to <span class="term">eden
+                    space</span></p>
+
+                <p>Eventually, eden space has no room left -- this signals to Java that it's time to run a <span class="term">
+                    minor garbage collection event.
+                </span></p>
+
+                <p>In the minor event, Java will only look at objects in the <span class="term">young generation</span>.</p>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="slide-title">Generational Sweeps</h2>
+
+        <div style="display: grid; grid-template-columns: 800px 1fr;">
+            <img src="images/marking.PNG" style="align-self: center">
+            <div>
+                <p>At this point, Java designates one of the two survivor spaces as the "to survivor" space.</p>
+                <p class="fragment">It will loop through all stack references (and references of those references) to find a pointer to
+                young objects.</p>
+                <p class="fragment">When a reference is found, that object is <span class="term">moved</span> to the "to"
+                survivor space.</p>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="slide-title">Generational Sweeps</h2>
+
+        <div style="display: grid; grid-template-columns: 800px 1fr;">
+            <img src="images/marking.PNG" style="align-self: center">
+            <div>
+                <p>Once this process is complete, any objects who made it to the survivor space get one 'point' on their
+                generation counter.</p>
+                <p class="fragment">Afterward, eden space and the "from" survivor space can both be <span class="term">swept</span>,
+                because anything left over had no references.</p>
+                <p class="fragment">The next time <span class="term">eden space fills</span>, the two survivor spaces swap
+                roles and the process repeats!</p>
+
+            </div>
+        </div>
+    </section>
+    <section>
+        <h2 class="slide-title">Generational Sweeps</h2>
+
+        <div style="display: grid; grid-template-columns: 800px 1fr;">
+            <img src="images/promotion.PNG" style="align-self: center">
+            <div>
+                <p>Eventually, a long-lived survivor will have accumulated many generational points.</p>
+                <p class="fragment">At this point, instead of being copied to the "to" survivor space, he gets copied
+                to the tenured space in the old generation.</p>
+                <p class="fragment">Then, Java will no longer check him when minor events occur. (If the tenured space
+                fills up, this can still cause a <span class="term">major event</span> where <em>everything</em> must be
+                checked.)</p>
+
+            </div>
+        </div>
+    </section>
+
+
+    <section>
+        <h2 class="slide-title">Generational Sweeps</h2>
+
+        <p>The generational sweep algorithm ensures the JVM places most of its focus on the newest objects.</p>
+        <p>As long as the heap is large enough, major events rarely if ever occur during the life of
+        the program.</p>
+        <p>This means some old objects <span class="term">may leak</span> for a short period of time, but never
+        at a time that that memory is otherwise needed.</p>
+
+    </section>
+
+    <section>
+        <h2 class="slide-title">Other Garbage Collection Algorithms</h2>
+
+        <p>Generational sweeping is not the only garbage collection algorithm.</p>
+        <p> Some languages like C have <span class="term">reference counted pointers</span>, where an object instead
+            keeps count of how many things reference it. When that count hits 0, the object is destroyed.</p>
+        <div class="r-stack">
+            <p class="fragment fade-out" data-fragment-index="0">What might be one weakness of this approach?</p>
+            <p class="fragment" data-fragment-index="0">With reference counting, <span class="term">circular references</span> like
+            our linked list "ring" all keep each others counters from ever hitting zero!</p>
+        </div>
+        <p class="fragment" data-fragment-index="1">Java doesn't have to worry about this, because an object that cannot
+        be accessed from a "garbage root" won't be marked!</p>
+
+    </section>
+
+
+
+    <section>
+        <h2 class="slide-title">Summary</h2>
+
+        <p><span class="term">Garbage collection</span> helps us track when heap allocated memory can be cleaned up.</p>
+        <p> Java uses a <span class="term">mark-and-sweep</span> algorithm to find what objects not referenced anywhere
+        to mark those objects for collection.</p>
+        <p>By using a <span class="term">generational counter</span>, Java ensures it spends most of its effort on objects
+        that are short lived (and thus more likely to be collected.)</p>
+
+    </section>
+</main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.0.2/plugin/highlight/highlight.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.0.2/reveal.js"></script>
+
+<script type="module" src="../slides-settings.js"></script>
+</body>
+</html>

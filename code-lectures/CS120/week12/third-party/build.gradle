@@ -14,6 +14,8 @@ Inside each block, we write properties we want to configure and give them string
  */
 
 
+
+
 /*
 The first block in every build.gradle file is the list of plugins. This sets what features the rest of our configuration
 file will have. At minimum, we should always include id 'java' for java projects.
@@ -21,10 +23,13 @@ file will have. At minimum, we should always include id 'java' for java projects
 We'll also add id 'application' so we can write instructions for running our code:
  */
 
+
+
 plugins {
     id 'java'
     id 'application'
 }
+
 
 
 /*
@@ -34,15 +39,23 @@ mavenCentral() will give us access to the Maven Central repo:
  */
 
 
+
 repositories.mavenCentral();
+
+
 
 /* Then, we list off each third party library we want it to download: */
 dependencies.implementation("org.apache.commons:commons-csv:1.10.0");
 
-
 /* Finally, we have to give Gradle some details about where our code lives, and which file contains the main entrypoint:  */
 
+
 sourceSets.main.java.srcDirs(".");
-sourceSets.main.resources.srcDirs("resources")
+sourceSets.main.resources.srcDirs("resources");
+
 
 application.mainClass = "ThirdParty"
+
+
+tasks.named("compileJava") { dependsOn(tasks.named("processResources")) }
+run { standardInput = System.in }

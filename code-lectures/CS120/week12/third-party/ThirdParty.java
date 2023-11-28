@@ -1,5 +1,4 @@
 
-
 /*
 Objectives for Today
 
@@ -9,6 +8,7 @@ By the end of today, you will:
   * Describe the parts of the build.gradle manifest.
   * Practice using third party libraries to solve real problems.
  */
+
 
 
 /*
@@ -31,7 +31,9 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
+
 import java.io.File;
+import java.util.Scanner;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -39,8 +41,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 
+
 public class ThirdParty {
     public static void main(String[] args) throws IOException {
+
+
         /*
         So far this semester, all of the code we have written has been fairly self-contained.
 
@@ -52,7 +57,6 @@ public class ThirdParty {
 
         Today, we are going to learn how to use this code in our own projects.
 
-
         We call these packages of code that other people have written "third party" code ("first party" being code we
         have written ourselves.) In order to find what "third party" libraries of code exist, we need to check a
         software repository.
@@ -61,8 +65,6 @@ public class ThirdParty {
 
         Let's try searching this repository to see if we can find a solution to help us figure out how to read a CSV file 
         with weather reports.
-
-       It looks like there are many matches!
 
        Let's go with the Apache Commons CSV-Parser.
 
@@ -73,12 +75,8 @@ public class ThirdParty {
        to find this code (because remember, it's not shipped with Java by default.)
         */
 
-              List<CSVRecord> list_of_reports = getRecordsFromPath("resources/boston_weather.csv");
 
-            CSVRecord first_report = list_of_reports.get(0);
-            String temp = first_report.get("TMAX");
-            String date = first_report.get("DATE");
-            System.out.println("Here's the first report: " + temp + "F on " + date);
+
 
 
       /*
@@ -90,17 +88,19 @@ public class ThirdParty {
 
            javac -cp ".;lib/*" Main.java
 
+
         This example says "to find the classes I use, first look in the . folder (the current directory), and 
         then afterward check everything in the ./lib/ directory." Running Java works the same way.
         (Note: In windows these commands will use semi-colons to separate folders, but on some Mac and Linux systems 
         they will use colons instead.)
 
-
         However, writing this extra command line option when compiling our code can be a hassle. Another option we 
         have is to use a 'build configuration tool'.
 
+
         If you ever hear about programs called "Ant" or "Maven", these are two of the longest-lived build configuration
         tools. Today, we're going to learn about their newer sibling: Gradle.
+
 
 
         To turn our project into a "Gradle" project, two things have to be true:
@@ -120,28 +120,55 @@ public class ThirdParty {
 
 
 
-            LocalDate find_weather_on_date = LocalDate.of(1991, 9, 18);
+              List<CSVRecord> list_of_reports = getRecordsFromPath("resources/boston_weather.csv");
 
-            for ( CSVRecord next_record :  list_of_reports ) {
+              CSVRecord first_report = list_of_reports.get(0);
+              String temp = first_report.get("TMAX");
+              String date = first_report.get("DATE");
+
+            System.out.println("Here's the first report: " + temp + "F on " + date);
+
+
+            /*
+            The powerful thing about libraries is that they let me spend more time working on the unique problems I want to solve:
+            
+            Say my actual task was finding the weather for a particular day:
+            */
+
+            Scanner s = new Scanner(System.in);
+            System.out.print("Enter a date (YYYY-MM-DD): ");
+            String entered_date = s.nextLine();
+            LocalDate user_date = LocalDate.parse(entered_date);
+            /*
+            I don't have to waste time parsing the file, figuring out how to read values out, doing all the 'fiddly bits' before we 
+            get to the real problem solving. I advance immediately to writing that specific logic:
+            */
+
+            for ( CSVRecord next_record : list_of_reports ) {
               String date_as_text = next_record.get("DATE");
               LocalDate next_date = LocalDate.parse(date_as_text);
-              if ( next_date.isEqual(find_weather_on_date) ) {
-                  String temp_as_text = next_record.get("TMAX");
-                  System.out.println("On " + find_weather_on_date + ", the weather was: " + temp_as_text + " degrees farenheit.");
+
+              if ( next_date.isEqual(user_date) ) {
+                String that_days_high = next_record.get("TMAX");
+                System.out.println(" On " + user_date + ", the weather was: " + that_days_high );
               }
+
             }
 
 
-    }
+
+
+  }
 
 
 
-    public static List<CSVRecord> getRecordsFromPath(String file_location) throws IOException {
+  public static List<CSVRecord> getRecordsFromPath(String file_location) throws IOException {
 
-      File loaded_file = new File(file_location);
 
-        CSVFormat format = CSVFormat.newFormat(',').withHeader().withQuote('\"');
-        CSVParser a_parsed_csv_file = CSVParser.parse(loaded_file, StandardCharsets.UTF_8, format);
+    File loaded_file = new File(file_location);
+
+    CSVFormat format = CSVFormat.newFormat(',').withHeader().withQuote('\"');
+    CSVParser a_parsed_csv_file = CSVParser.parse(loaded_file, StandardCharsets.UTF_8, format);
 
          /*
             This CSVParser replaces all the 'loader' code we wrote with a few short function calls!
@@ -150,7 +177,7 @@ public class ThirdParty {
             we can focus on the tasks that make our program unique.
         */
 
-        return a_parsed_csv_file.getRecords();
+    return a_parsed_csv_file.getRecords();
 
-    }
+  }
 }
