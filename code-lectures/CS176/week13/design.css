@@ -1,0 +1,71 @@
+
+body {
+    background: hsl(250, 100%, 80%);
+}
+
+section {
+
+    color:  hsl(250, 100%, 95%);
+    background: hsl(250, 10%, 15%);
+    width: calc(90% - 200px);
+    margin: auto auto 2em 200px;
+    padding: 2em;
+}
+
+img {
+    max-width: min(80%, 400px);
+    display: block;
+    margin: 1em auto;
+}
+
+a {
+    color: hsl(250, 100%, 70%);
+    text-decoration: none;
+}
+
+
+header > div {
+    display: inline-block;
+    padding: 10px;
+    margin: 3px;
+    background-color: white;
+    color: black;
+}
+
+header {
+    margin-left: 220px;
+    width: calc(90% - 200px);
+    overflow: visible;
+    position: relative;
+}
+header > div > ul {
+    display: none;
+    position: absolute;
+    top: 0;
+    background-color: white;
+    padding: 20px;
+
+}
+
+header > div {
+    position: relative;
+}
+
+header > div:hover > ul {
+    display: block;
+}
+
+#slide-content, #fade-content {
+    display: none;
+}
+
+#fade-panel {
+    margin-top: 30px;
+}
+
+#jquery-example > div {
+    width: 80%;
+    padding: 5px;
+    background-color: hsl(250, 50%, 90%);
+    color: hsl(0, 0%, 10%);
+}

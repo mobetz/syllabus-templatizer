@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Frameworks</title>
+    <link rel="stylesheet" href="design.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"  crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+
+    <!-- note: our libraries need to come before our code because the website is going to load our scripts in order.
+    If we want to have access to the functions that are part of jQuery, it needs to be loaded first. -->
+    <script src="frameworks.js"></script>
+
+    <script type="text/babel" src="sidebar.js"></script>
+    <script type="text/babel" src="clicker.js"></script>
+
+</head>
+<body>
+
+<div id="nav-container"></div>
+
+
+<section id="objectives">
+    <h3>Objectives for Today</h3>
+    <p>By the end of today, you will:</p>
+    <ul>
+        <li>Understand how we can import Javascript libraries written by other web developers.</li>
+        <li>Identify a few common functions given to us by the jQuery library.</li>
+        <li>Define React components.</li>
+        <li>Understand how React components allow us to write reusable elements on our web pages.</li>
+    </ul>
+</section>
+
+
+
+<section id="jquery-example">
+    <div id="slide-panel">
+        Click Me to test the slideToggle animation!
+    </div>
+    <div id="slide-content">
+        This content will slide in when we trigger the jQuery click event. <br/>
+        We can even control the speed of the animation.
+    </div>
+
+
+
+    <div id="fade-panel">
+        Click Me to test the fadeToggle animation!
+    </div>
+    <div id="fade-content">
+        This content will fade in when we trigger the jQuery click event. <br/>
+        We can even control the speed of the animation.
+    </div>
+
+
+</section>
+
+
+<section id="content">
+
+</section>
+
+
+
+</body>
+</html>

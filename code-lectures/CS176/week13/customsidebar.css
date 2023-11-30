@@ -1,0 +1,22 @@
+nav {
+    display: block;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 200px;
+}
+
+nav > ul {
+    text-decoration: none;
+    list-style: none;
+}
+
+nav li {
+    display: block;
+    border: 1px solid;
+    padding: 20px;
+    display: block;
+    color: black;
+    background-color: white;
+}

@@ -10,14 +10,31 @@ a module-info 'declares' details about all the files it sees:
    * what code from this module others are allowed to use (what it "exports")
    * what code from this module others are allowed to *read* (what it "opens")
 
-   For example, for our package loading code, we might say:
+
 */
 
 open module Payroll {
+/*	
+		requires javafx.controls;
+		requires javafx.fxml;
+
+		These lines communicate that our module requires the FXML and Controls modules of JavaFX
+*/
+
+
 	exports data.model;
 	exports util;  //<- OUTSIDE THIS MODULE, 
 	               //    you're allowed to use classes from data.model and util, but NOT data.loader
+
+/*
+	opens data.model;
+ 
+ 	This line would say anyone can read the source code inside Java using special java classes.
+	If we want to do that for the whole module all at once, we can put the word "open" before the word module 
+*/
+
 }
+
 
 /*
 
@@ -31,6 +48,7 @@ This says:
   When we want to compile Java code that uses modules, we have to tell Java
   that we want the entire module compiled at once. We do this with two more
   flags to javac:
+
 
 
    --module-source-path tells javac what folder contains the modules
@@ -60,5 +78,4 @@ This says:
    typing 'gradle run' -- we just need to add the module details to build.gradle!
 
 
-*/
-
+     */

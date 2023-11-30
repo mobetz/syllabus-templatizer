@@ -1,5 +1,6 @@
-Evil Twin >> hello
-Prof. Obetz >> hi there!
-Evil Twin >> how are you?
-Prof. Obetz >> i can chat
-Evil Twin >> like this
+Prof. Obetz >> Hello!
+Prof. Obetz >> Is anyone out there?
+Student >> Hello!
+Prof. Obetz >> asfdlkjasdfasdf
+Student >> When I type, everyone can see it
+Prof. Obetz >> gsdkljfsdg

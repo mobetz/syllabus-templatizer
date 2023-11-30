@@ -2,7 +2,8 @@
 **/.gradle/**
 **/build/**
 **/.idea/**
-**/lab1answer/**
+!lab*answer/
+!lab*demo/
 **/*.iml
 **/gradle-wrapper.jar
 **/gradlew*

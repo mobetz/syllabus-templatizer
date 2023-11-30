@@ -1,0 +1,20 @@
+
+
+
+plugins {                                         //<- a list of the features we need from gradle
+    id 'application'                               //<- we want our program to be runnable with "gradle run"
+    id 'java'                                      //<- we want to build and run using javac and java
+    id 'org.openjfx.javafxplugin' version '0.1.0'  //<- this JavaFX plugin will make it easier to declare out dependencies
+}
+
+
+sourceSets.main.java.srcDir("src")                //<- source code will live in an "src" subfolder
+sourceSets.main.resources.srcDir("resources")     //<- resources (including the FXML file and any data files) will live in a "resources" folder
+
+
+repositories.mavenCentral()                       //<- download third party code from the maven repository
+javafx.version = "20"                             //<- for javafx, we want the version 20 libraries
+javafx.modules = ['javafx.fxml', 'javafx.controls'] //<- create dependencies for the fxml and controls modules of javafx for this program
+
+
+application.mainClass = "Main"                   //<- the main class that extends "Application" is Main

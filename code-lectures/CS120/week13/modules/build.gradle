@@ -1,29 +1,30 @@
 
-
 plugins {
    id 'application'
    id 'java'
-   id 'org.beryx.jlink' version '2.23.6'
+   id 'org.beryx.jlink' version '2.23.6'  //<- this extra plugin says "I want to be able to make an .exe out of my source code"
 }
 
 
-
-
 sourceSets.main.java.srcDir("src")
+sourceSets.main.resources.srcDir("resources");
 
+application.mainClass = "main.Modules"; 
 
-//To have gradle learn about our modules, we just do one more thing:
-//  specify the "main module" right alongside the main class
+/*
+Our build.gradle starts off mostly the same. However, once we add modules into the mix, we need a few more details:
 
-application.mainModule = "Payroll"
-application.mainClass = "main.Modules"
+To have gradle learn about our modules, we must specify the main module right alongside the main class:
+*/
+
+application.mainModule = "Payroll";
+
 
 
 /*
 One of the big benefits of modules is that they let us easily turn our java
 code into a binary file (an .exe or .dmg package someone can click on to run
 our code.) This is done with the 'jpackage' command:
-
 
    jpackage --type app-image --input build --module-path build --module Payroll/main.Modules  --name payrollSearcher -d dist
 
@@ -34,6 +35,7 @@ our code.) This is done with the 'jpackage' command:
     ...using the Payroll/main.Payroll file as our entrypoint
     ...to create an executable called payrollSearcher
     ...that we'll save to a "dist" output folder
+
 
 I strongly recommend NOT trying to remember all this manually. Instead, we can have
 gradle do it for us! To do this, all we need to do is add one more plugin to build.gradle:
