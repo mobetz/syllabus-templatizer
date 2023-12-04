@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 Objectives for Today
 
 By the end of today, you will:
-    * Understand the event observer pattern.
+    * Understand the event observer/event listener/event handler pattern.
     * Identify ways that events are implemented in JavaFX.
 
  Vocabulary of the Day
@@ -24,7 +24,9 @@ By the end of today, you will:
  functions when it occurs.
 
  */
+
 public class Main extends Application {
+
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -44,14 +46,13 @@ public class Main extends Application {
         cart.addGrocery("bananas", 1.99);
         cart.addGrocery("apples", 4.99);
 
-        //Our class works as long as we use it correctly....
         System.out.println("Total of bananas + apples: " + cart.getTotalPrice());
 
-        //...But what happens if a grocery changes price?
-        cart.getGroceries().get(0).setPrice(3.99); //<- banana shortage! Price went up!
+        Grocery bananas = cart.getGroceries().get(0); //<- this points to the Grocery already in the cart!
+        bananas.setPrice(4.99); //<- banana shortage! Price went up!
 
         System.out.println("After bananas increased in price, the total is now: " + cart.getTotalPrice());
-        //When we originally run this code, the price doesn't change!
+        //When we originally run this code, the price doesn't change! We modified a Grocery, but ShoppingCart has no way to know!
 
         /*
         In this case, we could solve the problem by computing the total dynamically every time it's asked for, but
@@ -60,7 +61,6 @@ public class Main extends Application {
         In this case, we can use events! In Java, we can implement this behavior with two types:
            * a PropertyChangeSupport object, which knows how to register items and broadcast changes
            * the PropertyChangeListener interface, which describes what happens when a value we're listening to changes
-
 
            Let's go implement a design using these two types in our Grocery and ShoppingList.
 
@@ -90,20 +90,26 @@ public class Main extends Application {
         as part of our current function:
          */
 
-        ListChangeListener<String> listener =
-                (ListChangeListener.Change<? extends String> changes) -> { //<- inside the parentheses we put method params, then an arrow to the function body
-                  while ( changes.next() ) { //<- we can process each change from the Observed List...
-                      for (String name : changes.getAddedSubList()) {          // if it was an added name, show it:
-                          System.out.println("Observed adding: " + name);
-                      }
 
-                      for (String name : changes.getRemoved()) {  // if it was a removed name, show it:
-                          System.out.println("Observed removing: " + name);
-                      }
-                  }
+
+        ListChangeListener<String> listener =
+                (ListChangeListener.Change<? extends String> changes ) -> { //<- inside the parentheses we put method params, then an arrow to the function body
+                    while ( changes.next() ) {  //<- we can process each change from the Observed List...
+                        for ( String name : changes.getAddedSubList() ) { // if it was an added name, show it:
+                            System.out.println("Observed adding: " + name);
+                        }
+
+                        for ( String name : changes.getRemoved() ) { // if it was a removed name, show it:
+                            System.out.println("Observed removing: " + name);
+                        }
+                    }
         };
 
-        names.addListener( listener );
+
+        names.addListener(listener);
+        //This lambda would be the same as us doing:
+           //Listener l = new Listener();
+           //names.addListener(l);
 
         //Now, any time we add or remove a name, our function will fire!
         names.add("Ryan");
@@ -119,14 +125,9 @@ public class Main extends Application {
         controls like Buttons, TextFields, or MenuItem clicks!
          */
 
+        AnchorPane pane = new AnchorPane();
         Button javafx_button = new Button();
         javafx_button.setText("Click me!");
-
-        /*
-        JavaFX controls all support emitting one or more types of "ActionEvents". Like our other event listeners,
-        EventHandlers for ActionEvents are an interface with a single method. This means we can once again write them as
-        a lambda:
-         */
 
         EventHandler<ActionEvent> when_clicked =
                 (ActionEvent e) -> {
@@ -135,36 +136,40 @@ public class Main extends Application {
 
         javafx_button.setOnAction(when_clicked);
 
-        // If we wanted to be even more glib, we could write the lambda right inside the method handler:
-        var counter = new Object() {
+
+        Label text_label = new Label("Hello!");
+        //Our same in-line syntax that works for lambas, also works for creating subclasses of a type right in a variable:
+
+        var counter = new Object() { //<- if I put curly braces after a constructor, I'm saying make me a single-use subclass of Object()
             public int value = 0;
-        };
+        }; //this variable has to be a "var" type, because our single-use subtype of Object doesn't have a name!
 
-        Label text_label = new Label();
-        text_label.setText("Button clicked 0 times.");
-
-        javafx_button.setOnAction((e) -> {
-            counter.value++;
-            text_label.setText("Button clicked " + counter.value + " times.");
+        javafx_button.setOnAction((event) -> {
+            counter.value = counter.value + 1; //<- we cannot reassign stack variables in a Lambda (we don't know that they'll still exist...)
+                                             // however, if we put a changing value in an object on the heap, we can set attributes of that object freely! (because the lambda holds a reference!)
+            text_label.setText("Button clicked " + counter.value  + " times.");
         });
 
 
+
         //Now, if we add these controls to a scene and attach that to our method's stage:
-        AnchorPane pane = new AnchorPane();
         ObservableList<Node> children = pane.getChildren(); //<- an observable list, so when we add things the scene updates!!
                                                             // Every JavaFX control is a subtype of a Node, so we can add them all
-        children.add(text_label);
+
         children.add(javafx_button);
+        children.add(text_label);
 
 
         //Now let's layout our children, make a scene for them, and load that scene on our stage:
         pane.setPrefHeight(200);
         pane.setPrefWidth(300);
-
-        AnchorPane.setLeftAnchor(text_label, 100.0);
         AnchorPane.setLeftAnchor(javafx_button, 125.0);
-        AnchorPane.setTopAnchor(text_label, 40.0);
         AnchorPane.setTopAnchor(javafx_button, 80.0);
+        AnchorPane.setTopAnchor(text_label, 40.0);
+        AnchorPane.setLeftAnchor(text_label, 100.0);
+
+
+
 
         //(Note, we can also do this layout graphically with SceneBuilder and load the resulting FXML with an FXMLLoader)
 
