@@ -18,6 +18,7 @@ Controller - In Java, a "controller" class is the code that makes the objects of
  */
 
 
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
@@ -42,6 +43,7 @@ public class UsingFXML extends Application {
              However, it's very hard to position elements without being able to see them,
              and we have no way to easily design everything at once.
 
+
             This is where FXML comes in. An FXML file is a special document that describes the layout
             for an entire scene, all at once.
 
@@ -52,12 +54,15 @@ public class UsingFXML extends Application {
             Once we've made a Scene we're happy with in SceneBuilder, we can load it with an FXMLLoader:
          */
 
-        FXMLLoader loader = new FXMLLoader( UsingFXML.class.getResource("/Controller.fxml") );
-        AnchorPane root = loader.load();
+        FXMLLoader loader = new FXMLLoader( UsingFXML.class.getResource("/Scene.fxml"));
+        AnchorPane root = loader.load(); //<- this finds every Control in the FXML file, creates objects for each, and gives us back the "root"
+
 
         Scene scene = new Scene(root);
+
         stage.setScene(scene);
         stage.show();
+        
 
         /*
         When we build a scene with FXML, we don't actually have any of the objects that we created to do
