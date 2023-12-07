@@ -1,5 +1,4 @@
 
-
 /*
 Objectives for Today
 
@@ -20,10 +19,21 @@ import java.io.IOException;
 
 
 
+
 public class Main extends Application {
+    public void start(Stage stage) throws IOException { 
 
 
-  public void start(Stage stage) throws IOException {
+    FXMLLoader loader = new FXMLLoader(Main.class.getResource("/Layout.fxml"));
+    Parent root = loader.load();
+
+
+    Controller controller = loader.getController();
+    controller.setStage(stage);
+
+    Scene scene = new Scene(root);
+    stage.setScene(scene);
+    stage.show();
 
       /*
       So far, most of the controls we've been working with have been relatively
@@ -32,7 +42,8 @@ public class Main extends Application {
              * Buttons have a short description and an attached event
              * Labels just have whatever single line of text they should display
 
-These controls are great for enabling interactivity, but they are really
+
+     These controls are great for enabling interactivity, but they are really
      bad at displaying a lot of information. Many of the most useful applications
      we can create have some interaction with data, and so we need a way to
      present that information to our users.
@@ -45,12 +56,5 @@ These controls are great for enabling interactivity, but they are really
      for this.
              */
 
-    FXMLLoader loader = new FXMLLoader(Main.class.getResource("Layout.fxml"));
-    Parent root = loader.load();
-    Scene scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
-
-  }
-
+    }
 }

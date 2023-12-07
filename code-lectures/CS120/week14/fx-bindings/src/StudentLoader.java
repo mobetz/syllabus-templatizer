@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.*;
+import java.io.*;
+
 
 public class StudentLoader {
 
@@ -18,7 +21,23 @@ public class StudentLoader {
               new Student("Robert", "Moralez", "Engineering").withGrade(92),
               new Student("Beatrice", "Williams", "Nursing").withGrade(97)
       ));
-  }
+	}
+
+
+	public static List<Student> load_from_file(File location) throws FileNotFoundException {
+		List<Student> students = new ArrayList<>();
+
+		Scanner s = new Scanner(location);
+		while ( s.hasNextLine() ) {
+			String line = s.nextLine();
+			String[] parts = line.split(",");
+			students.add(new Student(parts[0], parts[1], parts[2]).withGrade(Integer.parseInt(parts[3])));
+		}
+
+		return students;
+
+	}
+
 
     private static String getRandomFirstName() {
       List<String> names = List.of("Wade", "Dave", "Seth", "Ivan", "Riley",
@@ -52,15 +71,16 @@ public class StudentLoader {
       return (int) r.nextGaussian(80, 10);
   }
 
-
    
     public static Student generateRandomStudent() {
       return new Student(
               getRandomFirstName(),
               getRandomLastName(),
-              "Computer Science")
-                  .withGrade(getRandomGrade());
+              "Computer Science"
+          	  ).withGrade(getRandomGrade());
         
         
   }
+
+
 }

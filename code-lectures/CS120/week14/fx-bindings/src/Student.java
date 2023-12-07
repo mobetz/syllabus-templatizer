@@ -1,11 +1,12 @@
 
-
 public class Student {
 	
   private String first_name;
   private String last_name;
   private String major;
   private int final_grade;
+
+
 
     public Student(String given_first, String given_last, String given_major) {
       this.first_name = given_first;
@@ -15,7 +16,6 @@ public class Student {
       this.final_grade = 100;
   }
 
-
   public Student withGrade(int new_grade) {
       //Conventionally, if we want a setter to be able to 'chain' together by
       // having it return the original object, we name the method with<Attribute>
@@ -24,6 +24,8 @@ public class Student {
       return this; 
   }
     
+
+
 
     
   public String getFirstName() {
