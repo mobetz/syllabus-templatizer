@@ -17,11 +17,10 @@
             email="mobetz@massbay.edu"
             office-link="https://massbay.webex.com/meet/mobetz">
 
-    <syllabus-timeslot slot="meeting-time" days="TR" startHour="11" startMin="30" endHour="12" endMin="45"></syllabus-timeslot>
-    <syllabus-timeslot slot="lab-time" days="T" startHour="13" endHour="14" endMin="50"></syllabus-timeslot>
+    <syllabus-timeslot slot="meeting-time" days="MWF" startHour="9" startMin="00" endHour="9" endMin="50"></syllabus-timeslot>
+    <syllabus-timeslot slot="lab-time" days="M" startHour="14" endHour="15" endMin="50"></syllabus-timeslot>
 
-    <syllabus-timeslot slot="office-time" days="MWF" startHour="10" endHour="10" endMin="50"></syllabus-timeslot>
-    <syllabus-timeslot slot="office-time" days="R" startHour="13" endHour="13" endMin="50"></syllabus-timeslot>
+    <syllabus-timeslot slot="office-time" days="MTWR" startHour="12" endHour="12" endMin="50"></syllabus-timeslot>
 
 
     <section id="description">
@@ -65,66 +64,94 @@ The object-oriented approach to programming with Java is developed in full.  Top
     </syllabus-outcomes>
 
 
-    <syllabus-schedule startdate="2023-09-05" enddate="2023-12-12" meetdays="TR" labdays="T">
-        <syllabus-holiday date="2023-09-26" event="Professional Day" />
-        <syllabus-holiday date="2023-10-09" event="Indigenous Peoples' Day" />
-        <syllabus-holiday date="2023-11-11" event="Veteran's Day" />
-        <syllabus-holiday start="2023-11-23" end="2023-11-24" event="Thanksgiving Break" />
+    <syllabus-schedule startdate="2024-01-22" enddate="2024-05-10" meetdays="MWF" labdays="F">
+        <syllabus-holiday date="2023-02-09" event="Professional Day" />
+        <syllabus-holiday date="2023-02-19" event="President's Day" />
+        <syllabus-holiday start="2024-03-18" end="2024-03-24" event="Spring Break" />
+        <syllabus-holiday date="2023-04-15" event="Patriot's Day" />
 
-        <syllabus-event date="2023-09-11" event="Add/Drop Deadline" />
-        <syllabus-event start="2023-10-23" end="2023-10-27" event="Midterm Exams" highlight="2"/>
-        <syllabus-event date="2023-11-06" event="Spring Registration Begins" />
-        <syllabus-event date="2023-11-27" event="Withdrawal Deadline" />
+        <syllabus-event date="2024-01-26" event="Add/Drop Deadline" />
+        <syllabus-event start="2024-03-11" end="2024-03-17" event="Midterm Exams" highlight="2"/>
+        <syllabus-event date="2024-04-01" event="Fall Registration Begins" />
+        <syllabus-event date="2024-04-19" event="Withdrawal Deadline" />
+
 
         <!--------------------------------------------------------------->
 
+        Week 1: Syllabus Review, Reintroducing Java
         <syllabus-lecture topic="Syllabus Review" />
-        <syllabus-lecture topic="A (Re-)introduction to Java Objects" href="./code-lectures/render-lecture.html?course=CS200&folder=week1/encapsulation&pages=Encapsulation.java;Employee.java;build.gradle"  />
+        <syllabus-lecture topic="Week 1: Syllabus Review, Reintroducing Java" href="./code-lectures/render-lecture.html?course=CS200&folder=week1/encapsulation&pages=Encapsulation.java;Employee.java;build.gradle"  />
+        <syllabus-lecture topic="Week 1: Syllabus Review, Reintroducing Java" href="./code-lectures/render-lecture.html?course=CS200&folder=week1/encapsulation&pages=Encapsulation.java;Employee.java;build.gradle"  />
 
-        <syllabus-lecture topic="Conceptualizing Assignment, Loops, Branches, and Functions" href="./code-lectures/render-lecture.html?course=CS200&folder=week2/control-flow&pages=src/ControlFlow.java"/>
+        <syllabus-lecture topic="Week 2: Analyzing Statements and Arrays" href="./code-lectures/render-lecture.html?course=CS200&folder=week1/encapsulation&pages=Encapsulation.java;Employee.java;build.gradle"  />
+        <syllabus-lecture topic="Week 2: Analyzing Statements and Arrays"" href="./code-lectures/render-lecture.html?course=CS200&folder=week1/encapsulation&pages=Encapsulation.java;Employee.java;build.gradle"  />
+        <syllabus-lecture topic="Week 2: Analyzing Statements and Arrays" href="./code-lectures/render-lecture.html?course=CS200&folder=week1/encapsulation&pages=Encapsulation.java;Employee.java;build.gradle"  />
+
+        <!--<syllabus-lecture topic="Conceptualizing Assignment, Loops, Branches, and Functions" href="./code-lectures/render-lecture.html?course=CS200&folder=week2/control-flow&pages=src/ControlFlow.java"/>
         <syllabus-lecture topic="Analyzing Arrays and Lists" href="./code-lectures/render-lecture.html?course=CS200&folder=week2/collections&pages=Collections.java;DummyList.java;BankAccount.java"/>
+        -->
+        
+            
+        <syllabus-lecture topic="Week 3: Documentation and Debugging"  href="./code-lectures/render-lecture.html?course=CS200&folder=week3/uml&pages=UML.java;BankPatron.java;BankAccount.java"/>
+        <syllabus-lecture topic="Week 3: Documentation and Debugging" href="./code-lectures/render-lecture.html?course=CS200&folder=week3/debugging&pages=src/Debugging.java;src/GreetingFormatter.java;build.gradle;test/GreetingFormatterTest.java"/>
+        <syllabus-lecture topic="Week 3: Documentation and Debugging" href="./code-lectures/render-lecture.html?course=CS200&folder=week3/debugging&pages=src/Debugging.java;src/GreetingFormatter.java;build.gradle;test/GreetingFormatterTest.java"/>
 
-        <syllabus-lecture topic="Best Practices in Documentation"  href="./code-lectures/render-lecture.html?course=CS200&folder=week3/uml&pages=UML.java;BankPatron.java;BankAccount.java"/>
-        <syllabus-lecture topic="Writing Code for Debugging" href="./code-lectures/render-lecture.html?course=CS200&folder=week3/debugging&pages=src/Debugging.java;src/GreetingFormatter.java;build.gradle;test/GreetingFormatterTest.java"/>
         
-        <syllabus-lecture topic="Introduction to Inheritance: Extends and Dynamic Dispatch" href="./code-lectures/render-lecture.html?course=CS200&folder=week4/inheritance&pages=main/Inheritance.java;types/Person.java;types/Student.java;types/Freshman.java"/>
-     
-        <syllabus-lecture topic="Polymorphism and Branching Class Hierarchies"  href="./code-lectures/render-lecture.html?course=CS200&folder=week5/polymorphism&pages=Polymorphism.java;Person.java;Student.java;Teacher.java;Janitor.java" />
-        <syllabus-lecture topic="The Object Class and Overrides Revisited"  href="./code-lectures/render-lecture.html?course=CS200&folder=week5/inheritance-in-java&pages=InheritanceInJava.java;HotelRoom.java;HotelSuite.java;DoubleRoom.java" />
+        <syllabus-lecture topic="Week 4: Inheritance and Dynamic Dispatch" href="./code-lectures/render-lecture.html?course=CS200&folder=week4/inheritance&pages=main/Inheritance.java;types/Person.java;types/Student.java;types/Freshman.java"/>
+        <syllabus-lecture topic="Week 4: Inheritance and Dynamic Dispatch" href="./code-lectures/render-lecture.html?course=CS200&folder=week4/inheritance&pages=main/Inheritance.java;types/Person.java;types/Student.java;types/Freshman.java"/>
+        <syllabus-lecture topic="Week 4: Inheritance and Dynamic Dispatch" href="./code-lectures/render-lecture.html?course=CS200&folder=week4/inheritance&pages=main/Inheritance.java;types/Person.java;types/Student.java;types/Freshman.java"/>
+
         
+        <syllabus-lecture topic="Week 5: Polymorphism, Branching Class Hierarchies, and the Object Class"  href="./code-lectures/render-lecture.html?course=CS200&folder=week5/polymorphism&pages=Polymorphism.java;Person.java;Student.java;Teacher.java;Janitor.java" />
+        <syllabus-lecture topic="Week 5: Polymorphism, Branching Class Hierarchies, and the Object Class"  href="./code-lectures/render-lecture.html?course=CS200&folder=week5/inheritance-in-java&pages=InheritanceInJava.java;HotelRoom.java;HotelSuite.java;DoubleRoom.java" />
+        <syllabus-lecture topic="Week 5: Polymorphism, Branching Class Hierarchies, and the Object Class"  href="./code-lectures/render-lecture.html?course=CS200&folder=week5/inheritance-in-java&pages=InheritanceInJava.java;HotelRoom.java;HotelSuite.java;DoubleRoom.java" />
         
-        <syllabus-lecture topic="Inheritance Pitfalls: Downcasting and the Diamond Problem" href="./code-lectures/render-lecture.html?course=CS200&folder=week6/inheritance-problems/src&pages=Main.java;Worker.java;Instructor.java;Faculty.java;Janitor.java;Student.java;StudentWorker.java" />
-        <syllabus-lecture topic="Composition: 'Is-A' vs. 'Has-A'" href="./code-lectures/render-lecture.html?course=CS200&folder=week6/composition&pages=Main.java;Role.java;Janitor.java;Student.java;Person.java"  />
+        <syllabus-lecture topic="Week 6: Inheritance Pitfalls and Composition" href="./code-lectures/render-lecture.html?course=CS200&folder=week6/inheritance-problems/src&pages=Main.java;Worker.java;Instructor.java;Faculty.java;Janitor.java;Student.java;StudentWorker.java" />
+        <syllabus-lecture topic="Week 6: Inheritance Pitfalls and Composition" href="./code-lectures/render-lecture.html?course=CS200&folder=week6/inheritance-problems/src&pages=Main.java;Worker.java;Instructor.java;Faculty.java;Janitor.java;Student.java;StudentWorker.java" />
+        <syllabus-lecture topic="Week 6: Inheritance Pitfalls and Composition" href="./code-lectures/render-lecture.html?course=CS200&folder=week6/inheritance-problems/src&pages=Main.java;Worker.java;Instructor.java;Faculty.java;Janitor.java;Student.java;StudentWorker.java" />
+
         
-        <syllabus-lecture topic="Public Interfaces of a Class and Abstract Classes"  href="./code-lectures/render-lecture.html?course=CS200&folder=week7/interfaces&pages=Main.java;IScoreable.java;IPromptable.java;Quizzable.java;QuizQuestion.java;NameField.java" />
-        <syllabus-lecture topic="Generic Types"  href="./code-lectures/render-lecture.html?course=CS200&folder=week7/generics/src&pages=Main.java;HalfList.java;GenericHalfList.java;TimeComparer.java"/>
+        <syllabus-lecture topic="Week 7: Interfaces and Generic Types"  href="./code-lectures/render-lecture.html?course=CS200&folder=week7/interfaces&pages=Main.java;IScoreable.java;IPromptable.java;Quizzable.java;QuizQuestion.java;NameField.java" />
+        <syllabus-lecture topic="Week 7: Interfaces and Generic Types"  href="./code-lectures/render-lecture.html?course=CS200&folder=week7/generics/src&pages=Main.java;HalfList.java;GenericHalfList.java;TimeComparer.java"/>
+        <syllabus-lecture topic="Week 7: Interfaces and Generic Types"  href="./code-lectures/render-lecture.html?course=CS200&folder=week7/generics/src&pages=Main.java;HalfList.java;GenericHalfList.java;TimeComparer.java"/>
 
 
 
         <!------------------------MIDTERM WEEK-------------------------------->
         <syllabus-lecture topic="Midterm Review" highlight="2" href="./code-lectures/render-lecture.html?course=CS200&folder=midterm-review/src&pages=Review.java;Animal.java;Dog.java;Cat.java;ObjectHolder.java"/>
         <syllabus-lecture topic="Midterm Exam" highlight="2.5"/>
+        <syllabus-lecture topic="Midterm Results Discussion" highlight="2"/>
         <!------------------------MIDTERM WEEK-------------------------------->
 
-        <syllabus-lecture topic="Midterm Results Discussion" highlight="2"/>
-        <syllabus-lecture topic="Handling Exceptions" href="./code-lectures/render-lecture.html?course=CS200&folder=week9/exceptions/src&pages=Exceptions.java;FilePreview.java;NumberGuesser.java;UsedItWrongException.java" />
-
-        <syllabus-lecture topic="Input/Output"  href="./code-lectures/render-lecture.html?course=CS200&folder=week10/file-io&pages=src/Main.java;resources/some_file.txt;build.gradle" />
-        <syllabus-lecture topic="Input/Output Pt. II" href="./code-lectures/render-lecture.html?course=CS200&folder=week10/watching-files&pages=Main.java;FileListener.java"  />
+        
+        <syllabus-lecture topic="Week 9: Exceptions and I/O" href="./code-lectures/render-lecture.html?course=CS200&folder=week9/exceptions/src&pages=Exceptions.java;FilePreview.java;NumberGuesser.java;UsedItWrongException.java" />
+        <syllabus-lecture topic="Week 9: Exceptions and I/O"  href="./code-lectures/render-lecture.html?course=CS200&folder=week10/file-io&pages=src/Main.java;resources/some_file.txt;build.gradle" />
+        <syllabus-lecture topic="Week 9: Exceptions and I/O" href="./code-lectures/render-lecture.html?course=CS200&folder=week10/watching-files&pages=Main.java;FileListener.java"  />
         
 
-        <syllabus-lecture topic="Linked Lists From Objects" href="./code-lectures/render-lecture.html?course=CS200&folder=week11/linked-lists&pages=Main.java;RankingsArray.java;RankingNode.java;LinkedRankings.java" />
-        <syllabus-lecture topic="Applications of Linked Lists" href="./code-lectures/render-lecture.html?course=CS200&folder=week11/linked-list-applications/src&pages=Main.java;SinglyLinkedNode.java;Stack.java;Queue.java;Ring.java;Order.java;HouseholdMember.java" />
+        <syllabus-lecture topic="Week 10: Coding with Linked Lists" href="./code-lectures/render-lecture.html?course=CS200&folder=week11/linked-lists&pages=Main.java;RankingsArray.java;RankingNode.java;LinkedRankings.java" />
+        <syllabus-lecture topic="Week 10: Coding with Linked Lists" href="./code-lectures/render-lecture.html?course=CS200&folder=week11/linked-list-applications/src&pages=Main.java;SinglyLinkedNode.java;Stack.java;Queue.java;Ring.java;Order.java;HouseholdMember.java" />
+        <syllabus-lecture topic="Week 10: Coding with Linked Lists" href="./code-lectures/render-lecture.html?course=CS200&folder=week11/linked-list-applications/src&pages=Main.java;SinglyLinkedNode.java;Stack.java;Queue.java;Ring.java;Order.java;HouseholdMember.java" />
 
-        <syllabus-lecture topic="Memory Modeling: The Heap and the Stack"  href="./code-lectures/render-lecture.html?course=CS200&folder=week12/heap-and-stack/src&pages=Main.java"/>
+        <syllabus-lecture topic="Week 11: Memory Modeling and Garbage Collection"  href="./code-lectures/render-lecture.html?course=CS200&folder=week12/heap-and-stack/src&pages=Main.java"/>
+        <syllabus-lecture topic="Week 11: Memory Modeling and Garbage Collection" href="./presentations/garbage-collection/slides.html" />
+        <syllabus-lecture topic="Week 11: Memory Modeling and Garbage Collection" href="./presentations/garbage-collection/slides.html" />
+        
+        <syllabus-lecture topic="Week 12: Event-Driven Programming" href="./code-lectures/render-lecture.html?course=CS200&folder=week13/events/src&pages=Main.java;Grocery.java;ShoppingCart.java;Listener.java;SomeButtonManager.java" />
+        <syllabus-lecture topic="Week 12: Event-Driven Programming" href="./code-lectures/render-lecture.html?course=CS200&folder=week13/events/src&pages=Main.java;Grocery.java;ShoppingCart.java;Listener.java;SomeButtonManager.java" />
+        <syllabus-lecture topic="Week 12: Event-Driven Programming" href="./code-lectures/render-lecture.html?course=CS200&folder=week13/events/src&pages=Main.java;Grocery.java;ShoppingCart.java;Listener.java;SomeButtonManager.java" />
 
-        <syllabus-lecture topic="Garbage Collection" href="./presentations/garbage-collection/slides.html" />
-        <syllabus-lecture topic="Responding to Events" href="./code-lectures/render-lecture.html?course=CS200&folder=week13/events/src&pages=Main.java;Grocery.java;ShoppingCart.java;Listener.java;SomeButtonManager.java" />
+        <syllabus-lecture topic="Week 13: Bindings and Propagating Updates Through a Program"/>
+        <syllabus-lecture topic="Week 13: Bindings and Propagating Updates Through a Program"/>
+        <syllabus-lecture topic="Week 13: Bindings and Propagating Updates Through a Program"/>
 
-        <syllabus-lecture topic="GUI Controls That Bind Data" href="./code-lectures/render-lecture.html?course=CS200&folder=week14/javafx-bindings&pages=src/Main.java;src/Grocery.java;src/SceneController.java;resources/GroceryProgram.fxml;build.gradle"/>
-        <syllabus-lecture topic="An Object-Oriented Approach to GUI" />
+        <syllabus-lecture topic="Week 14: Object Oriented Approaches to GUI" />
+        <syllabus-lecture topic="Week 14: Object Oriented Approaches to GUI" />
+        <syllabus-lecture topic="Week 14: Object Oriented Approaches to GUI" />
 
-        <syllabus-lecture topic="Finals Review"/>
+        <syllabus-lecture topic="Week 15: Finals Review"/>
+        <syllabus-lecture topic="Week 15: Finals Review"/>
+        <syllabus-lecture topic="Week 15: Finals Review"/>
 
 
         <!--------------------------------------------------------------->
@@ -141,6 +168,7 @@ The object-oriented approach to programming with Java is developed in full.  Top
         <syllabus-assignment title="Lab 9" dueIn="5" />
         <syllabus-assignment title="Lab 10" dueIn="5" />
         <syllabus-assignment title="Lab 11" dueIn="5" />
+        <syllabus-assignment title="Lab 12" dueIn="5" />
         <syllabus-assignment title="Finals Review" dueIn="5" />
     </syllabus-schedule>
 
