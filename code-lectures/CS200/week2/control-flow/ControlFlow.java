@@ -18,6 +18,8 @@ dealing with a complex problem.
 
 
 
+
+
 public class ControlFlow {
     
     public static void main(String[] args){
@@ -35,10 +37,11 @@ public class ControlFlow {
         intricate patterns of metal called "logic gates"  -- each of these gates has
         many 'slots' for electricity representing inputs to flow in, then mixes those
         wires in clever ways, producing a result flowing out from a few wires.
-        
+
         Logic Gates can be created for many simple instructions: For instance, you might
         have a logic gate that can add two binary numbers together:
         have a logic gate that can add two binary numbers together:
+
 
         0  1  0  1        0  1  1  0
         |  |  |  |        |  |  |  |  
@@ -51,13 +54,14 @@ public class ControlFlow {
         variables that can only hold binary data. Originally, programming involved
         directly telling the computer which logic gate should run on which registers.
 
+
        With a relatively simple program, it's easy to see how these gates could be used:
         */
-        
-        int x = 5; //put 5 in a register  
-        int y = 6; //put 6 in a register  
-        int res = x + y;  //add those two registers together
-        
+
+        int x = 5;   //put 5 in a register
+        int y = 6;   //put 6 in a register
+        int res = x + y; //take those two registers, add them together
+
 
 
         /*
@@ -68,11 +72,12 @@ public class ControlFlow {
         mov eax 5  (save 5 in the "a" register)
         mov ebx 6  (save 6 in the "b" register)
         add eax,ebx (add those two registers together, which saves the result in "a")
-        
+
 
         However, this gets much more complicated once we start adding in instructions
         that cause the program to "jump around":
         */
+
         
         boolean XisMoreThanZero = x > 0;
         
@@ -82,7 +87,6 @@ public class ControlFlow {
             System.out.println("X was negative!");
         }
         
-
         /*
         We would never see *both* the "positive" and "negative" messages here.
         So how could something like this exist in assembly...?
@@ -92,7 +96,7 @@ public class ControlFlow {
         one more variable that holds what instruction 'number' we're currently on.
         Then, whenever we are supposed to 'skip' to another instruction, we just
         change the number:
-        
+
                                                     Order instructions will actually happen in:
 1   boolean t = x > 0;                      When true:       When false:
 2   when t is not true: go to line 5          #1                #1 (jump to 5)
@@ -106,9 +110,11 @@ This is all an if statement is -- much like a "Choose Your Own Adventure Book",
 an if statement is telling a program to check whether something is true, and then
 skip ahead based on the result.
 
+
 In fact, we're going to see in a few minutes that this same exact trick works
 for loops and functions as well! So why do you think it is we don't use "go to"
 statements directly in Java?
+
 
 It would be very difficult to keep track of the line numbers of every
 instruction in Java, and easy to make a mistake with the much more complicated
@@ -117,10 +123,12 @@ that says 'when I put this simple thing, I'm actually talking about this
 specific version of this more complicated idea'.
 
 
+
 However, remembering what your simple model is representing can be very
 useful when debugging what goes wrong. For instance, consider the following
 program:
         */
+
 
         boolean yellowIsPresent = true;
         boolean blueIsPresent = true;
@@ -135,7 +143,6 @@ program:
             System.out.println("green!");
         }
         
-        
 
 
         /*
@@ -144,21 +151,22 @@ program:
 
                 +=================+
                 |  What color?    |
-                +=================+
-                /         |        \
-                V         V          V
-        ___________   ___________   _________________
-        | yellow? |   |  blue?  |   | yellow+blue?  |
-        +---------+   +---------+   +---------------+
-            V               V              V
-        print yellow     print blue      print green
-        
+                +=================+ ---------------- 
+                /         |        \                 \
+                V         V          V                \
+        ___________   ___________   _________________  __________
+        | yellow? |   |  blue?  |   | yellow+blue?  | | when none|
+        +---------+   +---------+   +---------------+ +----------+
+            V               V              V                V
+        print yellow     print blue      print green    skip to end
+
 
         However... when we run this program, this isn't the behavior that we actually
         get! Even though green *should* show up since yellow and blue are both true,
         what we actually get is yellow.
 
        Let's convert our if statement back into go tos and try to figure out why:
+        
         
 1   boolean yellowIsPresent = true;                |  1  boolean yellow = true;
 2   boolean blueIsPresent = true;                  |  2  boolean blue = true;
@@ -173,11 +181,11 @@ program:
 11  }                                              | 11 //rest of program
 
 
+
 If we look here, we can see that conditions are not actually checked at the
 same time. Instead, they happen sequentially -- we check the first one, and
 if that fails, we 'skip ahead' to the second one. After a successful branch,
 we immediately 'skip ahead' to the end of the conditions.
-
 
 That means our actual flowchart for an if statement will look something more like this:
 
@@ -205,25 +213,30 @@ _______________    _______________
                                         V
                                         rest of program
 
+
 90% of the time this level of detail is greater than we need, but for that last
 10%, understanding the abstraction helps us make more informed decisions about
 our code.
 
+
+        
+
 Now let's extend our example to loops:
 */
-        
-        x = 10;
-        
-        if ( x > 0 ) {
-            x = x - 1;
-            System.out.println(x);
-        }
-        
-        
-        while ( x > 0 ) {
-            x = x - 1;
-            System.out.println(x);
-        }
+
+x = 10;
+
+
+if ( x > 0 ) {
+    x = x - 1;
+    System.out.println(x);
+}
+
+
+while ( x > 0 ) {
+    x = x - 1;
+    System.out.println(x);
+}
 
 
         /*
@@ -239,14 +252,15 @@ Now let's extend our example to loops:
         The while version is very similar. In fact, the comparison is identical
         It just adds one more "jump":
 
+
         1  boolean xGreaterThanZero = x > 0;
         2  when xGreaterThanZero is false, skip to 6
         3  x = x - 1;
         4  print x;
-        5  go to line 1
+        5  go to line 2
         6 //rest of program
         
-        
+
 
         To the computer, a loop is just an if statement that goes back to the top.
 
@@ -254,9 +268,10 @@ Now let's extend our example to loops:
         foreach loops? It turns out for loops and foreach loops can be rewritten
         as while loops!
 
+
         This code here:
         */
-        
+
 
 
         String[] names = { "Joe", "Jill", "Jaya", "Jamal"};
@@ -264,11 +279,11 @@ Now let's extend our example to loops:
             System.out.println(next_name);
         }
         
-
-
+        
         /*
 is identical to:
 */
+
 
         names = new String[] { "Joe", "Jill", "Jaya", "Jamal"};
         for ( int i = 0; i < names.length; i++ ) {
@@ -280,15 +295,16 @@ is identical to:
         /*
 is identical to:
 */
-        
-        
-        int i = 0;
-        while ( i  <  names.length ) {
-            String next_name = names[i];
-            System.out.println(next_name);
-            i = i + 1;
-        }
 
+        
+         int i = 0;
+         while ( i  <  names.length ) {
+             String next_name = names[i];
+             System.out.println(next_name);
+             i = i + 1;
+         }
+
+        
         /*
         *All three* of these blocks of code would be converted into the same "go to"
         instructions when the computer was compiling our code:
@@ -319,6 +335,7 @@ __________________________
      v
         
 
+
 This is another important feature of abstractions: they can be 'layered'!
 A foreach loop is an abstraction of a common type of for loop, and a for loop
 is an abstraction of a common type of while loop. Each layer saves us some
@@ -327,71 +344,9 @@ You can always use a while loop, but for loops and for each loops only work
 for the type of pattern they're made to handle.
 
 
-Our third type of control flow is functions.  In Java, we think of
-functions as free-floating snippets of code that we can define and then
-string together with function calls:
-
         */
-        
-        x = 5;
-        y = 6;
-
-        res = addTwoNumbers(x, y);
-        
-        System.out.println(res);
-        
 
 
-        /*
-        How would this work with gotos?
-        
 
-1  x = 5;
-2  y = 6;
-3  "store and hide" all the currently visible variables 
-4    first = saved.x;
-5    second = saved.y;
-6     this = saved.myObject;  **** <- "this" gets assigned like any other parameter
-7    special_temp_return_position = current_line + 2 
-8    go to 13
-9    "restore" all the old variables
-10    res = special_temp_return;
-11  // ...//
-12
-13    //BEGIN "addTwoNumbers"
-14    sum = first + second;
-15    special_temp_return = sum;
-16    go to special_temp_return_position
-17    //END "addTwoNumbers"
-        
-
-If you've ever wondered why languages like Python or Javascript make you put
-"self" as the first argument to every object method when writing a class, this is
-why! This is what Java has always been secretly doing every time you call a method.
-
-
-Abstractions help us take a few very general tools and create an entire
-toolbox of easier-to-use, more specialized tools. The goal of today is not to
-make you go out and objdump a binary to analyze the jumps in loops and if statements.
-
-Instead, it is my hope that you begin to see the patterns and underlying causes
-of behavior in the code you write. By understanding *why* code works the way it
-does, we can better anticipate when it doesn't work the way we expect.
-
-Remembering hidden features like how if statements are checked in order, all loops are just
-shortcuts for while loops, and that functions hide local variables can guide
-you toward writing cleaner code.
-        */
-        
-        
     }
-    
-    
-    
-    
-    public static int addTwoNumbers(int first, int second) {
-        int sum = first + second;
-        return sum;
-    }
-    
 }
