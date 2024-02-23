@@ -32,8 +32,8 @@ public class Course  {
 	public String getDetailsText() {
 		String details;
 
-		details = "Showing details for " + this.course_name + " : Meets on " + this.meeting_days + "  at " + 
-		    this.start_time + " for " + this.number_of_hours + " hours."; 
+		details = "Showing details for " + this.course_name + " : Meets on " + this.meeting_days + "  at " +
+		    this.start_time + " for " + this.number_of_hours + " hours.";
 
 
 		return details;
@@ -51,14 +51,11 @@ public class Course  {
 	}
 
 
-
-
 	public void setLabDay(String new_day) {
-		if ( new_day.length() == 1 && this.meeting_days.contains(new_day)) { 
+		if ( new_day.length() == 1 && this.meeting_days.contains(new_day)) {
 			this.lab_days = new_day;
 		}
 	}
-
 
      @Override
       public String toString() {
@@ -70,4 +67,5 @@ public class Course  {
 
 
 
-} 
+
+}
