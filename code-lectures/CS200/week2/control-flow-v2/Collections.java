@@ -185,7 +185,176 @@ This will be relevant later this semester when we learn a bit more about memory 
 
          some_names.add("John");
 
+        /*
+        The big differences here:
+            * The array type is specified inside <angle brackets>.
+            * We call a constructor (notice the () after the type name on the right hand side.)
+            * We do NOT specify a total size.
 
+
+        This is because a List is an actual object. Unlike an array, there is a class
+        defined that describes all of a list's attributes and methods. The reason the
+        type of list is called an "ArrayList" is because the main attribute of that
+        class is an array!
+
+
+        This is why every single operation we perform on lists uses a method -- methods
+        are our main way to interact with objects.
+
+        Let's go make a simplified DummyList to see how some of list's methods work.
+         */
+
+         DummyList favorite_numbers = new DummyList();
+
+         favorite_numbers.add(4);
+         favorite_numbers.add(12);
+         favorite_numbers.add(7);
+
+         System.out.println("The third number is " + favorite_numbers.get(2));
+
+
+        /*
+        We can actually go inspect ArrayList.java and see how these methods are implemented
+        on the real class.
+
+
+        So what are those 'angle brackets' that let a List work for any type?
+        Those are what is called a generic type -- the generic type allows you
+        to treat the type of a class almost like a variable. After we talk about
+        inheritance, we will briefly look at generic types closer to midterms!
+
+
+
+        So we've now seen how arrays work in memory as well as how lists are built from
+        arrays. The last thing I want to do today is talk a bit more about how references
+        can trip you up when programming.
+
+        Remember, both arrays and objects (including lists) are stored as an array.
+        Imagine I were making a class where I *thought* I had private information
+        stored in an list, like transactions in a bank account:
+         */
+
+         BankAccount account = new BankAccount("John Hackerman");
+         System.out.println("Is account valid: " + account.validateAccount() + 
+         ". Current balance: $" + account.getBalance());
+
+         account.deposit(100);
+         System.out.println("Is account valid: " + account.validateAccount() + 
+         ". Current balance: $" + account.getBalance());
+
+
+
+         account.withdraw(50);
+         account.withdraw(25);
+
+         System.out.println("Is account valid: " + account.validateAccount() + 
+         ". Current balance: $" + account.getBalance());
+
+        //initially, the way our class works how we'd expect
+
+        System.out.println("The current balance is: " + account.getBalance());
+        System.out.println("The transactions were: " + account.getTransactionHistory());
+
+
+        //even though we can *get* our balance, changing the balance doesn't change the class:
+
+        double johns_balance = account.getBalance();
+        johns_balance = johns_balance + 99999999;
+
+        System.out.println("Even after changing our local variable, John's balance is: " + account.getBalance());
+
+
+        /*
+        John's balance stays 25 in the account object, because the number returned is completely separate from the number
+        stored (the full value was copied.)
+         */
+        List<Double> local_transactions = account.getTransactionHistory();
+
+        local_transactions.add(9999999.0);
+
+        System.out.println("The current balance is: " + account.getBalance());
+        System.out.println("The transactions were: " + account.getTransactionHistory());
+        System.out.println("After doing this, does our invariant still hold true?: " + account.validateAccount());
+
+
+        // ...our fake deposit was added to the transaction list, even though it's private!!!
+        // This also means our balance is now off, and John Hackerman can contest his charges!
+
+
+        /*
+        To understand what happened, we need to think again about what actually gets passed around with
+        a reference:
+
+       0x01:
+       |-------------|-------------|-------------|-------------|-------------| <- transactions
+       0             1              2             3              4
+
++------+------+------+------+------+------+------+------+------+------+------+------+
+|      |      |      |      |      |      |      |      |      |      |      |      |   ...
++------+------+------+------+------+------+------+------+------+------+------+------+
+0x00    0x01    0x02   0x03   0x04   0x05   0x06   0x07   0x08   0x09   0x0A   0x0B     ...
+
+
+
+        In BankAccount, what we *actually* stored was:
+            this.transactions = 0x01;
+        In getTransactionHistory(), when we returned this.transaction, what we were actually returning was:
+            return 0x01;
+
+       When we called getTransactionHistory() in main, what we saved into local_transactions was:
+            local_transactions = 0x01;
+
+
+        At the end of this, *both* this.transactions and local_transactions are pointing
+        at 0x01 in memory. If I change the thing stored *in* 0x01[0], it changes for both!
+
+
+       0x01:
+       |---9999999---|-------------|-------------|-------------|-------------| <- transactions
+       0             1              2             3              4
+
++------+------+------+------+------+------+------+------+------+------+------+------+
+|      |      |      |      |      |      |      |      |      |      |      |      |   ...
++------+------+------+------+------+------+------+------+------+------+------+------+
+0x00    0x01    0x02   0x03   0x04   0x05   0x06   0x07   0x08   0x09   0x0A   0x0B     ...
+        ^ this.transactions points here
+        ^ local_transactions
+
+    Our private attribute has "leaked" out of the class, and allowed us to violate
+    the class invariant. So what can we do? When we return reference types like objects
+    or arrays, if we don't want changes on them to modify the original class, we should
+    make a copy and return that instead.
+
+         */
+
+         List<Double> transactions_that_arent_bugged = account.getTransactionHistorySAFE();
+         transactions_that_arent_bugged.add(123456.0);
+
+         System.out.println(account.getTransactionHistory()); //<- because we have a copy, the 123456.0 did not get
+                                                             // mysteriously added outside of deposit()
+
+        /*
+         * 
+
+
+
+       0x01:
+       |---9999999---|-------------| <- transactions
+       0             1              2       
+
+                                           
+                                         0x06:
+                                          |---9999999---|-------------| <- thing returned by the getter
+                                            0             1              2       
+
++------+------+------+------+------+------+------+------+------+------+------+------+
+|      |      |      |      |      |      |      |      |      |      |      |      |   ...
++------+------+------+------+------+------+------+------+------+------+------+------+
+0x00    0x01    0x02   0x03   0x04   0x05   0x06   0x07   0x08   0x09   0x0A   0x0B     ...
+        ^ this.transactions points here
+                                            ^ transactions_that_arent_bugged is a completely separate object
+
+                                                              */
 
     }
 }

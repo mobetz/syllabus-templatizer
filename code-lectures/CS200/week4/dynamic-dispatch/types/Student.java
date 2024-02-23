@@ -58,6 +58,12 @@ public class Student extends Person {
     }
 
 
+    @Override
+    public String generate_weekend_plans() {
+        return "Study for exams!";
+    }
+
+
     public String generate_student_id() {
         return "-----------\n"
               + this.name + "\n" +

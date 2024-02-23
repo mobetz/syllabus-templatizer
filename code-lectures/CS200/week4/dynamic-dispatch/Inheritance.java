@@ -11,6 +11,7 @@ By the end of today, you will:
  */
 
 
+
 /*
 Vocabulary for the Day
 
@@ -21,24 +22,23 @@ origin class as the "supertype".
 Dynamic Dispatch - Dynamic Dispatch refers to the rules Java uses to discover
 what function to execute when a method is called.
  */
-package main;
-
 
 import types.Freshman;
-import types.Student;
 import types.Person;
+import types.Student;
+
 public class Inheritance {
 
-
     public static void main(String[] args) {
-
+        
         /*
         One of the earliest things we learned in Java was how to create classes
         that bundle state and behaviors. When we create a class, we are defining
         a new type that we can use in the rest of our program:
          */
 
-        Person someone = new Person("John", 20);
+         Person someone = new Person("John", 20);
+
 
 
         /*
@@ -50,42 +50,34 @@ public class Inheritance {
          */
 
 
-        Student a_student = new Student("Jane", 22);
+         Student a_student = new Student("Jane", 22);
 
-        System.out.println(a_student);
+         System.out.println(a_student);
 
-        /*
-        Instead, we can use the "extends" keyword in our Student class to
-        indicate that we want Student to be a *kind* of Person.
+         a_student.has_birthday();
+         a_student.add_course("CS200");
+         System.out.println(a_student + ", courses taken: " + a_student.list_courses());
 
 
-         However... there's a snag. We still need to call Person's constructor
-         *inside* Student's constructor in order to tell Java how to set up the Person.
-         Otherwise, Java will crash when we try to run our program.
-
+         /* 
          We can even have a subtype of our subtype:
          */
         Freshman freshman = new Freshman("Billy",  "Prof. Obetz");
 
-
         /*
-        Now that we've inherited the abilities of a Person, our Student
-        can still do everything a Person can do:
+         * Freshman has access to Freshman specific methods:
          */
-
-        freshman.have_birthday();//<- even though Freshman and Student doesn't implement have_birthday(),
-                                 // we can use Person's implementation.
-        System.out.println(freshman); //<- same for printing a Freshman
-
+        freshman.getAdvisor();
 
         /*
-        At the same time, we can do all the student-specific things with a_student:
-        */
+         * As well as Student specific things:
+         */
+        freshman.add_course("CS110");
 
-        freshman.add_class("CS110");
-        freshman.add_class("CS118");
-
-        System.out.println(freshman.list_classes());
+        /*
+         * ...and even Person things:
+         */
+         freshman.has_birthday();
 
 
         /*
@@ -93,10 +85,6 @@ public class Inheritance {
         Person, like generate_weekend_plans:
          */
         String whose_plans = freshman.generate_weekend_plans();
-        /*
-        When we actually print this out...
-         */
-
         System.out.println("Our plans are: " + whose_plans);
 
         /*
@@ -115,21 +103,29 @@ public class Inheritance {
         you call a static method, it always refers to the exact same function
         and Java doesn't have to figure anything out dynamically.)
 
-
         Another fun feature of our Student class is that a Student is still
         a valid Person, and we can save a Student into a Person type variable:
          */
 
-        Person covert_freshman = freshman; //<- Student data fits in Person-shaped spaces
+         Person covert_freshman = freshman; //Student data fits in Person-shaped spaces
 
-        System.out.println("Even as a Person, the freshman is still: " + covert_freshman);
+         System.out.println("As a Person, the freshman's data is: " + covert_freshman );
+         System.out.println("His plans are: " + covert_freshman.generate_weekend_plans());
 
-        //covert_freshman.add_class("CS200"); //<- why isn't this valid???
+         /*
+          * Even though the Freshman object is saved in a Person variable, Java still "remembers"
+          that it was originally created as a Freshman. It will still start looking for dynamic dispatch
+          on the originally created type.
+          */
 
+          //covert_freshman.add_course("CS120");  //<- why isn't this valid???
+
+         
         /*
         Dynamic Dispatch has an unfortunate second rule: We can only assume we are a class that is
         'above' our current variable type. Because of this, our Person variable can't see
         any methods that only exist on Student or Freshman.
+
 
         This makes sense -- a Person variable *could* be holding a Student,
         or it *could* be holding a Person. If we're using something like a pair
@@ -137,31 +133,19 @@ public class Inheritance {
         where a method is called:
          */
 
-        Person could_be_student;
+         Person could_be_student;
 
-        if ( Math.random() > 0.5 ) {
-            could_be_student = new Person("Janet", 23);
-        } else {
+         if ( Math.random() > 0.5 ) {
+            could_be_student = new Person("Janet", 35);
+         } else {
             could_be_student = new Freshman("Rachael", "Prof. Moussavi");
-        }
+         }
 
-
-        //could_be_student.add_class("CS241"); //<- this only makes any sense on one branch
-
+         //could_be_student.add_course("CS241");  //<- this only makes any sense on one branch
 
 
         /*
-        Since Java can't validate that a method will even exist for your object,
-        it disallows the method call completely to avoid crashing.
-
-
-        What about if we generated our weekend plans for our "covert_student" Person
-        that's actually a Student, that's actually a Freshman:
-         */
-        String weekend_plans = covert_freshman.generate_weekend_plans();
-        System.out.println("Covert student's weekend plans:" + weekend_plans);
-        /*
-        Calling this method is okay because both Student and Person have a
+        Calling shared methods is okay because both Student and Person have a
         weekend plans function, so Java is sure there's always *something* to call.
 
         Remember: Dynamic Dispatch starts with the CONSTRUCTED TYPE (after checking the method
@@ -176,23 +160,36 @@ public class Inheritance {
         us what kind of object Freshman is using a technique called "reflection":
          */
 
-        System.out.println("Covert_freshman is a: " + covert_freshman.getClass().getName());
+
+         System.out.println("Covert_freshman is a: " + covert_freshman.getClass().getName());
 
         /*
         ...However, doing this is very inefficient and bad for many reasons,
         and we should avoid it whenever possible. (More on that in our pitfalls
         lecture.)
+
+
+        One more controlled way we can use this reflective behavior is with the instanceof
+        keyword. Instanceof allows us to check whether an object is of a certain type:
          */
 
+        if ( covert_freshman instanceof Freshman ) {
+                System.out.println(covert_freshman + " has been unmasked!");
+                Freshman revealed = (Freshman) covert_freshman;
+        }
+
+        //We SHOULDN'T do this any time we can avoid it at all (and we almost always can!)
         /*
-        One last thing I want to discuss is how the "this" and "private" keywords
-        interact between Student and Person, so let us return to Student.java.
+         * The reason why is because when we "downcast" we're assuming perfect knowledge of all
+         * subtypes that exist, and it's not obvious to someone making a new subclass that this if 
+         * statement even exists somewhere outside the classes.
+         * 
+         * INSTEAD, we should be modifying Person's interface to create a method that we can override
+         * in Freshman to do whatever specific behaviors we have in mind.
          */
 
-        System.out.println(freshman.generate_student_id());
-        //System.out.println(freshman.name); //<- we can't access freshman.name here, because we're in a different package
+
+
 
     }
 }
-
-

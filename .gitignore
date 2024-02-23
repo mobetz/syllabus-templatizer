@@ -16,4 +16,5 @@
 **.jar
 **.kts
 **/bin/
+**/docs/
 **/gradle/**

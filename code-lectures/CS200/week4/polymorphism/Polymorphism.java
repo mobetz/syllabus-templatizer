@@ -1,4 +1,5 @@
 
+
 /*
 Objectives for Today
 
@@ -13,6 +14,8 @@ Polymorphism - Polymorphism refers to the practice of using methods of an object
 Typically this is done while extending a parent class with multiple diverging child classes.
 
  */
+
+
 
 
 import java.util.ArrayList;
@@ -31,15 +34,15 @@ public class Polymorphism {
                   | name      |
                   | age       |
                   +-----------+
+                     ^
                      |
-                     v
                   +-----------+
                   | Student   |
                   +-----------+  A Student is a Person, so it also has a name and age.
                   | classes   |
                   +-----------+
+                     ^
                      |
-                     v
                   +-----------+
                   | Freshman  | A Freshman is a Student (and a Person), so it also has classes, name, and an age.
                   +-----------+
@@ -58,18 +61,20 @@ public class Polymorphism {
                   | classes   |           | department     |
                   +-----------+           +----------------+
 
+
                   Student and Teacher share *some* of their properties here, but not all of them.  This means
                   we can't inherit one directly from the other.  However, we might still want to extract the pieces they
                   have in common.
 
+
                   This would give us a class hierarchy that looks something like this:
 
-                  +-----------+
-                  | Person    |
-                  +-----------+
-                  | name      |
-                  | age       |
-                  +-----------+
+                                 +-----------+
+                                 | Person    |
+                                 +-----------+
+                                 | name      |
+                                 | age       |
+                                 +-----------+
                           +-------------------------+
                           v                         V
                        +-----------+           +--------------+
@@ -78,22 +83,24 @@ public class Polymorphism {
                        | classes   |           | department   |     unique data and behaviors.
                        +-----------+           +--------------+
 
-                Let's go ahead and implement these classes.
 
                 Both Teacher and Student are able to take advantage of the shared behavior of Person, even though
                 they also have their own divergent behavior.
 
-                Let's say elsewhere in our program, we end up with a situation where Students and Teachers might mingle
-                together. For example, let's say a guest speaker is arriving and both groups have wanted to register.
+        */
 
-                With what we've learned about lists and arrays so far, we know that every array needs to be a same-typed
-                collection, so we might think to do something like this:
+        Teacher some_teacher = new Teacher("Matthew", "Obetz", 99, "Computer Science");
+        some_teacher.haveBirthday();
+
+        /*
+            Let's say elsewhere in our program, we end up with a situation where Students and Teachers might mingle
+            together. For example, let's say a guest speaker is arriving and both groups have wanted to register.
          */
-
         List<Student> student_attendees = List.of(
-                new Student("John", "Doe", 20),
-                new Student("Jane", "Smith", 20)
+            new Student("John", "Doe", 20),
+            new Student("Jane", "Smith", 20)
         );
+
 
         List<Teacher> teacher_attendees = List.of(
                 new Teacher("Mark", "Professorson", 40, "CS"),
@@ -106,7 +113,8 @@ public class Polymorphism {
         lists:
          */
 
-        System.out.println("Printing attendees:");
+         System.out.println("Printing attendees:");
+
         for ( Student student : student_attendees ) {
             System.out.println(student);
         }
@@ -117,17 +125,22 @@ public class Polymorphism {
 
         /*
         However.... remember: both Student and Teacher are Persons.
+         */
 
+        Person teacher_in_general = some_teacher;
+
+        /*
         What if our "same-type" constraint for our list was that we just have a list of Persons:
          */
 
-        List<Person> all_attendees = List.of(
-                new Student("John", "Doe", 20),
-                new Teacher("Mark", "Professorson", 40, "CS"),
-                new Student("Jane", "Smith", 20),
-                new Teacher("Kaylee", "Williams", 38, "English"),
-                new Janitor("Bob", "McGuff", 60)
-        );
+         List<Person> all_attendees = List.of(
+            new Student("John", "Doe", 20),
+            new Teacher("Mark", "Professorson", 40, "CS"),
+            new Student("Jane", "Smith", 20),
+            new Teacher("Kaylee", "Williams", 38, "English"),
+            new Janitor("Someguy", "McClean", 40)
+         );
+
 
         /*
         When you look at the constructors I'm calling, this looks like a list of two different kinds of objects.
@@ -140,20 +153,20 @@ public class Polymorphism {
         This has some consequences. Notably, when we loop over or access the collection:
          */
 
+
         System.out.println("\nPrinting the combined list:");
+
         for ( Person attendee : all_attendees ) {
             // ^ the only safe thing we can assume here is that each item in our list is a Person
 
-            //attendee.have_a_raise(); //<- we can't give just our two Teachers a raise, because we aren't sure all the Persons are Teachers
-            //This holds true any time the base type doesn't implement a method, even if all of our subtypes implement it
-
 
             attendee.register_class("Guest Speaking 101");//<- both Student and Teacher know how to do this,but we must
-                                                            // make sure a Person does too
+                                                         // make sure a Person does too
+
 
             System.out.println(attendee);
-
         }
+
 
         /*
         This is the power of polymorphism! We wrote a single collection, that collection held multiple types of objects,
@@ -168,7 +181,6 @@ public class Polymorphism {
         Since age is a common shared data attribute of all Persons, this works to solve my problem. However, when I call
         that function, I don't want to be bothered with manual casts:
          */
-
         Student some_student = new Student("Jayden", "Cooper", 20);
         Person personified_student = (Person) some_student; //<- needing to do this is clunky
         boolean is_retired = retirement_check(personified_student);
@@ -180,10 +192,9 @@ public class Polymorphism {
         a method, it will look for the best matching function where each parameter is AT LEAST as specific as the types
         passed into in the arguments, and the assigned return is AT MOST as specific as the declared variable:
          */
-
-        Teacher some_teacher = new Teacher("Gregory", "Wellington", 67, "British Studies");
-        System.out.println("Is " + some_teacher.getFullName() + " ready for retirement: " + retirement_check(some_teacher));
-        //^ We sent a Teacher directly into a method that asked for a Person, and Java did the conversion for us!
+         System.out.println("Is " + some_teacher.getFullName() + " ready for retirement: " + retirement_check(some_teacher));
+         //^ We sent a Teacher directly into a method that asked for a Person, and Java did the conversion for us!
+ 
 
         /*
         However, Java will not downcast an object ( we couldn't send a Person into a method that requires a Teacher.)
@@ -193,9 +204,10 @@ public class Polymorphism {
 
         Student old_student = new Student("Annabelle", "Edinborough", 97);
         System.out.println("As a Student, Annabelle should retire: " + retirement_check(old_student));
-
+        
         Person personified_elderly = (Person) old_student;
-        System.out.println("As a Person, Annabelle should retire: " + retirement_check(personified_elderly));
+        System.out.println("As a Person, should Annabelle retire: " + retirement_check(personified_elderly));
+
         //^ Based on currently cast type of our student object, it will go into a different version of our function!
 
         /*
@@ -210,14 +222,13 @@ public class Polymorphism {
     }
 
 
-
     public static boolean retirement_check(Person p) {
         return p.getAge() > 68;
     }
 
-    //NOTE: one fun application of polymorphism is that we can actually declare two versions of the same method that use
-    // more specific types!
     public static boolean retirement_check(Student s) {
-        return false; //<- you're never too old to be a student!;
+        return false; //<- you're never too old to be a student!
     }
+
+
 }
