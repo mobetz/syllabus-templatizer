@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+
+You may notice, this FXML file is NOT Java code. The "XML" in FXML stands for Extensible Markup Language, and is actually a common
+standard used for many types of documents. In our FXML document, each control is represented by a "tag" which starts with a
+<, lists the control name, lists any details (as "attribute pairs"), and then closes the tag >. This is similar to HTML,
+but normally we don't edit FXML by hand (we'll be using a program like SceneBuilder.) 
+-->
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="278.0" prefWidth="453.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+   <children>
+      <Button fx:id="click_button" layoutX="216.0" layoutY="175.0" mnemonicParsing="false" onAction="#when_button_clicked" text="Click Me!" />
+      <Label fx:id="some_text" alignment="CENTER" layoutX="-1.0" layoutY="86.0" prefHeight="25.0" prefWidth="518.0" text="Welcome to my FXML Program!" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <MenuBar layoutX="3.0" layoutY="14.0" prefHeight="27.0" prefWidth="552.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem fx:id="close_menu" mnemonicParsing="false" onAction="#close_the_program" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </children>
+</AnchorPane>

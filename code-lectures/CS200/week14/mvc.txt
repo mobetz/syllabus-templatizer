@@ -1,0 +1,209 @@
+
+
+/*
+Objectives for Today
+
+By the end of today, you will:
+    * Review the concept of coupling in software design.
+    * Understand the Model-View-Controller division of responsibility in graphical applications.
+    * Analyze how JavaFX FXML applications naturally implement an MVC architecture.
+    * Identify some variations of MVC, like MVP
+ */
+
+
+
+
+
+
+ /*
+
+ Earlier this semester, we discussed the concept of "encapsulation" as one of the central motivations 
+ in object-oriented programming.
+
+
+ The idea behind encapsulation is that components of an object-oriented program should be responsible
+ for implementing their behavior in a way that isolates the rest of the program from changes in 
+ implementation. (For instance, by not returning references to private attributes or returning data
+ stored in a delicate internal format.)
+
+
+ Closely related to this is the idea of "coupling", which is an attempt to quantify how tightly related
+ two objects are in an object oriented program. Objects are "closely coupled" if a change to one will
+ necessarily imply a change to the other. This can happen for several reasons:
+
+     * If one object is directly storing the other object (i.e as an attribute)
+     * If one object is responsible for creating the other object (e.g as a return of a function)
+     * If one object receives the other object as a method parameter
+
+
+  The problem with coupling is that it means what should be small little changes can in fact spiral
+  and force changes to happen across the entire program. Changing one private attribute of a class
+  can end up changing the parameter and return types of functions related to it,  which then changes 
+  what every class that uses that object has to pass in or expect back...
+
+
+
+  For this reason, it's generally recommended that classes maintain knowledge of as few other objects
+  as possible, and instead prefer to communicate with each other using basic types passed between methods.
+
+
+
+  One domain where this is particularly important is in GUI programs -- a GUI program has a unique problem:
+  every GUI program must have some set of objects whose responsibility it is to manage how a piece of information
+  is viewed or interacted with. In JavaFX, these controls are objects like Labels, TextFields, Buttons, and TableViews.
+
+  However, these controls don't have any notion of the relationship between the different text fields. While they might be 
+  represented by different controls UI, those controls have extra meaning when considered together. Because of this, we
+   often end up creating separate objects to represent the "data model" that we are working with.
+
+  In this situation, we have two different objects representing the same information, and it might be tempting to let the 
+  model object directly manage its own controls for viewing. 
+
+  However, what would happen if we wanted to change a control (for instance, converting a textbox into a dropdown
+  menu with specific options?) In this case, we would also then need to update our model class, which gives us
+  twice as much work!
+
+
+  Instead, we might choose to keep these two objects separate and completely ignorant of one another, instead having
+  another class whose job it is to manage events that happen between the model and the view. This "Controller" would 
+  describe how things that happen in the view affect the model, and how things that happen in the model affect the view:
+
+
+
+      o
+     -|-            +--+
+     / \            +--+                 
+     User           View                     Controller                         Model
+
+      |               |                          |                                 |   
+      |               |                          |                                 |               
+      | ------------> |                          |                                 |               
+      | does something|                          |                                 |               
+      |               |------------------------->|                                 |               
+      |               | fires an event           |                                 |               
+      |               |                          | ------------------------------->|      
+      |               |                          |  Controller listens to event    |
+      |               |                          |     updates model objects       |   
+      |               |                          |                                 |   
+
+    The Controller here makes all the decisions about what behaviors in the application (model method calls) are linked
+     to each action that the user performs
+
+
+     ...             ...                        ...                               ...
+
+      |               |                          |                                 | An attribute gets set  
+      |               |                          |                                 |   
+      |               | <--------------------------<------------------------------ |   
+      |               |  Changes get reflected   |   bound by Controller to the    |   
+      |               |    in the UI immediately |     View object directly        |   
+      |               |                          |                                 |   
+      |               |                          |                                 |   
+      |               |                          |                                 |   
+      |               |                          |                                 |              
+
+
+      In this system, then if the UI changes, the *only* changes we have to make are in the Controller
+      class, no matter how many model objects were affected. This "Model-View-Controller" pattern is a 
+      very common tool across programming languages and graphics libraries to help split up and encapsulate
+      UI behavior to promote loose coupling between your model objects and your view. The common visualization
+      of MVC is something like this:
+
+
+                                               [  View  ]   - Objects representing visual controls
+                                                            - Methods representing things that happen to those controls 
+                                             /                  ^
+                                            / sends              \ changes
+                                           / updates              \ cause
+                                          / to                     \ updates
+                                         V                          \ to
+  - Objects representing whole     [ Controller ] ----------------> [ Model ] - Represents actual behaviors of program
+    "scenes" of an application                        modifies                - Completely agnostic of the UI chosen
+  - Attributes for Model/View objects                                         - Has methods for "business logic" (solve 
+  - Methods to handle updates from view                                         real-world problems)
+
+
+  If we stop and think about how JavaFX is designed, we have View objects created by JavaFX, FXML stores all of these in
+  a Scene that we can connect to a Controller in our FXML, and then that Controller can interact with the rest of our
+  program (the "Model")!
+
+  The MVC pattern is great, but it does have some rough edges. If a controller interacts with all of our different domain
+   objects, then that Controller is tightly coupled to every other class in our program. One common solution to this is to
+   create one overarching "Model" object that serves as the interface between the rest of the objects and the controller, 
+   and then pass that model in to every one of our controllers. Any complete action a user can do is represented in this 
+   one Model, and then all the objects that store data and work with each other to fulfill that action are described in 
+   domain objects held in attributes on the model.
+
+
+
+
+   The MVC pattern has many different "variations" that slightly change how the model, view, and controller interact
+   with each other. For instance, in the MVP pattern, the Model isn't directly bound to the view. Instead, the model
+   surfaces events to a "Presenter" (a renamed controller that now listens to events from two sides).
+
+
+User changes are identical:
+
+      o
+     -|-            +--+
+     / \            +--+                 
+     User           View                     Presenter                           Model
+
+      |               |                          |                                 |   
+      |               |                          |                                 |               
+      | ------------> |                          |                                 |               
+      | does something|                          |                                 |               
+      |               |------------------------->|                                 |               
+      |               | fires an event           |                                 |               
+      |               |                          | ------------------------------->|      
+      |               |                          |  Controller listens to event    |
+      |               |                          |  and updates model objects      |   
+      |               |                          |                                 |   
+
+     ...             ...                        ...                               ...
+
+However, changes to the model happen in two steps:
+
+
+      |               |                          |                                 | An attribute gets set  
+      |               |                          |                                 |   
+      |               |                          | <------------------------------ |   
+      |               |                          |        fires an event           |   
+      |               |                          |                                 |   
+      |               |<-------------------------|                                 |   
+      |               | Presenter listens to     |                                 |   
+      |               | the event, updates UI    |                                 |   
+      |               | directly by itself       |                                 |              
+
+
+
+Or, displayed as a component graph:
+
+
+
+                                               [  View  ]   - Objects representing visual controls
+                                               /  ^          - Methods representing things that happen to those controls 
+                                              /  /        
+                                      sends  /  / modifies
+                                    events  /  / during    
+                                       to  /  / model            
+                                          V  / events                 
+  - Objects representing whole     [ Presenter ] ----------------> [ Model ] - Represents actual behaviors of program
+    "scenes" of an application             modifies during view events        - Completely agnostic of the UI chosen
+  - Attributes for Model/View objects                                         - Has methods for "business logic" (solve 
+  - Methods to handle events from view          <-------------------           real-world problems)
+     AND ALSO MODEL                              model sends events to 
+                                                    presenter
+
+
+
+This difference is subtle, but the benefit of MVP is that now the model doesn't have to ever interface with the View
+ at all. (This means, for example, that the Model wouldn't need to use JavaFX style SimpleProperty objects -- it just 
+ makes a generic Java listener, and then even if the View completely changes the Model is unaffected.)
+
+
+  Model-View-Controller is a great way to apply our object oriented design principles to thinking about how to minimize
+  the number of changes that need to be made when we update our application!
+
+
+*/

@@ -1,0 +1,3 @@
+When writing a file this will REPLACE any old content completely.
+You can wrap a File object in a FileOutputStream to set an 'append' to add to files.
+An extra line
