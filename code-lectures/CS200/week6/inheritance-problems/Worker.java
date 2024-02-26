@@ -1,5 +1,5 @@
 public class Worker {
-
+    
     //ATTRIBUTES
     protected int id_num;
     protected String name;
@@ -7,6 +7,7 @@ public class Worker {
 
 
     //METHODS
+
     public Worker(String name) {
         this.name = name;
         this.id_num = employees_id_generator++;
@@ -21,7 +22,5 @@ public class Worker {
     public double getSalary() {
         return 0;
     }
-
-
 
 }

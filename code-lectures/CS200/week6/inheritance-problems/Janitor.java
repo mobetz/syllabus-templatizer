@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Janitor extends Worker {
-
+    
     public List<String> rooms_assigned;
 
 
@@ -10,6 +10,8 @@ public class Janitor extends Worker {
         super(name);
         this.rooms_assigned = new ArrayList<>();
     }
+
+
 
 
     public boolean addRoom(String name) {
@@ -21,4 +23,5 @@ public class Janitor extends Worker {
     public double getSalary() {
         return this.rooms_assigned.size() * 5000;
     }
+
 }

@@ -19,6 +19,7 @@ public class Student {
 
     public boolean register_for_class(String course_id) {
         this.courses_registered.add(course_id);
+        return true;
     }
 
     public int getIdNum() {

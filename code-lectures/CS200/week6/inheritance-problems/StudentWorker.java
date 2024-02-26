@@ -1,9 +1,10 @@
-public class StudentWorker extends Worker, Student {//<- we would have to extend BOTH Student and Worker to get the behavior we want
+public class StudentWorker extends Student, Worker {//<- we would have to extend BOTH Student and Worker to get the behavior we want
     /*
     We can already see the IDE complaining, but let us keep implementing the class to see what happens
      */
 
-    //ATTRIBUTES
+
+     //ATTRIBUTES
 
     /*
     Remember: each attribute from a supertype is inherited into the subtypes. This means we implicitly have
@@ -13,12 +14,16 @@ public class StudentWorker extends Worker, Student {//<- we would have to extend
      */
 
 
+     //METHODS
+
     public StudentWorker(String name) {
         /*
         Immediately there's a problem: I need to call super() on my base types...
          */
         super(name);  //<- both Student and Worker have constructors... which one am I calling here?
     }
+
+
 
     public String toString() {
         /*
@@ -28,8 +33,10 @@ public class StudentWorker extends Worker, Student {//<- we would have to extend
         // Will I get a 100x worker id, or a 800x student id?!?!
         return "Student is called " + this.name + " and has ID " + this.id_num; //<- same here... which name and id_num will I get?
 
-    }
+    
 }
+
+
 
 /*
 Because of all this ambiguity, Java ENTIRELY DISALLOWS this type of "multiple inheritance" where we are extending more
