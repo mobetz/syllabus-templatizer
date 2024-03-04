@@ -7,7 +7,6 @@ By the end of today, you will:
     * Practice combining composition and inheritance.
 
 
-
  Vocabulary of the Day
 
 Single Responsibility Principle - The "Single Responsibility" principle is the idea that each class should have a narrowly
@@ -15,6 +14,8 @@ defined purpose in our code. Rather than creating large tent objects that captur
 concept, we should create classes for each isolated component and then "compose" them together with facade objects
 when necessary.
  */
+
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -31,36 +32,52 @@ public class Main {
 
         Let's go ahead and see how that would play out in this class.
 
-        Once we've created a Role attribute on our Student, we've changed the relationship between these two ideas:
+        Once we've created a Job attribute on our Student, we've changed the relationship between these two ideas:
          */
 
-        Student some_student = new Student("John Doe"); //<- this is one kind of person, who *has* a job
-        some_student.register_for_work_study("Janitor");
+         Student some_student = new Student("John Doe"); //<- this is one kind of person, who *has* a job
+         some_student.set_job(new Janitor());
 
+         /*
+          * When we switch to composition, we have the flexibility to change jobs after the object has been
+          created. However, note that this means the job object itself is something different: 
+          */
 
-        //Janitor full_time_employee = new Janitor("Bill Cassim"); //<-this is a different representation of a person, who *is* a job
+          Janitor some_janitor = new Janitor(); //<- This "job" is missing some information that we've moved over to Person
+                                                // A janitor created like this would have no name, for instance
 
+          Person some_person = new Person("Joe Clean");
+          some_person.set_job(some_janitor); //<- This means any time we want to represent a job in our program,
+                                             // we need TWO objects.
 
-        //List<Role> everyone_scheduled_for_Friday = List.of(some_student, full_time_employee); //<- these don't share a type
-
-        /*
-        However, we've hit a small snag -- now, we still can't create a mixed grouping of staff members and work study
-        students, because a separately created Janitor role and a Student don't share a supertype (besides Object).
-
-        This is because we're treating our Janitor inconsistently right now -- sometimes it's a whole Person, and
-        other times it's a narrow function *of* a Person. Our solution should be separating the concerns of holding
-        biographic information about a person and holding employment information about a person into two types that
-        both have a single responsibility!
+           /*
+            Our solution was separating the concerns of holding biographic information about aperson and holding 
+            employment information. This means all of our workers are now represented as two different objects,
+            each holding half the "story" about them.
 
         Now that we've done this, we can mix Students and full time employees together:
          */
 
-            Person a_staff_member = new Person("Bill Cassim");
-            a_staff_member.setjob(new Janitor());
 
-            List<Person> everyone_scheduled_for_Friday = List.of(some_student, a_staff_member);
+         List<Person> everyone_scheduled_for_friday = List.of(some_person, some_student);
+         /*
+          * Since every job is still attached to a person, I can still polymorphically represent them in a single
+          group. However, when I interact with this collection, I'm not going to have full access to all the 
+          information that I did before.
+          */
 
-        /*
+          double total_expenses = 0;
+          for ( Person person : everyone_scheduled_for_friday ) {
+            //I'm doing payroll, and I need to pay them.
+            if ( person.is_employed() ) {
+                //person.getSalary(); //<- we can't do this -- we split off salary functions away from Person, so person doesn't automatically know about it
+                total_expenses = total_expenses + person.getJobSalary(); //<- by creating a function on our outer interface, we can still access things from the Job inside                
+            }
+            
+          }
+
+          /*
+
         Composition can be used in many different ways to simplify and reuse behaviors in our classes! When we use
         composition, we:
 
@@ -81,6 +98,7 @@ public class Main {
            Lights object. A user of my program only needs to interact with one single AVController, and that AVController
            ensures all the other subsystems play nicely together, without needing to implement all the logic in one place.
          */
+
 
 
     }
