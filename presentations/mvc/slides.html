@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Model-View-Controller</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.4.0/reveal.min.css">
+  <link rel="stylesheet" href="../slide-theme.css">
+
+
+  <script type="module" src="../../client/third-party.js"></script>
+
+
+
+</head>
+<body>
+<div class="reveal">
+<main class="slides">
+
+  <section class="title-slide">
+    <h1>Model-View-Controller</h1>
+  </section>
+
+  <section>
+    <h2 class="slide-title">Objectives for Today</h2>
+      <div class="spaced">
+    <p>By the end of today, you will...</p>
+    <ul>
+      <li>Identify the MVC pattern.</li>
+      <li>Define the role of the model, view, and controller in MVC.</li>
+      <li>Describe how the MVC pattern is implemented in JavaFX applications.</li>
+    </ul>
+    </div>
+  </section>
+
+
+  <section>
+    <h2 class="slide-title">What is MVC?</h2>
+
+      <p >The Model-View-Controller pattern describes a way to break up GUI applications to better encapsulate graphical code.</p>
+      <p >In MVC, classes belong to one of three categories:
+
+        <ul>
+          <li><span class="term">Model</span> - These classes hold business logic unrelated to GUIs.</li>
+          <li><span class="term">View</span> - These classes represent actual GUI controls that display to the user.</li>
+          <li><span class="term">Controller</span> - These classes implement the logic that connects the model and view.</li>
+        </ul>
+      </p>
+  </section>
+
+  <section>
+    <h2 class="slide-title">What is MVC?</h2>
+
+    <img src="images/mvc.svg" style="width:100%; scale: 140%;box-shadow: none">
+  </section>
+
+
+  <section>
+    <h2 class="slide-title">What is MVC?</h2>
+
+    <p>In MVC, the Controller acts as an <span class="term">intermediary</span> between the view and the model.</p>
+    <p>During initialization, the controller subscribes to events on both sides, and forwards updates
+      to the other representation.
+    </p>
+    <p>However, once this setup occurs, the view and model are often <span class="term">directly linked</span>.</p>
+  </section>
+
+
+  <section>
+    <h2 class="slide-title">Why MVC?</h2>
+
+    <p>The major benefit of MVC is the <span class="term">separation</span> of business logic code and rendering code.</p>
+    <p>Model classes don't need anything like "toTextbox()" or "asGridRow()" methods -- those transformations are part of the controller.
+    </p>
+    <p>View classes don't have to know how to handle any type of data ever written (that data will be transformed by the controller.)</p>
+    <p>Note: this means <span class="term">the controller is doing a lot</span>!</p>
+  </section>
+
+
+  <section>
+    <h2 class="slide-title">MVC in JavaFX</h2>
+
+    <p>MVC is the main paradigm implemented by many UI libraries like JavaFX.</p>
+    <p>The view is implemented with UI Control classes like Button, Textbox, Label, and TableView, usually 
+      via a <span class="term">declarative layout</span> file.</p>
+    <p>The model classes are provided by the user as <span class="term">Plain Old Java Objects</span>.</p>
+    <p>The Controller is specified in the view's FXML, and overrides/subscribes to events on the view and the model.</p>
+  </section>
+
+
+  <section>
+    <h2 class="slide-title">MVC in JavaFX</h2>
+
+    <img src="images/javafx.svg" style="width: 100%;scale:120%;box-shadow: none">
+  </section>
+
+</main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.4.0/plugin/highlight/highlight.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.4.0/reveal.js"></script>
+
+<script type="module" src="../slides-settings.js"></script>
+</body>
+</html>
