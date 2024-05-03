@@ -1,3 +1,4 @@
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,43 +24,44 @@ By the end of today, you will be able to:
 public class Main extends Application {
 
 
-  private static FilePicker picker;
-  private static FileDisplayer displayer;
+  private static PickerController picker;
+  private static DisplayController displayer;
+
 
   public void start(Stage primaryStage) throws IOException {
 
-        /*
-        Just like before, we're going to load the two views we made with the FXMLLoader.
-         */
-        URL picker_scene_location = Main.class.getResource("FilePicker.fxml");
-        FXMLLoader loader = new FXMLLoader(picker_scene_location);
-        Parent root = loader.load();
-        Scene picker_scene = new Scene(root);
-        this.picker = loader.getController();
+//When I have a JavaFX application with more than one scene, I need to load all of them:
+    FXMLLoader picker_loader = new FXMLLoader(getClass().getResource("/picker.fxml"));
+    FXMLLoader display_loader = new FXMLLoader(getClass().getResource("/displayer.fxml"));
+
+    Parent picker_root = picker_loader.load();
+    Scene picker_scene = new Scene(picker_root);
+
+    Parent display_root = display_loader.load();
+    Scene display_scene = new Scene(display_root);
 
 
-        URL displayer_scene_location = Main.class.getResource("FileDisplayer.fxml");
-        FXMLLoader display_loader = new FXMLLoader(displayer_scene_location);
-        Parent display_root = display_loader.load();
-        Scene display_scene = new Scene(display_root);
-         this.displayer = display_loader.getController();
+//But at the end, I'll only set the scene the one that I want to be open when the app first starts
+    primaryStage.setScene(picker_scene);
+    primaryStage.show();
 
 
-        // For this app, we'll want to start on the view where we can select our files:
-        primaryStage.setScene(picker_scene);
-        primaryStage.show();
+    this.picker = picker_loader.getController();
+    this.displayer = display_loader.getController();
+
+
 
   }
 
-      /*
-    While we're at it, let's add some getters so that we have access to our Controllers
-      in the other parts of our program:
-     */
-    public static FileDisplayer getDisplayer(){
-        return Main.displayer;
-    }
 
-    public static FilePicker getPicker(){
-        return Main.picker;
-    }
+  public static PickerController getPicker() {
+    return Main.picker;
+  }
+
+  public static DisplayController getDisplayer() {
+    return Main.displayer;
+  }
+
+
+
 }
